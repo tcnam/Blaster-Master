@@ -1,8 +1,12 @@
 # id	file_path	transparent_color_r	g	b
+
 [TEXTURES]
 0	textures\mario.png	255	255	255
 20	textures\misc.png	176	224	248
+70	textures\map1bank.png	255	255	255
 
+[MAP]
+70	46	11	151	112	506	textures\map1map.txt
 
 # id	left	top	right	bottom	texture_id
 [SPRITES]
@@ -75,9 +79,10 @@
 # type	x	y	ani_set_id	extra_settings per object type
 # type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas
 # MARIO
-0	17	115	1
+0	0	0	1
 
-# BRICK 
+# BRICK
+1	0	0	22 
 1	0	135	22
 1	0	150	22
 1	16	150	22
@@ -89,4 +94,3 @@
 # --- SCENE PORTAL ----
 # type	l	t	ani_set_id	r	b	scene_id
 50	115	98	0	148	150	1
-

@@ -26,6 +26,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define SCENE_SECTION_ANIMATIONS 4
 #define SCENE_SECTION_ANIMATION_SETS	5
 #define SCENE_SECTION_OBJECTS	6
+#define SCENE_SECTION_MAP		7
 
 #define OBJECT_TYPE_MARIO	0
 #define OBJECT_TYPE_BRICK	1
@@ -178,6 +179,22 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	objects.push_back(obj);
 }
 
+void CPlayScene::_ParseSection_MAP(string line)
+{
+	vector<string> tokens = split(line);
+	if (tokens.size() < 7) return;
+	int idTileSet = atoi(tokens[0].c_str());
+	int totalRowsTileSet = atoi(tokens[1].c_str());
+	int totalColumnsTileSet = atoi(tokens[2].c_str());
+	int totalRowsMap = atoi(tokens[3].c_str());
+	int totalColumnsMap = atoi(tokens[4].c_str());
+	int totalTiles = atoi(tokens[5].c_str());
+	wstring file_path = ToWSTR(tokens[6]);
+
+	map = new Map(idTileSet, totalRowsTileSet, totalColumnsTileSet, totalRowsMap, totalColumnsMap, totalTiles);
+	map->LoadMap(file_path.c_str());
+	map->ExtractTileFromTileSet();
+}
 void CPlayScene::Load()
 {
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
@@ -204,6 +221,9 @@ void CPlayScene::Load()
 			section = SCENE_SECTION_ANIMATION_SETS; continue; }
 		if (line == "[OBJECTS]") { 
 			section = SCENE_SECTION_OBJECTS; continue; }
+		if (line == "[MAP]") {
+			section = SCENE_SECTION_MAP; continue;
+		}
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }	
 
 		//
@@ -216,6 +236,7 @@ void CPlayScene::Load()
 			case SCENE_SECTION_ANIMATIONS: _ParseSection_ANIMATIONS(line); break;
 			case SCENE_SECTION_ANIMATION_SETS: _ParseSection_ANIMATION_SETS(line); break;
 			case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
+			case SCENE_SECTION_MAP: _ParseSection_MAP(line); break;
 		}
 	}
 
@@ -250,14 +271,22 @@ void CPlayScene::Update(DWORD dt)
 	player->GetPosition(cx, cy);
 
 	CGame *game = CGame::GetInstance();
-	cx -= game->GetScreenWidth() / 2;
+	if (cx <= 0)
+		cx = 0;
+	else
+		cx -= game->GetScreenWidth() / 2;
 	cy -= game->GetScreenHeight() / 2;
 
-	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+	//CGame::GetInstance()->SetCamPos(0.0f, 0.0f);
+	CGame::GetInstance()->SetCamPos(cx, cy);
 }
 
 void CPlayScene::Render()
 {
+	if (map)
+	{
+		this->map->Render(/*(int)CGame::GetInstance()->GetCamX(), (int)CGame::GetInstance()->GetCamY()*/);
+	}
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 }

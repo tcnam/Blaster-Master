@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\TileMap">
+      <UniqueIdentifier>{1f1977c1-29b2-45db-817c-e9569d656205}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TileMap">
+      <UniqueIdentifier>{e98e3c4f-4e29-4e50-a9bf-b976054224c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Brick.cpp">
@@ -57,6 +63,9 @@
     <ClCompile Include="Portal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>Source Files\TileMap</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Brick.h">
@@ -100,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="Portal.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMap.h">
+      <Filter>Header Files\TileMap</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
