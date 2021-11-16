@@ -9,10 +9,12 @@
 
 using namespace std;
 
-CPlayScene::CPlayScene(int id, LPCWSTR filePath):
-	CScene(id, filePath)
+CPlayScene::CPlayScene(int id, LPCWSTR filePath):CScene(id, filePath)
 {
 	key_handler = new CPlayScenceKeyHandler(this);
+	camera = NULL;
+	player = NULL;
+	map = NULL;
 }
 
 /*
@@ -251,6 +253,10 @@ void CPlayScene::Load()
 	CTextures::GetInstance()->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
+
+	camera = new Camera();
+	camera->SetJason(player);
+
 }
 
 void CPlayScene::Update(DWORD dt)
@@ -273,25 +279,14 @@ void CPlayScene::Update(DWORD dt)
 	if (player == NULL) return; 
 
 	// Update camera to follow Jason
-	float cx, cy;
-	player->GetPosition(cx, cy);
-
-	CGame *game = CGame::GetInstance();
-	if (cx <= 0)
-		cx = 0;
-	else
-		cx -= game->GetScreenWidth() / 2;
-	cy -= game->GetScreenHeight() / 2;
-
-	//CGame::GetInstance()->SetCamPos(0.0f, 0.0f);
-	CGame::GetInstance()->SetCamPos(cx, cy);
+	camera->Update(dt);
 }
 
 void CPlayScene::Render()
 {
 	if (map)
 	{
-		this->map->Render(/*(int)CGame::GetInstance()->GetCamX(), (int)CGame::GetInstance()->GetCamY()*/);
+		//this->map->Render(/*(int)CGame::GetInstance()->GetCamX(), (int)CGame::GetInstance()->GetCamY()*/);
 	}
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();

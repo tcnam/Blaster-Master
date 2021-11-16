@@ -8,6 +8,7 @@
 #include "Goomba.h"
 #include "Koopas.h"
 #include "TileMap.h"
+#include "Camera.h"
 
 
 class CPlayScene: public CScene
@@ -18,6 +19,8 @@ protected:
 	vector<LPGAMEOBJECT> objects;
 
 	Map* map;
+
+	Camera* camera;
 
 	void _ParseSection_TEXTURES(string line);
 	void _ParseSection_SPRITES(string line);
