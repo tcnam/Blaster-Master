@@ -8,7 +8,7 @@
 CTank::CTank(float x, float y) : CGameObject()
 {
 	SetCannonUP(false);
-
+	SetState(TANK_STATE_RIGHT);
 	start_x = x;
 	start_y = y;
 	this->x = x;
@@ -16,7 +16,43 @@ CTank::CTank(float x, float y) : CGameObject()
 }
 void CTank::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	
+	if (Cannon == NULL)
+		return;
+	switch (isCannonUp)
+	{
+	case false:
+	{
+		Cannon->SetCannonUP(false);
+		switch (state)
+		{
+		case TANK_STATE_RIGHT:
+			Cannon->SetPosition(x + 18, y + 1);
+			Cannon->SetState(CANNON_STATE_RIGHT);
+			break;
+		case TANK_STATE_LEFT:
+			Cannon->SetPosition(x - 9, y + 1);
+			Cannon->SetState(CANNON_STATE_LEFT);
+			break;
+		}
+		break;
+	}
+	case true:
+	{
+		Cannon->SetCannonUP(true);
+		switch (state)
+		{
+		case TANK_STATE_RIGHT:
+			Cannon->SetPosition(x + 10, y -10);
+			Cannon->SetState(CANNON_STATE_RIGHT);
+			break;
+		case TANK_STATE_LEFT:
+			Cannon->SetPosition(x +6, y -10);
+			Cannon->SetState(CANNON_STATE_LEFT);
+			break;
+		}
+		break;
+	}
+	}
 }
 
 void CTank::Render()
@@ -70,6 +106,5 @@ void CTank::SetState(int state)
 
 void CTank::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-
 
 }

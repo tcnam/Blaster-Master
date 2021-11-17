@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Cannon.h"
 
 
 #define TANK_STATE_RIGHT		100
@@ -14,6 +15,7 @@
 
 class CTank : public CGameObject
 {
+	CCannon* Cannon;
 
 	bool isCannonUp;
 
@@ -26,6 +28,10 @@ public:
 
 	void SetState(int state);
 	void SetCannonUP(bool UpOrNOt) { isCannonUp = UpOrNOt; }
+
+	void SetCannon(CCannon* cannon) { Cannon = cannon; }
+	CCannon* GetCannon() { return Cannon; }
+
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 };
