@@ -30,10 +30,13 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):CScene(id, filePath)
 #define SCENE_SECTION_OBJECTS	6
 #define SCENE_SECTION_MAP		7
 
-#define OBJECT_TYPE_MARIO	0
-#define OBJECT_TYPE_BRICK	1
-#define OBJECT_TYPE_GOOMBA	2
-#define OBJECT_TYPE_KOOPAS	3
+#define OBJECT_TYPE_JASON	0
+#define OBJECT_TYPE_TANK	1
+#define OBJECT_TYPE_CANNON	2
+#define OBJECT_TYPE_WHEEL	3
+#define OBJECT_TYPE_BRICK	4
+#define OBJECT_TYPE_GOOMBA	5
+#define OBJECT_TYPE_KOOPAS	6
 
 #define OBJECT_TYPE_PORTAL	50
 
@@ -145,7 +148,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	switch (object_type)
 	{
-	case OBJECT_TYPE_MARIO:
+	case OBJECT_TYPE_JASON:
 		if (player!=NULL) 
 		{
 			DebugOut(L"[ERROR] Jason object was created before!\n");
@@ -155,6 +158,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		player = (CJason*)obj;  
 
 		DebugOut(L"[INFO] Player object created!\n");
+		break;
+	case OBJECT_TYPE_TANK:
+		obj = new CTank(x,y);
+		player->SetTank((CTank*)obj);
 		break;
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
 	case OBJECT_TYPE_BRICK: 
@@ -321,6 +328,19 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 		break;
 	}
 }
+void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
+{
+	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
+
+	CJason* Jason = ((CPlayScene*)scence)->GetPlayer();
+	switch (KeyCode)
+	{
+	case DIK_UP:
+		Jason->GetTank()->SetCannonUP(false);
+		break;
+	}
+}
+
 
 void CPlayScenceKeyHandler::KeyState(BYTE *states)
 {
@@ -329,10 +349,32 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 
 	// disable control key when Jason die 
 	if (Jason->GetState() == JASON_STATE_DIE) return;
+	
 	if (game->IsKeyDown(DIK_RIGHT))
+	{
+		if (game->IsKeyDown(DIK_UP))
+			Jason->GetTank()->SetCannonUP(true);
+		else
+		{
+			Jason->GetTank()->SetCannonUP(false);
+		}
 		Jason->SetState(JASON_STATE_WALKING_RIGHT);
+	}		
 	else if (game->IsKeyDown(DIK_LEFT))
+	{
+		if (game->IsKeyDown(DIK_UP))
+			Jason->GetTank()->SetCannonUP(true);
+		else
+		{
+			Jason->GetTank()->SetCannonUP(false);
+		}
 		Jason->SetState(JASON_STATE_WALKING_LEFT);
+	}	
 	else
+	{
+		if(game->IsKeyDown(DIK_UP))
+			Jason->GetTank()->SetCannonUP(true);
 		Jason->SetState(JASON_STATE_IDLE);
+	}
+		
 }

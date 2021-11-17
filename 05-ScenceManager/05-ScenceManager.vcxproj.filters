@@ -98,6 +98,9 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Framework\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Tank.cpp">
+      <Filter>Jason\Tank</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -147,6 +150,9 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Framework\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Tank.h">
+      <Filter>Jason\Tank</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
