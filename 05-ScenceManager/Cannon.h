@@ -17,7 +17,7 @@ class CCannon : public CGameObject
 
 	bool isUp;
 
-	float start_x;			// initial position of JASON at scene
+	float start_x;			
 	float start_y;
 public:
 	CCannon(float x = 0.0f, float y = 0.0f);

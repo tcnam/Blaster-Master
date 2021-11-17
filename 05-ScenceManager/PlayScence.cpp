@@ -167,6 +167,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new CCannon(x, y);
 		player->GetTank()->SetCannon((CCannon*)obj);
 		break;
+	case OBJECT_TYPE_WHEEL:
+		obj = new CWheel(x, y);
+		player->GetTank()->PushWheels((CWheel*)obj);
+		break;
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
 	case OBJECT_TYPE_BRICK: 
 		{

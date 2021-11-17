@@ -8,6 +8,7 @@
 CTank::CTank(float x, float y) : CGameObject()
 {
 	SetCannonUP(false);
+	SetMoving(false);
 	SetState(TANK_STATE_RIGHT);
 	start_x = x;
 	start_y = y;
@@ -18,6 +19,56 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (Cannon == NULL)
 		return;
+	if (Wheels.size() != 0)
+	{
+		for (unsigned int i = 0; i < Wheels.size(); i++)
+		{
+			
+			switch (isMoving)
+			{				
+			case false:
+			{
+				Wheels[i]->SetState(WHEEL_STATE_IDLE);
+				switch (state)
+				{
+				case TANK_STATE_RIGHT:
+					Wheels[i]->SetPosition(x + i * 18, y + 10);
+					break;
+				case TANK_STATE_LEFT:
+					if(i==0)
+						Wheels[i]->SetPosition(x - 8, y + 10);
+					else
+					{
+						Wheels[i]->SetPosition(x + i * 10, y + 10);
+					}					
+					break;
+				}
+				break;
+			}				
+			case true:
+			{
+				switch (state)
+				{
+				case TANK_STATE_RIGHT:
+					Wheels[i]->SetState(WHEEL_STATE_MOVE_RIGHT);
+					Wheels[i]->SetPosition(x + i * 18, y + 10);
+					break;
+				case TANK_STATE_LEFT:
+					Wheels[i]->SetState(WHEEL_STATE_MOVE_LEFT);
+					if (i == 0)
+						Wheels[i]->SetPosition(x - 8, y + 10);
+					else
+					{
+						Wheels[i]->SetPosition(x + i * 10, y + 10);
+					}
+					break;
+				}
+				break;
+			}				
+			}
+
+		}
+	}
 	switch (isCannonUp)
 	{
 	case false:

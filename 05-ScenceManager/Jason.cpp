@@ -170,19 +170,31 @@ void CJason::SetState(int state)
 	case JASON_STATE_WALKING_RIGHT:
 		vx = JASON_WALKING_SPEED;
 		nx = 1;
-		Tank->SetState(TANK_STATE_RIGHT);
+		if (Tank != NULL)
+		{
+			Tank->SetState(TANK_STATE_RIGHT);
+			Tank->SetMoving(true);
+		}		
 		break;
 	case JASON_STATE_WALKING_LEFT: 
 		vx = -JASON_WALKING_SPEED;
 		nx = -1;
-		Tank->SetState(TANK_STATE_LEFT);
+		if (Tank != NULL)
+		{
+			Tank->SetState(TANK_STATE_LEFT);
+			Tank->SetMoving(true);
+		}
 		break;
 	case JASON_STATE_JUMP:
 		// TODO: need to check if JASON is *current* on a platform before allowing to jump again
 		vy = -JASON_JUMP_SPEED_Y;
 		break; 
-	case JASON_STATE_IDLE: 
+	case JASON_STATE_IDLE: 		
 		vx = 0;
+		if (Tank != NULL)
+		{
+			Tank->SetMoving(false);
+		}
 		break;
 	case JASON_STATE_DIE:
 		//vy = -JASON_DIE_DEFLECT_SPEED;

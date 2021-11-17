@@ -104,6 +104,9 @@
     <ClCompile Include="Cannon.cpp">
       <Filter>Jason\Tank\Cannon</Filter>
     </ClCompile>
+    <ClCompile Include="Wheel.cpp">
+      <Filter>Jason\Tank\Wheel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -159,6 +162,9 @@
     </ClInclude>
     <ClInclude Include="Cannon.h">
       <Filter>Jason\Tank\Cannon</Filter>
+    </ClInclude>
+    <ClInclude Include="Wheel.h">
+      <Filter>Jason\Tank\Wheel</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

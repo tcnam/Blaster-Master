@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Cannon.h"
-
+#include "Wheel.h"
 
 #define TANK_STATE_RIGHT		100
 #define TANK_STATE_LEFT			200
@@ -16,8 +16,10 @@
 class CTank : public CGameObject
 {
 	CCannon* Cannon;
+	vector <CWheel*> Wheels;
 
 	bool isCannonUp;
+	bool isMoving;
 
 	float start_x;			// initial position of JASON at scene
 	float start_y;
@@ -28,9 +30,13 @@ public:
 
 	void SetState(int state);
 	void SetCannonUP(bool UpOrNOt) { isCannonUp = UpOrNOt; }
+	void SetMoving(bool move) { isMoving = move; }
 
 	void SetCannon(CCannon* cannon) { Cannon = cannon; }
 	CCannon* GetCannon() { return Cannon; }
+
+	void PushWheels(CWheel* wheel) { Wheels.push_back(wheel); }
+	vector<CWheel*> GetWheel() { return Wheels; }
 
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
