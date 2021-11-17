@@ -13,6 +13,7 @@ CJason::CJason(float x, float y) : CGameObject()
 	//level = JASON_LEVEL_BIG;
 	untouchable = 0;
 	SetState(JASON_STATE_IDLE);
+	SetLevel(JASON_LEVEL_TANK);
 
 	start_x = x; 
 	start_y = y; 
@@ -88,7 +89,7 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					if (goomba->GetState()!= GOOMBA_STATE_DIE)
 					{
 						goomba->SetState(GOOMBA_STATE_DIE);
-						vy = -JASON_JUMP_DEFLECT_SPEED;
+						//vy = -JASON_JUMP_DEFLECT_SPEED;
 					}
 				}
 				else if (e->nx != 0)
@@ -115,6 +116,8 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 		}
 	}
+	if(Tank!=NULL)
+		Tank->SetPosition(x, y);
 
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
@@ -123,22 +126,39 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 void CJason::Render()
 {
 	int ani = -1;
-
-	if (vx == 0)
+	switch (level)
 	{
-		if (nx>0) ani = JASON_ANI_IDLE_RIGHT;
-		else ani = JASON_ANI_IDLE_LEFT;
+	case JASON_LEVEL_TANK:
+		{
+			RenderBoundingBox();
+			break;
+		}
+	case JASON_LEVEL_SMALL:
+		{
+			if (vx == 0)
+			{
+				if (nx > 0) ani = JASON_ANI_IDLE_RIGHT;
+				else ani = JASON_ANI_IDLE_LEFT;
+			}
+			else if (vx > 0)
+				ani = JASON_ANI_WALKING_RIGHT;
+			else ani = JASON_ANI_WALKING_LEFT;
+
+			int alpha = 255;
+			if (untouchable) alpha = 128;
+
+			animation_set->at(ani)->Render(round(x), round(y), alpha);
+
+			RenderBoundingBox();
+			break;
+		}
+	case JASON_LEVEL_BIG:
+		{
+			break;
+		}
 	}
-	else if (vx > 0) 
-		ani = JASON_ANI_WALKING_RIGHT; 
-	else ani = JASON_ANI_WALKING_LEFT;
+
 	
-	int alpha = 255;
-	if (untouchable) alpha = 128;
-
-	animation_set->at(ani)->Render(round(x), round(y), alpha);
-
-	RenderBoundingBox();
 }
 
 void CJason::SetState(int state)
@@ -150,10 +170,12 @@ void CJason::SetState(int state)
 	case JASON_STATE_WALKING_RIGHT:
 		vx = JASON_WALKING_SPEED;
 		nx = 1;
+		Tank->SetState(TANK_STATE_RIGHT);
 		break;
 	case JASON_STATE_WALKING_LEFT: 
 		vx = -JASON_WALKING_SPEED;
 		nx = -1;
+		Tank->SetState(TANK_STATE_LEFT);
 		break;
 	case JASON_STATE_JUMP:
 		// TODO: need to check if JASON is *current* on a platform before allowing to jump again
@@ -163,7 +185,7 @@ void CJason::SetState(int state)
 		vx = 0;
 		break;
 	case JASON_STATE_DIE:
-		vy = -JASON_DIE_DEFLECT_SPEED;
+		//vy = -JASON_DIE_DEFLECT_SPEED;
 		break;
 	}
 }
