@@ -163,6 +163,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new CTank(x,y);
 		player->SetTank((CTank*)obj);
 		break;
+	case OBJECT_TYPE_CANNON:
+		obj = new CCannon(x, y);
+		player->GetTank()->SetCannon((CCannon*)obj);
+		break;
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
 	case OBJECT_TYPE_BRICK: 
 		{
