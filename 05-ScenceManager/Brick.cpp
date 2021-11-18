@@ -1,5 +1,10 @@
 #include "Brick.h"
 
+CBrick::CBrick()
+{
+	width = 0;
+	height = 0;
+}
 CBrick::CBrick(float x, float y, int width, int height)
 {
 	this->x = x;
