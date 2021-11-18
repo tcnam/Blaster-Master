@@ -39,5 +39,5 @@ public:
 	vector<CWheel*> GetWheel() { return Wheels; }
 
 
-	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) {};
 };

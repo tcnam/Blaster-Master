@@ -130,6 +130,7 @@
     <ClCompile Include="Cannon.cpp" />
     <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="Portal.cpp" />
+    <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="Tank.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Utils.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="Cannon.h" />
     <ClInclude Include="Koopas.h" />
     <ClInclude Include="Portal.h" />
+    <ClInclude Include="Quadtree.h" />
     <ClInclude Include="Tank.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="Utils.h" />

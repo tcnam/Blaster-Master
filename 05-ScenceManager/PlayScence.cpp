@@ -30,15 +30,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):CScene(id, filePath)
 #define SCENE_SECTION_OBJECTS	6
 #define SCENE_SECTION_MAP		7
 
-#define OBJECT_TYPE_JASON	0
-#define OBJECT_TYPE_TANK	1
-#define OBJECT_TYPE_CANNON	2
-#define OBJECT_TYPE_WHEEL	3
-#define OBJECT_TYPE_BRICK	4
-#define OBJECT_TYPE_GOOMBA	5
-#define OBJECT_TYPE_KOOPAS	6
 
-#define OBJECT_TYPE_PORTAL	50
 
 #define MAX_SCENE_LINE 1024
 
@@ -156,19 +148,22 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		}
 		obj = new CJason(x,y); 
 		player = (CJason*)obj;  
-
+		player->SetType(OBJECT_TYPE_JASON);
 		DebugOut(L"[INFO] Player object created!\n");
 		break;
 	case OBJECT_TYPE_TANK:
 		obj = new CTank(x,y);
+		obj->SetType(OBJECT_TYPE_TANK);
 		player->SetTank((CTank*)obj);
 		break;
 	case OBJECT_TYPE_CANNON:
 		obj = new CCannon(x, y);
+		obj->SetType(OBJECT_TYPE_CANNON);
 		player->GetTank()->SetCannon((CCannon*)obj);
 		break;
 	case OBJECT_TYPE_WHEEL:
 		obj = new CWheel(x, y);
+		obj->SetType(OBJECT_TYPE_WHEEL);
 		player->GetTank()->PushWheels((CWheel*)obj);
 		break;
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
@@ -177,6 +172,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			int w = atoi(tokens[4].c_str());
 			int h = atoi(tokens[5].c_str());
 			obj = new CBrick(x,y,w,h);
+			obj->SetType(OBJECT_TYPE_BRICK);
 			break;
 		}
 	case OBJECT_TYPE_KOOPAS: obj = new CKoopas(); break;

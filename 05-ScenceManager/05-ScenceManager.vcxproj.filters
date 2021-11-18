@@ -48,6 +48,9 @@
     <Filter Include="Framework\Camera">
       <UniqueIdentifier>{237b93dd-b7d5-4ac5-97b6-c287d24d2cc4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Quadtree">
+      <UniqueIdentifier>{f7642ef3-d95c-4e0f-bfe4-0bb33ab90130}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -107,6 +110,9 @@
     <ClCompile Include="Wheel.cpp">
       <Filter>Jason\Tank\Wheel</Filter>
     </ClCompile>
+    <ClCompile Include="Quadtree.cpp">
+      <Filter>Framework\Quadtree</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -165,6 +171,9 @@
     </ClInclude>
     <ClInclude Include="Wheel.h">
       <Filter>Jason\Tank\Wheel</Filter>
+    </ClInclude>
+    <ClInclude Include="Quadtree.h">
+      <Filter>Framework\Quadtree</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

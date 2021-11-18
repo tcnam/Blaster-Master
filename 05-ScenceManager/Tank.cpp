@@ -10,6 +10,7 @@ CTank::CTank(float x, float y) : CGameObject()
 	SetCannonUP(false);
 	SetMoving(false);
 	SetState(TANK_STATE_RIGHT);
+
 	start_x = x;
 	start_y = y;
 	this->x = x;
@@ -155,7 +156,3 @@ void CTank::SetState(int state)
 	CGameObject::SetState(state);
 }
 
-void CTank::GetBoundingBox(float& left, float& top, float& right, float& bottom)
-{
-
-}
