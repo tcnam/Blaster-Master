@@ -10,6 +10,16 @@
 
 using namespace std;
 
+#define OBJECT_TYPE_JASON	0
+#define OBJECT_TYPE_TANK	1
+#define OBJECT_TYPE_CANNON	2
+#define OBJECT_TYPE_WHEEL	3
+#define OBJECT_TYPE_BRICK	4
+#define OBJECT_TYPE_GOOMBA	5
+#define OBJECT_TYPE_KOOPAS	6
+
+#define OBJECT_TYPE_PORTAL	50
+
 #define ID_TEX_BBOX -100		// special texture to draw object bounding box
 
 class CGameObject; 
@@ -43,7 +53,7 @@ struct CCollisionEvent
 
 class CGameObject
 {
-public:
+protected:
 
 	float x; 
 	float y;
@@ -58,6 +68,8 @@ public:
 
 	int state;
 
+	int type;
+
 	DWORD dt; 
 
 	LPANIMATION_SET animation_set;
@@ -69,6 +81,9 @@ public:
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
 
 	int GetState() { return this->state; }
+
+	int GetType() { return this->type; }
+	void SetType(int t) { this->type = t; }
 
 	void RenderBoundingBox();
 
