@@ -297,7 +297,7 @@ void CPlayScene::Render()
 {
 	if (map)
 	{
-		//this->map->Render(/*(int)CGame::GetInstance()->GetCamX(), (int)CGame::GetInstance()->GetCamY()*/);
+		this->map->Render(/*(int)CGame::GetInstance()->GetCamX(), (int)CGame::GetInstance()->GetCamY()*/);
 	}
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
