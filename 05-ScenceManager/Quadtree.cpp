@@ -1,6 +1,26 @@
 #include"Quadtree.h"
 
 
+Quadtree::Quadtree()
+{
+	level = 0;
+	x = 0.0f;
+	y = 0.0f;
+	width = 0.0f;
+	height = 0.0f;
+}
+Quadtree::Quadtree(int level, float x, float y, float w, float h)
+{
+	this->level = level;
+	this->x = x;
+	this->y = y;
+	this->width = w;
+	this->height = h;
+}
+Quadtree::~Quadtree()
+{
+
+}
 void Quadtree::Clear()
 {
 	if (Nodes.size() != 0)
@@ -17,7 +37,7 @@ void Quadtree::Clear()
 bool Quadtree::IsContain(CGameObject* obj)
 {
 	if (obj == NULL)
-		return;
+		return false;
 	int type = obj->GetType();
 	float l, t, r, b;
 	switch (type)

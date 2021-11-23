@@ -116,8 +116,19 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 		}
 	}
-	if(Tank!=NULL)
-		Tank->SetPosition(x, y);
+	if (Tank != NULL)
+	{
+		switch (nx)
+		{
+		case 1:
+			Tank->SetPosition(round(x), round(y));
+			break;
+		case -1:
+			Tank->SetPosition(round(x + 10.0f), round(y));
+			break;
+		}
+	}
+		
 
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
@@ -204,10 +215,18 @@ void CJason::SetState(int state)
 
 void CJason::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	left = x;
-	top = y; 
-	right = x + JASON_BIG_BBOX_WIDTH;
-	bottom = y + JASON_BIG_BBOX_HEIGHT;
+	switch (level)
+	{
+	case JASON_LEVEL_TANK:
+		left = x;
+		top = y;
+		right = x + JASON_BIG_BBOX_WIDTH;
+		bottom = y + JASON_BIG_BBOX_HEIGHT;
+		break;
+	//case JASON_LEVEL_SMALL:
+
+	}
+	
 
 }
 
