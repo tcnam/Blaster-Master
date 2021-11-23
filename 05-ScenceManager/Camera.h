@@ -3,6 +3,8 @@
 #include "Game.h"
 #include "Jason.h"
 
+#define BOUNDRRY_X_MAX 1792.0f
+
 class Camera
 {
 private:
