@@ -9,6 +9,7 @@
 #include "Koopas.h"
 #include "TileMap.h"
 #include "Camera.h"
+#include "Quadtree.h"
 
 
 class CPlayScene: public CScene
@@ -21,6 +22,8 @@ protected:
 	Map* map;
 
 	Camera* camera;
+
+	Quadtree* quadtree;
 
 	void _ParseSection_TEXTURES(string line);
 	void _ParseSection_SPRITES(string line);

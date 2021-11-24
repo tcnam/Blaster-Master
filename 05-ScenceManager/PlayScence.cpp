@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <fstream>
 
@@ -15,6 +16,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):CScene(id, filePath)
 	camera = NULL;
 	player = NULL;
 	map = NULL;
+	quadtree = NULL;
 }
 
 /*
@@ -196,6 +198,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	obj->SetAnimationSet(ani_set);
 	objects.push_back(obj);
+	//float l, t, r, b;
+	//obj->GetBoundingBox(l, t, r, b);
+	quadtree->Insert(obj);
 }
 
 void CPlayScene::_ParseSection_MAP(string line)
@@ -213,6 +218,7 @@ void CPlayScene::_ParseSection_MAP(string line)
 	map = new Map(idTileSet, totalRowsTileSet, totalColumnsTileSet, totalRowsMap, totalColumnsMap, totalTiles);
 	map->LoadMap(file_path.c_str());
 	map->ExtractTileFromTileSet();
+	quadtree = new Quadtree(0.0f, 0.0f, 0.0f, (float)map->GetMapWidth(), (float)map->GetMapHeight());
 }
 void CPlayScene::Load()
 {
@@ -225,6 +231,8 @@ void CPlayScene::Load()
 	int section = SCENE_SECTION_UNKNOWN;					
 
 	char str[MAX_SCENE_LINE];
+	
+	camera = new Camera();
 	while (f.getline(str, MAX_SCENE_LINE))
 	{
 		string line(str);
@@ -265,22 +273,23 @@ void CPlayScene::Load()
 
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 
-	camera = new Camera();
 	camera->SetJason(player);
-
+	quadtree->NumberOfObjectsInNodes();
+	DebugOut(L"[INFO] Number of Objects %i\n", objects.size());
+	//DebugOut(L"[INFO] Screen Height %i\n",CGame::GetInstance()->GetScreenHeight());
+	//DebugOut(L"[INFO] Screen Width %i\n", CGame::GetInstance()->GetScreenWidth());
 }
 
 void CPlayScene::Update(DWORD dt)
 {
 	// We know that Jason is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
-
+	//camera->Update(dt);
 	vector<LPGAMEOBJECT> coObjects;
-	for (size_t i = 1; i < objects.size(); i++)
-	{
-		coObjects.push_back(objects[i]);
-	}
-
+	if(quadtree!=NULL)
+		quadtree->GetListObject(coObjects, camera);
+	DebugOut(L"coObjects size:%i\n", coObjects.size());
+	player->Update(dt, &coObjects);
 	for (size_t i = 0; i < objects.size(); i++)
 	{
 		objects[i]->Update(dt, &coObjects);
@@ -291,13 +300,14 @@ void CPlayScene::Update(DWORD dt)
 
 	// Update camera to follow Jason
 	camera->Update(dt);
+	
 }
 
 void CPlayScene::Render()
 {
 	if (map)
 	{
-		this->map->Render(/*(int)CGame::GetInstance()->GetCamX(), (int)CGame::GetInstance()->GetCamY()*/);
+		this->map->Render((int)camera->GetCamX(), (int)camera->GetCamY());
 	}
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();

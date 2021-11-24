@@ -10,8 +10,8 @@
 #include "Jason.h"
 #include "Brick.h"
 
-#define MAX_LEVEL 5
-#define MAX_OBJECT_IN_REGION 4
+#define MAX_LEVEL 20
+#define MAX_OBJECT_IN_REGION 40
 
 using namespace std;
 
@@ -20,6 +20,7 @@ class Quadtree
 private:
 	int level;
 	vector <CGameObject*> ObjectList;
+	vector<CGameObject*> PermanentObjects;
 	vector <Quadtree*> Nodes;
 	float x, y, width, height;
 public:
@@ -31,5 +32,8 @@ public:
 	bool IsContain(CGameObject* obj);
 	void Clear();
 	void Insert(CGameObject* object);
+	bool CheckNodeInsideCamera(Camera* camera);
 	void GetListObject(vector<CGameObject*>& Obj, Camera* camera);
+
+	void NumberOfObjectsInNodes();
 };
