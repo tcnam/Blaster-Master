@@ -7,8 +7,7 @@
 #include <assert.h>
 #include "Utils.h"
 #include "Game.h"
-#include "Jason.h"
-#include "Brick.h"
+
 
 #define MAX_LEVEL 20
 #define MAX_OBJECT_IN_REGION 40

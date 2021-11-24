@@ -3,7 +3,7 @@
 #include <Windows.h>
 #include <d3dx9.h>
 #include <vector>
-
+#include"Game.h"
 #include "Sprites.h"
 #include "Animations.h"
 
@@ -15,7 +15,7 @@ using namespace std;
 #define OBJECT_TYPE_CANNON	2
 #define OBJECT_TYPE_WHEEL	3
 #define OBJECT_TYPE_BRICK	4
-#define OBJECT_TYPE_GOOMBA	5
+#define OBJECT_TYPE_INTERRUPT	5
 #define OBJECT_TYPE_KOOPAS	6
 
 #define OBJECT_TYPE_PORTAL	50

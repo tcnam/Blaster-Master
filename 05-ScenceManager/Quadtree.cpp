@@ -40,7 +40,8 @@ bool Quadtree::IsContain(CGameObject* obj)
 		return false;
 	int type = obj->GetType();
 	float l, t, r, b;
-	switch (type)
+	obj->GetBoundingBox(l, t, r, b);
+	/*switch (type)
 	{
 	case OBJECT_TYPE_JASON:
 		((CJason*)obj)->GetBoundingBox(l, t, r, b);
@@ -57,7 +58,7 @@ bool Quadtree::IsContain(CGameObject* obj)
 	case OBJECT_TYPE_BRICK:
 		((CBrick*)obj)->GetBoundingBox(l, t, r, b);
 		break;
-	}
+	}*/
 	return CGame::GetInstance()->AABBCheck(l, t, r, b, this->x, this->y, this->x + this->width, this->y + this->height);
 
 }
@@ -72,6 +73,8 @@ void Quadtree::Split()
 }
 void Quadtree::Insert(CGameObject* obj)
 {
+	if (obj->GetType() == OBJECT_TYPE_INTERRUPT)
+		return;
 	if (Nodes.size() != 0)
 	{
 		if (Nodes[0]->IsContain(obj))
