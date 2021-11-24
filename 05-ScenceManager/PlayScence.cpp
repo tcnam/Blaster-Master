@@ -168,7 +168,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj->SetType(OBJECT_TYPE_WHEEL);
 		player->GetTank()->PushWheels((CWheel*)obj);
 		break;
-	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
+	case OBJECT_TYPE_INTERRUPT: 
+		obj = new CInterrupt(); 
+		((CInterrupt*)obj)->SetJason(player);
+		obj->SetType(OBJECT_TYPE_INTERRUPT);
+		break;
 	case OBJECT_TYPE_BRICK: 
 		{
 			int w = atoi(tokens[4].c_str());
@@ -177,7 +181,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			obj->SetType(OBJECT_TYPE_BRICK);
 			break;
 		}
-	case OBJECT_TYPE_KOOPAS: obj = new CKoopas(); break;
 	case OBJECT_TYPE_PORTAL:
 		{	
 			float r = atof(tokens[4].c_str());

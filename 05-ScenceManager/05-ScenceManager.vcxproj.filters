@@ -51,6 +51,21 @@
     <Filter Include="Framework\Quadtree">
       <UniqueIdentifier>{f7642ef3-d95c-4e0f-bfe4-0bb33ab90130}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Enemy\Interrrupt">
+      <UniqueIdentifier>{b559370c-1766-4f72-a10b-4573b508d8b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy\Ballbot">
+      <UniqueIdentifier>{008dae66-eb19-4922-9a99-c79aa86653bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy\Eyelet">
+      <UniqueIdentifier>{4fe78f0b-8003-45a9-b310-20a28555e08d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy\Stuka">
+      <UniqueIdentifier>{761e83cc-0741-4a8d-a39f-996435b4e9a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy\BallCarry">
+      <UniqueIdentifier>{5b148280-4413-4041-a9c7-c46c924aba39}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -113,6 +128,9 @@
     <ClCompile Include="Quadtree.cpp">
       <Filter>Framework\Quadtree</Filter>
     </ClCompile>
+    <ClCompile Include="Interrupt.cpp">
+      <Filter>Object\Enemy\Interrrupt</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -174,6 +192,9 @@
     </ClInclude>
     <ClInclude Include="Quadtree.h">
       <Filter>Framework\Quadtree</Filter>
+    </ClInclude>
+    <ClInclude Include="Interrupt.h">
+      <Filter>Object\Enemy\Interrrupt</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

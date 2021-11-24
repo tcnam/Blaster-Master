@@ -3,6 +3,7 @@
 0	textures\jasonright.png	153	217	234
 10	textures\jasonleft.png	153	217	234
 20	textures\misc.png	176	224	248
+30	textures\enemies.png	255	255	255
 70	textures\map1bank.png	255	255	255
 
 [MAP]
@@ -41,6 +42,16 @@
 10016	144	74	152	82	10
 10017	125	73	133	81	10
 
+#ENEMIES
+
+#Interrupt
+20001	75	1487	97	1505	30
+20002	100	1490	122	1505	30
+#Interrupt bomb
+20003	63	1496	72	1505	30
+
+
+
 
 
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
@@ -77,6 +88,16 @@
 409	10014	100	10015	100	10016	100	10017	100
 
 
+#---------ENEMIES-------
+
+# Interrupt
+# Interrupt idle
+501	20001	100
+# Interrupt action
+502	20002	100
+# Interrupt bomb
+503	20003	100
+
 #
 # id	ani1	ani2	ani3
 #
@@ -88,11 +109,14 @@
 2	404	405	410	411
 # Wheel
 3	406	408	409
+# ENEMIES
+# Interrupt
+11	501	502
 
 
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
-# type: 0 = Jason , 1 = Tank, 2 = Cannon, 3 = Wheel, 4 = Brick
+# type: 0 = Jason , 1 = Tank, 2 = Cannon, 3 = Wheel, 4 = Brick, 5=Interrupt
 # JASON
 0	1612	348	1
 # Tank
@@ -229,6 +253,9 @@
 4	1696	928	0	16	16
 4	1696	912	0	64	16	
 	
+# ENEMIES
+5	1696	400	11
+5	1664	464	11
 # --- SCENE PORTAL ----
 # type	l	t	ani_set_id	r	b	scene_id
 50	115	98	0	148	150	1
