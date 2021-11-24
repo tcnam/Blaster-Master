@@ -126,7 +126,7 @@ void CTank::Render()
 			animation_set->at(ani)->Render(round(x), round(y), alpha);
 			break;
 		}
-		DebugOut(L"[INFO] Tank has been rendered!\n");
+		//DebugOut(L"[INFO] Tank has been rendered!\n");
 		break;
 	}
 	case true:
@@ -142,7 +142,7 @@ void CTank::Render()
 			animation_set->at(ani)->Render(round(x), round(y), alpha);
 			break;
 		}
-		DebugOut(L"[INFO] Tank has been rendered!\n");
+		//DebugOut(L"[INFO] Tank has been rendered!\n");
 		break;
 	}
 	}
