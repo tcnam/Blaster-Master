@@ -4,8 +4,7 @@
 #include "TileMap.h"
 #include "Textures.h"
 
-#define IN_USE_WIDTH 330
-#define IN_USE_HEIGHT 300
+
 
 Map::Map(int _idTileSet, int _totalRowsTileSet, int _totalColumnsTileSet, int _totalRowsMap, int _totalColumnsMap, int _totalTiles)
 {

@@ -6,6 +6,8 @@
 
 #define	TILE_WIDTH 16
 #define TILE_HEIGHT 16
+#define IN_USE_WIDTH 330
+#define IN_USE_HEIGHT 300
 
 class Map
 {
