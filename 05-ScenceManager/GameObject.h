@@ -70,6 +70,8 @@ protected:
 
 	int type;
 
+	bool isInserted;
+
 	DWORD dt; 
 
 	LPANIMATION_SET animation_set;
@@ -84,6 +86,9 @@ public:
 
 	int GetType() { return this->type; }
 	void SetType(int t) { this->type = t; }
+
+	void SetIsInserted(bool insertOrnot) { this->isInserted = insertOrnot; }
+	bool GetIsInserted(){ return isInserted; }
 
 	void RenderBoundingBox();
 
