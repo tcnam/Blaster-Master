@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "Tank.h"
 
-#define JASON_WALKING_SPEED		0.15f 
+#define JASON_WALKING_SPEED		0.1f 
 //0.1f
 #define JASON_JUMP_SPEED_Y		0.5f
 #define JASON_GRAVITY			0.002f
@@ -34,6 +34,8 @@ class CJason : public CGameObject
 {
 	int level;
 	int untouchable;
+
+	bool isJumping;
 
 	DWORD untouchable_start;
 

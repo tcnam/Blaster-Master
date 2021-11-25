@@ -14,6 +14,7 @@ CJason::CJason(float x, float y) : CGameObject()
 	untouchable = 0;
 	SetState(JASON_STATE_IDLE);
 	SetLevel(JASON_LEVEL_TANK);
+	isJumping = false;
 
 	start_x = x; 
 	start_y = y; 
@@ -69,7 +70,11 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		y += min_ty*dy + ny*0.4f;
 
 		if (nx!=0) vx = 0;
-		if (ny!=0) vy = 0;
+		if (ny != 0)
+		{
+			vy = 0;
+			isJumping = false;
+		}
 
 
 		//
@@ -198,7 +203,11 @@ void CJason::SetState(int state)
 		break;
 	case JASON_STATE_JUMP:
 		// TODO: need to check if JASON is *current* on a platform before allowing to jump again
-		vy = -JASON_JUMP_SPEED_Y;
+		if (isJumping == false)
+		{
+			isJumping = true;
+			vy = -JASON_JUMP_SPEED_Y;
+		}		
 		break; 
 	case JASON_STATE_IDLE: 		
 		vx = 0;
