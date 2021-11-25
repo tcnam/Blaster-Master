@@ -12,6 +12,8 @@
 #define TANK_ANI_CANNONUP_RIGHT			2
 #define TANK_ANI_CANNONUP_LEFT			3
 
+#define TANK_BBOX_WIDTH				26	
+#define TANK_BBOX_HEIGHT			18
 
 class CTank : public CGameObject
 {
@@ -39,5 +41,5 @@ public:
 	vector<CWheel*> GetWheel() { return Wheels; }
 
 
-	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) {};
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 };

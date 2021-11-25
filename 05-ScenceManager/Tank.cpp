@@ -155,4 +155,11 @@ void CTank::SetState(int state)
 {
 	CGameObject::SetState(state);
 }
+void CTank::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+{
+	left = x;
+	top = y;
+	right = x + TANK_BBOX_WIDTH;
+	bottom = x + TANK_BBOX_HEIGHT;
+}
 

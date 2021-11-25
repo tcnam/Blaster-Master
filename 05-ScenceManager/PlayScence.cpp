@@ -152,26 +152,36 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		player = (CJason*)obj;  
 		player->SetType(OBJECT_TYPE_JASON);
 		DebugOut(L"[INFO] Player object created!\n");
+		permanentObjects.push_back(obj);
 		break;
 	case OBJECT_TYPE_TANK:
 		obj = new CTank(x,y);
 		obj->SetType(OBJECT_TYPE_TANK);
 		player->SetTank((CTank*)obj);
+		permanentObjects.push_back(obj);
 		break;
 	case OBJECT_TYPE_CANNON:
 		obj = new CCannon(x, y);
 		obj->SetType(OBJECT_TYPE_CANNON);
 		player->GetTank()->SetCannon((CCannon*)obj);
+		permanentObjects.push_back(obj);
 		break;
 	case OBJECT_TYPE_WHEEL:
 		obj = new CWheel(x, y);
 		obj->SetType(OBJECT_TYPE_WHEEL);
 		player->GetTank()->PushWheels((CWheel*)obj);
+		permanentObjects.push_back(obj);
 		break;
 	case OBJECT_TYPE_INTERRUPT: 
 		obj = new CInterrupt(); 
 		((CInterrupt*)obj)->SetJason(player);
 		obj->SetType(OBJECT_TYPE_INTERRUPT);
+		break;
+	case OBJECT_TYPE_BALLBOT:
+		obj = new CBallbot();
+		((CBallbot*)obj)->SetInitPosition(x, y);
+		((CBallbot*)obj)->SetJason(player);
+		obj->SetType(OBJECT_TYPE_BALLBOT);
 		break;
 	case OBJECT_TYPE_BRICK: 
 		{
@@ -289,13 +299,27 @@ void CPlayScene::Update(DWORD dt)
 	// TO-DO: This is a "dirty" way, need a more organized way 
 	//camera->Update(dt);
 	vector<LPGAMEOBJECT> coObjects;
+	vector<LPGAMEOBJECT> coObjectsOfJason;			//Objects for collidding of Jason
 	if(quadtree!=NULL)
 		quadtree->GetListObject(coObjects, camera);
-	DebugOut(L"coObjects size:%i\n", coObjects.size());
-	player->Update(dt, &coObjects);
-	for (size_t i = 0; i < objects.size(); i++)
+	for (unsigned int i = 0; i < permanentObjects.size(); i++)
 	{
-		objects[i]->Update(dt, &coObjects);
+		coObjects.push_back(permanentObjects[i]);
+	}
+	for (unsigned int i = 0; i < coObjects.size(); i++)
+	{
+		switch (coObjects[i]->GetType())
+		{
+		case OBJECT_TYPE_BRICK:
+			coObjectsOfJason.push_back(coObjects[i]);
+			break;
+		}
+	}
+	DebugOut(L"coObjects size:%i\n", coObjects.size());
+	player->Update(dt, &coObjectsOfJason);
+	for (size_t i = 0; i < coObjects.size(); i++)
+	{
+		coObjects[i]->Update(dt, &coObjects);
 	}
 
 	// skip the rest if scene was already unloaded (Jason::Update might trigger PlayScene::Unload)
@@ -342,6 +366,24 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 		break;
 	case DIK_A: 
 		Jason->Reset();
+		break;
+	case DIK_R:
+		float l1, t1, r1, b1, l2, t2, r2, b2;
+		Jason->GetBoundingBox(l1, t1, r1, b1);
+		Jason->GetTank()->GetBoundingBox(l2, t2, r2, b2);
+		if (CGame::GetInstance()->AABBCheck(l1, t1, r1, b1, l2, t2, r2, b2) == true)
+		{
+			switch (Jason->GetLevel())
+			{
+			case JASON_LEVEL_TANK:
+				Jason->SetLevel(JASON_LEVEL_SMALL);
+				break;
+			case JASON_LEVEL_SMALL:
+				Jason->SetLevel(JASON_LEVEL_TANK);
+				Jason->SetPosition(l1, t1 - 10.0f);
+				break;
+			}
+		}		
 		break;
 	}
 }

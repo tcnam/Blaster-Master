@@ -121,18 +121,22 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 		}
 	}
-	if (Tank != NULL)
+	if (level == JASON_LEVEL_TANK)
 	{
-		switch (nx)
+		if (Tank != NULL)
 		{
-		case 1:
-			Tank->SetPosition(round(x), round(y));
-			break;
-		case -1:
-			Tank->SetPosition(round(x + 10.0f), round(y));
-			break;
+			switch (nx)
+			{
+			case 1:
+				Tank->SetPosition(round(x), round(y));
+				break;
+			case -1:
+				Tank->SetPosition(round(x + 10.0f), round(y));
+				break;
+			}
 		}
 	}
+	
 		
 
 	// clean up collision events
@@ -141,7 +145,7 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 void CJason::Render()
 {
-	int ani = -1;
+	int ani = JASON_SMALL_ANI_WALKING_LEFT;
 	switch (level)
 	{
 	case JASON_LEVEL_TANK:
@@ -153,12 +157,12 @@ void CJason::Render()
 		{
 			if (vx == 0)
 			{
-				if (nx > 0) ani = JASON_ANI_IDLE_RIGHT;
-				else ani = JASON_ANI_IDLE_LEFT;
+				if (nx > 0) ani = JASON_SMALL_ANI_IDLE_RIGHT;
+				else ani = JASON_SMALL_ANI_IDLE_LEFT;
 			}
 			else if (vx > 0)
-				ani = JASON_ANI_WALKING_RIGHT;
-			else ani = JASON_ANI_WALKING_LEFT;
+				ani = JASON_SMALL_ANI_WALKING_RIGHT;
+			else ani = JASON_SMALL_ANI_WALKING_LEFT;
 
 			int alpha = 255;
 			if (untouchable) alpha = 128;
@@ -232,7 +236,12 @@ void CJason::GetBoundingBox(float &left, float &top, float &right, float &bottom
 		right = x + JASON_BIG_BBOX_WIDTH;
 		bottom = y + JASON_BIG_BBOX_HEIGHT;
 		break;
-	//case JASON_LEVEL_SMALL:
+	case JASON_LEVEL_SMALL:
+		left = x;
+		top = y;
+		right = x + JASON_SMALL_BBOX_WIDTH;
+		bottom = y + JASON_SMALL_BBOX_HEIGHT;
+		break;
 
 	}
 	

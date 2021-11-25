@@ -1,7 +1,9 @@
 # id	file_path	transparent_color_r	g	b
 [TEXTURES]
-0	textures\jasonright.png	153	217	234
-10	textures\jasonleft.png	153	217	234
+0	textures\jasonright.png	0	162	232
+40	textures\right.png 	0	136	255
+10	textures\jasonleft.png	0	162	232
+50	textures\jasonleft2.png	0	136	255
 20	textures\misc.png	176	224	248
 30	textures\enemies.png	255	255	255
 70	textures\map1bank.png	255	255	255
@@ -42,6 +44,17 @@
 10016	144	74	152	82	10
 10017	125	73	133	81	10
 
+# Jason Small
+#right
+10018	129	49	137	65	50
+10019	169	49	177	65	50
+10020	89	49	97	65	50
+#left
+10021	249	49	257	65	40
+10022	209	49	217	65	40	
+10023	289	49	297	65	40
+
+
 #ENEMIES
 
 #Interrupt
@@ -50,12 +63,35 @@
 #Interrupt bomb
 20003	63	1496	72	1505	30
 
+#Ballbot
+# Left
+20004	62	738	80	756	30
+20005	83	738	101	756	30
+20006	104	738	122	756	30
+# Right
+20007	132	738	150	756	30
+20008	153	738	171	756	30
+20009	174	738	192	7560	30
+
+
 
 
 
 
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
 [ANIMATIONS]
+# ==== JASON  =========
+
+#SMALL
+# idle right
+300	10018	100
+# idle left
+301	10021	100
+# Move right
+302	10018	100	10019	100	10020	100
+# Move left
+303	10021	100	10022	100	10023	100
+
 # ==== JASON TANK =========
 
 #tank right
@@ -98,11 +134,18 @@
 # Interrupt bomb
 503	20003	100
 
+# Ballbot
+# Down
+504	20004	100	20005	100	20006	100	20005	100
+# Up
+505	20007	100	20008	100	20009	100	20008	100
+
 #
 # id	ani1	ani2	ani3
 #
 [ANIMATION_SETS]
 # JASON 
+0	300	301	302	303
 # Tank
 1	400	401	402	403	
 # Canon
@@ -112,13 +155,15 @@
 # ENEMIES
 # Interrupt
 11	501	502
+# Ballbot
+12	504	505
 
 
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
-# type: 0 = Jason , 1 = Tank, 2 = Cannon, 3 = Wheel, 4 = Brick, 5=Interrupt
+# type: 0 = Jason , 1 = Tank, 2 = Cannon, 3 = Wheel, 4 = Brick, 5=Interrupt. 6=BallBot
 # JASON
-0	1612	348	1
+0	1612	348	0
 # Tank
 1	1612	348	1
 # Cannon
@@ -256,6 +301,8 @@
 # ENEMIES
 5	1696	400	11
 5	1664	464	11
+
+6	1280	496	12
 # --- SCENE PORTAL ----
 # type	l	t	ani_set_id	r	b	scene_id
 50	115	98	0	148	150	1

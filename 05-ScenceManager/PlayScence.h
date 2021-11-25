@@ -6,9 +6,11 @@
 #include "Brick.h"
 #include "Jason.h"
 #include "Interrupt.h"
+#include "Ballbot.h"
 #include "TileMap.h"
 #include "Camera.h"
 #include "Quadtree.h"
+
 
 
 class CPlayScene: public CScene
@@ -17,6 +19,7 @@ protected:
 	CJason *player;					// A play scene has to have player, right? 
 
 	vector<LPGAMEOBJECT> objects;
+	vector<LPGAMEOBJECT> permanentObjects;
 
 	Map* map;
 

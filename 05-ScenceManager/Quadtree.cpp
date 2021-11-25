@@ -73,8 +73,8 @@ void Quadtree::Split()
 }
 void Quadtree::Insert(CGameObject* obj)
 {
-	if (obj->GetType() == OBJECT_TYPE_INTERRUPT)
-		return;
+	/*if (obj->GetType() == OBJECT_TYPE_INTERRUPT)
+		return;*/
 	if (Nodes.size() != 0)
 	{
 		if (Nodes[0]->IsContain(obj))

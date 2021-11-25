@@ -131,6 +131,9 @@
     <ClCompile Include="Interrupt.cpp">
       <Filter>Object\Enemy\Interrrupt</Filter>
     </ClCompile>
+    <ClCompile Include="Ballbot.cpp">
+      <Filter>Object\Enemy\Ballbot</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -195,6 +198,9 @@
     </ClInclude>
     <ClInclude Include="Interrupt.h">
       <Filter>Object\Enemy\Interrrupt</Filter>
+    </ClInclude>
+    <ClInclude Include="Ballbot.h">
+      <Filter>Object\Enemy\Ballbot</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

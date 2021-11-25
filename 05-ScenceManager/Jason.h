@@ -17,14 +17,17 @@
 #define JASON_STATE_JUMP			300
 #define JASON_STATE_DIE				400
 
-#define JASON_ANI_IDLE_RIGHT		0
-#define JASON_ANI_IDLE_LEFT			1
+#define JASON_SMALL_ANI_IDLE_RIGHT				0
+#define JASON_SMALL_ANI_IDLE_LEFT				1
 
-#define JASON_ANI_WALKING_RIGHT			2
-#define JASON_ANI_WALKING_LEFT			3
+#define JASON_SMALL_ANI_WALKING_RIGHT			2
+#define JASON_SMALL_ANI_WALKING_LEFT			3
 
 #define JASON_BIG_BBOX_WIDTH  26	
 #define JASON_BIG_BBOX_HEIGHT 18
+
+#define JASON_SMALL_BBOX_WIDTH	8
+#define JASON_SMALL_BBOX_HEIGHT 16
 
 
 #define JASON_UNTOUCHABLE_TIME 5000
@@ -50,6 +53,7 @@ public:
 
 	void SetState(int state);
 	void SetLevel(int l) { level = l; }
+	int GetLevel() { return level; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 
 	void SetTank(CTank* tank) { Tank = tank; }

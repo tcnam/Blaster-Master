@@ -10,13 +10,13 @@
 
 using namespace std;
 
-#define OBJECT_TYPE_JASON	0
-#define OBJECT_TYPE_TANK	1
-#define OBJECT_TYPE_CANNON	2
-#define OBJECT_TYPE_WHEEL	3
-#define OBJECT_TYPE_BRICK	4
+#define OBJECT_TYPE_JASON		0
+#define OBJECT_TYPE_TANK		1
+#define OBJECT_TYPE_CANNON		2
+#define OBJECT_TYPE_WHEEL		3
+#define OBJECT_TYPE_BRICK		4
 #define OBJECT_TYPE_INTERRUPT	5
-#define OBJECT_TYPE_KOOPAS	6
+#define OBJECT_TYPE_BALLBOT		6
 
 #define OBJECT_TYPE_PORTAL	50
 
@@ -58,6 +58,9 @@ protected:
 	float x; 
 	float y;
 
+	float init_x;
+	float init_y;
+
 	float dx;	// dx = vx*dt
 	float dy;	// dy = vy*dt
 
@@ -89,6 +92,9 @@ public:
 
 	void SetIsInserted(bool insertOrnot) { this->isInserted = insertOrnot; }
 	bool GetIsInserted(){ return isInserted; }
+
+	void SetInitPosition(float tempx, float tempy) { this->init_x = tempx, this->init_y = tempy; }
+	void GetInitPosition(float& tempx, float& tempy) { tempx = this->init_x; tempy = this->init_y; }
 
 	void RenderBoundingBox();
 
