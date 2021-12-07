@@ -14,10 +14,16 @@ CBrick::CBrick(float x, float y, int width, int height)
 }
 void CBrick::Render()
 {
+	WorldToRender();
 	//animation_set->at(0)->Render(x, y);
 	RenderBoundingBox();
 }
 
+void CBrick::WorldToRender()
+{
+	render_x = x;
+	render_y = -(y + height);
+}
 void CBrick::GetBoundingBox(float &l, float &t, float &r, float &b)
 {
 	l = x;

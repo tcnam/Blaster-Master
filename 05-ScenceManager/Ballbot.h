@@ -29,6 +29,7 @@ public:
 	void SetJason(CJason* jason) { Jason = jason; }
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	virtual void WorldToRender();
 	virtual void Render();
 	virtual void SetState(int state);
 

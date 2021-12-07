@@ -43,15 +43,20 @@ void CInterrupt::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		x = 290; vx = -vx;
 	}*/
 }
-
+void CInterrupt::WorldToRender()
+{
+	render_x = x;
+	render_y = -y;
+}
 void CInterrupt::Render()
 {
+	WorldToRender();
 	int ani = INTERRUPT_ANI_IDLE;
 	if (state == INTERRUPT_STATE_ACTION) {
 		ani = INTERRUPT_ANI_ACTION;
 	}
 
-	animation_set->at(ani)->Render(x, y);
+	animation_set->at(ani)->Render(round(render_x), round(render_y));
 
 	//RenderBoundingBox();
 }

@@ -13,6 +13,10 @@ class Camera
 private:
 	float cam_x;
 	float cam_y;
+
+	float render_cam_x;
+	float render_cam_y;
+
 	DWORD dt;
 	CJason* Jason;
 public:

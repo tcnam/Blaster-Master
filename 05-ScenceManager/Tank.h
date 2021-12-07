@@ -27,6 +27,7 @@ class CTank : public CGameObject
 	float start_y;
 public:
 	CTank(float x = 0.0f, float y = 0.0f);
+	virtual void WorldToRender();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();
 

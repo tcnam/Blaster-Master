@@ -326,6 +326,7 @@ void CPlayScene::Update(DWORD dt)
 	if (player == NULL) return; 
 
 	// Update camera to follow Jason
+	//CGame::GetInstance()->SetCamPos(0.0f, -64.0f);
 	camera->Update(dt);
 	
 }

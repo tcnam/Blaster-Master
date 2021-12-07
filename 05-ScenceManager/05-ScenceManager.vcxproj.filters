@@ -202,5 +202,8 @@
     <ClInclude Include="Ballbot.h">
       <Filter>Object\Enemy\Ballbot</Filter>
     </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -58,6 +58,9 @@ protected:
 	float x; 
 	float y;
 
+	float render_x;
+	float render_y;
+
 	float init_x;
 	float init_y;
 
@@ -96,6 +99,7 @@ public:
 	void SetInitPosition(float tempx, float tempy) { this->init_x = tempx, this->init_y = tempy; }
 	void GetInitPosition(float& tempx, float& tempy) { tempx = this->init_x; tempy = this->init_y; }
 
+	
 	void RenderBoundingBox();
 
 	void SetAnimationSet(LPANIMATION_SET ani_set) { animation_set = ani_set; }
@@ -114,6 +118,7 @@ public:
 
 	CGameObject();
 
+	virtual void WorldToRender()=0;
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	virtual void Render() = 0;

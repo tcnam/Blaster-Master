@@ -28,7 +28,7 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	CGameObject::Update(dt);
 
 	// Simple fall down
-	vy += JASON_GRAVITY*dt;
+	vy -= JASON_GRAVITY*dt;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -145,6 +145,7 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 void CJason::Render()
 {
+	WorldToRender();
 	int ani = JASON_SMALL_ANI_WALKING_LEFT;
 	switch (level)
 	{
@@ -167,7 +168,7 @@ void CJason::Render()
 			int alpha = 255;
 			if (untouchable) alpha = 128;
 
-			animation_set->at(ani)->Render(round(x), round(y), alpha);
+			animation_set->at(ani)->Render(round(render_x), round(render_y), alpha);
 
 			RenderBoundingBox();
 			break;
@@ -210,7 +211,7 @@ void CJason::SetState(int state)
 		if (isJumping == false)
 		{
 			isJumping = true;
-			vy = -JASON_JUMP_SPEED_Y;
+			vy = JASON_JUMP_SPEED_Y;
 		}		
 		break; 
 	case JASON_STATE_IDLE: 		
@@ -246,6 +247,23 @@ void CJason::GetBoundingBox(float &left, float &top, float &right, float &bottom
 	}
 	
 
+}
+
+void CJason::WorldToRender()
+{
+	render_x = x;
+	switch (level)
+	{
+	case JASON_LEVEL_TANK:
+		render_y = -(y + JASON_TANK_BBOX_HEIGHT);
+		break;
+	case JASON_LEVEL_BIG:
+		render_y = -(y + JASON_BIG_BBOX_HEIGHT);
+		break;
+	case JASON_LEVEL_SMALL:
+		render_y = -(y + JASON_SMALL_BBOX_HEIGHT);
+		break;
+	}
 }
 
 /*

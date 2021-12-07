@@ -15,5 +15,6 @@ public:
 	int GetWidth() { return width; }
 	int GetHeight() { return height; }
 	virtual void Render();
+	virtual void WorldToRender();
 	virtual void GetBoundingBox(float &l, float &t, float &r, float &b);
 };

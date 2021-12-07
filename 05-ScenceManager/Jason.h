@@ -26,6 +26,9 @@
 #define JASON_BIG_BBOX_WIDTH  26	
 #define JASON_BIG_BBOX_HEIGHT 18
 
+#define JASON_TANK_BBOX_WIDTH  26	
+#define JASON_TANK_BBOX_HEIGHT 18
+
 #define JASON_SMALL_BBOX_WIDTH	8
 #define JASON_SMALL_BBOX_HEIGHT 16
 
@@ -49,6 +52,7 @@ class CJason : public CGameObject
 public: 
 	CJason(float x = 0.0f, float y = 0.0f);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
+	virtual void WorldToRender();
 	virtual void Render();
 
 	void SetState(int state);

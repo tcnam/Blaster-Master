@@ -78,11 +78,11 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		switch (state)
 		{
 		case TANK_STATE_RIGHT:
-			Cannon->SetPosition(x + 18, y + 1);
+			Cannon->SetPosition(x + 18, y + 16);
 			Cannon->SetState(CANNON_STATE_RIGHT);
 			break;
 		case TANK_STATE_LEFT:
-			Cannon->SetPosition(x - 9, y + 1);
+			Cannon->SetPosition(x - 9, y + 16);
 			Cannon->SetState(CANNON_STATE_LEFT);
 			break;
 		}
@@ -106,9 +106,14 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	}
 }
-
+void CTank::WorldToRender()
+{
+	render_x = x;
+	render_y = -(y+TANK_BBOX_HEIGHT);
+}
 void CTank::Render()
 {
+	WorldToRender();
 	int ani = -1;
 	int alpha = 255;
 	switch (isCannonUp)
@@ -119,11 +124,11 @@ void CTank::Render()
 		{
 		case TANK_STATE_RIGHT:
 			ani = TANK_ANI_RIGHT;
-			animation_set->at(ani)->Render(round(x), round(y), alpha);
+			animation_set->at(ani)->Render(round(render_x), round(render_y), alpha);
 			break;
 		case TANK_STATE_LEFT:
 			ani = TANK_ANI_LEFT;
-			animation_set->at(ani)->Render(round(x), round(y), alpha);
+			animation_set->at(ani)->Render(round(render_x), round(render_y), alpha);
 			break;
 		}
 		//DebugOut(L"[INFO] Tank has been rendered!\n");
@@ -135,11 +140,11 @@ void CTank::Render()
 		{
 		case TANK_STATE_RIGHT:
 			ani = TANK_ANI_CANNONUP_RIGHT;
-			animation_set->at(ani)->Render(round(x), round(y), alpha);
+			animation_set->at(ani)->Render(round(render_x), round(render_y), alpha);
 			break;
 		case TANK_STATE_LEFT:
 			ani = TANK_ANI_CANNONUP_LEFT;
-			animation_set->at(ani)->Render(round(x), round(y), alpha);
+			animation_set->at(ani)->Render(round(render_x), round(render_y), alpha);
 			break;
 		}
 		//DebugOut(L"[INFO] Tank has been rendered!\n");
@@ -160,6 +165,6 @@ void CTank::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 	left = x;
 	top = y;
 	right = x + TANK_BBOX_WIDTH;
-	bottom = x + TANK_BBOX_HEIGHT;
+	bottom = y + TANK_BBOX_HEIGHT;
 }
 

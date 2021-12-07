@@ -163,7 +163,7 @@
 # type	x	y	ani_set_id	extra_settings per object type
 # type: 0 = Jason , 1 = Tank, 2 = Cannon, 3 = Wheel, 4 = Brick, 5=Interrupt. 6=BallBot
 # JASON
-0	1612	348	0
+0	0	64	0
 # Tank
 1	1612	348	1
 # Cannon
@@ -172,6 +172,8 @@
 3	1612	348	3
 3	1612 	348	3
 #BRICK
+4	-128	0	0	3000	16
+4	64	0	0	16	48	
 4	1056	656	0	128	32
 4	1072	624	0	96	32
 4	672	784	0	32	32
@@ -303,6 +305,4 @@
 5	1664	464	11
 
 6	1280	496	12
-# --- SCENE PORTAL ----
-# type	l	t	ani_set_id	r	b	scene_id
-50	115	98	0	148	150	1
+

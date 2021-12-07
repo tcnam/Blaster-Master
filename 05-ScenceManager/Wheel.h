@@ -17,6 +17,7 @@ class CWheel : public CGameObject
 public:
 	CWheel(float x = 0.0f, float y = 0.0f);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
+	virtual void WorldToRender();
 	virtual void Render();
 
 	void SetState(int state);

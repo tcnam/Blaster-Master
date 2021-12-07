@@ -11,6 +11,7 @@
 CGameObject::CGameObject()
 {
 	x = y = 0;
+	//render_x = render_y = 0;
 	vx = vy = 0;
 	nx = 1;	
 }
@@ -113,10 +114,9 @@ void CGameObject::FilterCollision(
 	if (min_iy>=0) coEventsResult.push_back(coEvents[min_iy]);
 }
 
-
 void CGameObject::RenderBoundingBox()
 {
-	D3DXVECTOR3 p(x, y, 0);
+	D3DXVECTOR3 p(render_x, render_y, 0);
 	RECT rect;
 
 	LPDIRECT3DTEXTURE9 bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX);
@@ -129,7 +129,7 @@ void CGameObject::RenderBoundingBox()
 	rect.right = (int)r - (int)l;
 	rect.bottom = (int)b - (int)t;
 
-	CGame::GetInstance()->Draw(x, y, bbox, rect.left, rect.top, rect.right, rect.bottom, 32);
+	CGame::GetInstance()->Draw(render_x, render_y, bbox, rect.left, rect.top, rect.right, rect.bottom, 100);
 }
 
 

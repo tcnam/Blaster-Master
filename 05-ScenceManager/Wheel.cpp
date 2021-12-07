@@ -17,9 +17,14 @@ void CWheel::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
 }
-
+void CWheel::WorldToRender()
+{
+	render_x = x;
+	render_y = -y;
+}
 void CWheel::Render()
 {
+	WorldToRender();
 	int ani = -1;
 	int alpha = 255;
 
@@ -27,15 +32,15 @@ void CWheel::Render()
 		{
 		case WHEEL_STATE_MOVE_RIGHT:
 			ani = WHEEL_ANI_MOVE_RIGHT;
-			animation_set->at(ani)->Render(round(x), round(y), alpha);
+			animation_set->at(ani)->Render(round(render_x), round(render_y), alpha);
 			break;
 		case WHEEL_STATE_MOVE_LEFT:
 			ani = WHEEL_ANI_MOVE_LEFT;
-			animation_set->at(ani)->Render(round(x), round(y), alpha);
+			animation_set->at(ani)->Render(round(render_x), round(render_y), alpha);
 			break;
 		case WHEEL_STATE_IDLE:
 			ani = WHEEL_ANI_IDLE;
-			animation_set->at(ani)->Render(round(x), round(y), alpha);
+			animation_set->at(ani)->Render(round(render_x), round(render_y), alpha);
 			break;
 		}
 }

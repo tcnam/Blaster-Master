@@ -9,7 +9,11 @@ CPortal::CPortal(float l, float t, float r, float b, int scene_id )
 	width = r - l + 1;
 	height = b - t + 1;
 }
-
+void CPortal::WorldToRender()
+{
+	render_x = x;
+	render_y = -y;
+}
 void CPortal::Render()
 {
 	RenderBoundingBox();

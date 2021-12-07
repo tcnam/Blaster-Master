@@ -51,9 +51,14 @@ void CBallbot::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	y += dy;
 
 }
-
+void CBallbot::WorldToRender()
+{
+	render_x = x;
+	render_y = -y;
+}
 void CBallbot::Render()
 {
+	WorldToRender();
 	int ani = -1;
 	switch (state)
 	{
@@ -65,7 +70,7 @@ void CBallbot::Render()
 		break;
 	}
 
-	animation_set->at(ani)->Render(x, y);
+	animation_set->at(ani)->Render(round(render_x), round(render_y));
 
 	//RenderBoundingBox();
 }
