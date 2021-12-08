@@ -5,7 +5,7 @@
 #define JASON_WALKING_SPEED		0.1f 
 //0.1f
 #define JASON_JUMP_SPEED_Y		0.5f
-#define JASON_GRAVITY			0.002f
+#define JASON_GRAVITY			0.001f
 
 #define JASON_LEVEL_SMALL		1
 #define JASON_LEVEL_BIG			2

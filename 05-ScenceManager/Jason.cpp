@@ -65,9 +65,7 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		//if (rdx != 0 && rdx!=dx)
 		//	x += nx*abs(rdx); 
 		
-		// block every object first!
-		x += min_tx*dx + nx*0.4f;
-		y += min_ty*dy + ny*0.4f;
+		
 
 		if (nx!=0) vx = 0;
 		if (ny != 0)
@@ -75,6 +73,9 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			vy = 0;
 			isJumping = false;
 		}
+		// block every object first!
+		x += min_tx * dx + nx * 0.4f;
+		y += min_ty * dy + ny * 0.4f;
 
 
 		//
@@ -208,11 +209,12 @@ void CJason::SetState(int state)
 		break;
 	case JASON_STATE_JUMP:
 		// TODO: need to check if JASON is *current* on a platform before allowing to jump again
-		if (isJumping == false)
+		/*if (isJumping == false)
 		{
 			isJumping = true;
 			vy = JASON_JUMP_SPEED_Y;
-		}		
+		}*/	
+		vy = JASON_JUMP_SPEED_Y;
 		break; 
 	case JASON_STATE_IDLE: 		
 		vx = 0;
