@@ -1,20 +1,21 @@
 # id	file_path	transparent_color_r	g	b
 [TEXTURES]
 0	textures\jasonright.png	0	162	232
-40	textures\right.png 	0	136	255
 10	textures\jasonleft.png	0	162	232
-50	textures\jasonleft2.png	0	136	255
 20	textures\misc.png	176	224	248
 30	textures\enemies.png	255	255	255
+40	textures\right.png 	0	136	255
+50	textures\jasonleft2.png	0	136	255
 70	textures\map1bank.png	255	255	255
+80	textures\map1.png	255	255	255
 
-[MAP]
-70	46	11	151	112	506	textures\map1map.txt
+
 # id	left	top	right	bottom	texture_id
 
 [SPRITES]
+#MAP
+30000	0	0	1792	1024	80
 # JASON TANK
-
 # Tank
 # right
 10001	160	88	178	104	0
@@ -157,6 +158,9 @@
 11	501	502
 # Ballbot
 12	504	505
+
+[BACKGROUND]
+0	-1024	30000
 
 
 [OBJECTS]
@@ -305,4 +309,6 @@
 5	1664	464	11
 
 6	1280	496	12
+
+
 

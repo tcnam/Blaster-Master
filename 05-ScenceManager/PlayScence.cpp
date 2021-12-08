@@ -31,6 +31,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):CScene(id, filePath)
 #define SCENE_SECTION_ANIMATION_SETS	5
 #define SCENE_SECTION_OBJECTS	6
 #define SCENE_SECTION_MAP		7
+#define SCENE_SECTION_BACKGROUND	8
 
 
 
@@ -231,7 +232,21 @@ void CPlayScene::_ParseSection_MAP(string line)
 	map = new Map(idTileSet, totalRowsTileSet, totalColumnsTileSet, totalRowsMap, totalColumnsMap, totalTiles);
 	map->LoadMap(file_path.c_str());
 	map->ExtractTileFromTileSet();
-	quadtree = new Quadtree(0.0f, 0.0f, 0.0f, (float)map->GetMapWidth(), (float)map->GetMapHeight());
+	
+}
+void CPlayScene::_ParseSection_BACKGROUND(string line)
+{
+	vector<string> tokens = split(line);
+	if (tokens.size() < 3) return;
+	float x = (float)atof(tokens[0].c_str());
+	float y = (float)atof(tokens[1].c_str());
+	int sprite_id = atoi(tokens[2].c_str());
+	
+	background->SetPosition(x, y);
+	LPSPRITE sprites = CSprites::GetInstance()->Get(sprite_id);
+	background->SetSprite(sprites);
+	background->CalculateWidthHeight();
+	quadtree = new Quadtree(0.0f, 0.0f, 0.0f, background->GetWidth(), background->GetHeight());
 }
 void CPlayScene::Load()
 {
@@ -246,6 +261,7 @@ void CPlayScene::Load()
 	char str[MAX_SCENE_LINE];
 	
 	camera = new Camera();
+	background = new CBackground();
 	while (f.getline(str, MAX_SCENE_LINE))
 	{
 		string line(str);
@@ -264,6 +280,9 @@ void CPlayScene::Load()
 		if (line == "[MAP]") {
 			section = SCENE_SECTION_MAP; continue;
 		}
+		if (line == "[BACKGROUND]") {
+			section = SCENE_SECTION_BACKGROUND; continue;
+		}
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }	
 
 		//
@@ -277,6 +296,7 @@ void CPlayScene::Load()
 			case SCENE_SECTION_ANIMATION_SETS: _ParseSection_ANIMATION_SETS(line); break;
 			case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
 			case SCENE_SECTION_MAP: _ParseSection_MAP(line); break;
+			case SCENE_SECTION_BACKGROUND: _ParseSection_BACKGROUND(line); break;
 		}
 	}
 
@@ -333,9 +353,13 @@ void CPlayScene::Update(DWORD dt)
 
 void CPlayScene::Render()
 {
-	if (map)
+	/*if (map)
 	{
 		this->map->Render((int)camera->GetCamX(), (int)camera->GetCamY());
+	}*/
+	if (background)
+	{
+		background->Draw();
 	}
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();

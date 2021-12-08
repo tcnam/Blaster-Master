@@ -10,6 +10,7 @@
 #include "TileMap.h"
 #include "Camera.h"
 #include "Quadtree.h"
+#include "Background.h"
 
 
 
@@ -23,6 +24,8 @@ protected:
 
 	Map* map;
 
+	CBackground* background;
+
 	Camera* camera;
 
 	Quadtree* quadtree;
@@ -33,6 +36,7 @@ protected:
 	void _ParseSection_ANIMATION_SETS(string line);
 	void _ParseSection_OBJECTS(string line);
 	void _ParseSection_MAP(string line);
+	void _ParseSection_BACKGROUND(string line);
 
 	
 public: 

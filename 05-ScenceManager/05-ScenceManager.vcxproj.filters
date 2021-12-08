@@ -66,6 +66,9 @@
     <Filter Include="Object\Enemy\BallCarry">
       <UniqueIdentifier>{5b148280-4413-4041-a9c7-c46c924aba39}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Background">
+      <UniqueIdentifier>{910e602a-7f5f-420b-804f-c631a8c991b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -133,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="Ballbot.cpp">
       <Filter>Object\Enemy\Ballbot</Filter>
+    </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>Framework\Background</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +210,9 @@
     </ClInclude>
     <ClInclude Include="Define.h">
       <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Background.h">
+      <Filter>Framework\Background</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
