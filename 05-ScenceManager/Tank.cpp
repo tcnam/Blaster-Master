@@ -94,11 +94,11 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		switch (state)
 		{
 		case TANK_STATE_RIGHT:
-			Cannon->SetPosition(x + 10, y -10);
+			Cannon->SetPosition(x + 10, y + 28);
 			Cannon->SetState(CANNON_STATE_RIGHT);
 			break;
 		case TANK_STATE_LEFT:
-			Cannon->SetPosition(x +6, y -10);
+			Cannon->SetPosition(x +6, y + 28);
 			Cannon->SetState(CANNON_STATE_LEFT);
 			break;
 		}

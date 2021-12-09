@@ -48,11 +48,11 @@ void CCannon::Render()
 		{
 		case CANNON_STATE_RIGHT:
 			ani = CANNON_ANI_CANNONUP_RIGHT;
-			animation_set->at(ani)->Render(round(x), round(y), alpha);
+			animation_set->at(ani)->Render(round(render_x), round(render_y), alpha);
 			break;
 		case CANNON_STATE_LEFT:
 			ani = CANNON_ANI_CANNONUP_LEFT;
-			animation_set->at(ani)->Render(round(x), round(y), alpha);
+			animation_set->at(ani)->Render(round(render_x), round(render_y), alpha);
 			break;
 		}
 		//DebugOut(L"[INFO] Tank has been rendered!\n");

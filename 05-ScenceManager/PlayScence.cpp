@@ -405,7 +405,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 				break;
 			case JASON_LEVEL_SMALL:
 				Jason->SetLevel(JASON_LEVEL_TANK);
-				Jason->SetPosition(l1, t1 - 10.0f);
+				Jason->SetPosition(l1, t1 + 10.0f);
 				break;
 			}
 		}		

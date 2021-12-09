@@ -192,7 +192,7 @@ void CJason::SetState(int state)
 	case JASON_STATE_WALKING_RIGHT:
 		vx = JASON_WALKING_SPEED;
 		nx = 1;
-		if (Tank != NULL)
+		if (Tank != NULL && level==JASON_LEVEL_TANK)
 		{
 			Tank->SetState(TANK_STATE_RIGHT);
 			Tank->SetMoving(true);
@@ -201,7 +201,7 @@ void CJason::SetState(int state)
 	case JASON_STATE_WALKING_LEFT: 
 		vx = -JASON_WALKING_SPEED;
 		nx = -1;
-		if (Tank != NULL)
+		if (Tank != NULL && level==JASON_LEVEL_TANK)
 		{
 			Tank->SetState(TANK_STATE_LEFT);
 			Tank->SetMoving(true);
