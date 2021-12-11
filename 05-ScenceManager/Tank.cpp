@@ -24,50 +24,42 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		for (unsigned int i = 0; i < Wheels.size(); i++)
 		{
-			
-			switch (isMoving)
-			{				
-			case false:
+			switch (state)
 			{
-				Wheels[i]->SetState(WHEEL_STATE_IDLE);
-				switch (state)
-				{
-				case TANK_STATE_RIGHT:
-					Wheels[i]->SetPosition(x + i * 18, y + 10);
-					break;
-				case TANK_STATE_LEFT:
-					if(i==0)
-						Wheels[i]->SetPosition(x - 8, y + 10);
-					else
-					{
-						Wheels[i]->SetPosition(x + i * 10, y + 10);
-					}					
-					break;
-				}
-				break;
-			}				
-			case true:
-			{
-				switch (state)
-				{
-				case TANK_STATE_RIGHT:
+			case TANK_STATE_RIGHT:
+				if (isMoving == true)
 					Wheels[i]->SetState(WHEEL_STATE_MOVE_RIGHT);
-					Wheels[i]->SetPosition(x + i * 18, y + 10);
+				else
+					Wheels[i]->SetState(WHEEL_STATE_IDLE);
+				switch (isCannonUp)
+				{
+				case false:
+					Wheels[i]->SetPosition(x + i * 18, y + 7);
 					break;
-				case TANK_STATE_LEFT:
+				case true:
+					Wheels[i]->SetPosition(x + i * 18+3, y + 4);
+					break;
+				}				
+				break;
+			case TANK_STATE_LEFT:
+				if (isMoving == true)
 					Wheels[i]->SetState(WHEEL_STATE_MOVE_LEFT);
+				else
+					Wheels[i]->SetState(WHEEL_STATE_IDLE);
+				switch (isCannonUp)
+				{
+				case false:
 					if (i == 0)
-						Wheels[i]->SetPosition(x - 8, y + 10);
+						Wheels[i]->SetPosition(x - 8, y + 7);
 					else
-					{
-						Wheels[i]->SetPosition(x + i * 10, y + 10);
-					}
+						Wheels[i]->SetPosition(x + i * 10, y + 7);
+					break;
+				case true:
+					Wheels[i]->SetPosition(x + i *18-9 , y + 4);
 					break;
 				}
 				break;
-			}				
 			}
-
 		}
 	}
 	switch (isCannonUp)

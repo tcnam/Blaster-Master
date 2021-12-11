@@ -129,10 +129,27 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			switch (nx)
 			{
 			case 1:
-				Tank->SetPosition(round(x), round(y));
+				switch (Tank->GetCannon()->CannonUpOrNot())
+				{
+				case TRUE:
+					Tank->SetPosition(round(x), round(y+2.0f));
+					break;
+				case FALSE:
+					Tank->SetPosition(round(x), round(y));
+					break;
+				}
 				break;
 			case -1:
-				Tank->SetPosition(round(x + 10.0f), round(y));
+				switch (Tank->GetCannon()->CannonUpOrNot())
+				{
+				case TRUE:
+					Tank->SetPosition(round(x + 10.0f), round(y + 2.0f));
+					break;
+				case FALSE:
+					Tank->SetPosition(round(x + 10.0f), round(y));
+					break;
+				}
+				
 				break;
 			}
 		}
@@ -209,12 +226,12 @@ void CJason::SetState(int state)
 		break;
 	case JASON_STATE_JUMP:
 		// TODO: need to check if JASON is *current* on a platform before allowing to jump again
-		/*if (isJumping == false)
+		if (isJumping == false)
 		{
 			isJumping = true;
 			vy = JASON_JUMP_SPEED_Y;
-		}*/	
-		vy = JASON_JUMP_SPEED_Y;
+		}
+		//vy = JASON_JUMP_SPEED_Y;
 		break; 
 	case JASON_STATE_IDLE: 		
 		vx = 0;

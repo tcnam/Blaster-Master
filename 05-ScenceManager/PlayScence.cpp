@@ -17,6 +17,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):CScene(id, filePath)
 	player = NULL;
 	map = NULL;
 	quadtree = NULL;
+	background = NULL;
 }
 
 /*

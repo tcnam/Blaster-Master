@@ -2,7 +2,7 @@
 #include "GameObject.h"
 
 
-#define CANNON_STATE_RIGHT		100
+#define CANNON_STATE_RIGHT			100
 #define CANNON_STATE_LEFT			200
 
 #define CANNON_ANI_RIGHT					0
@@ -27,6 +27,7 @@ public:
 
 	void SetState(int state);
 	void SetCannonUP(bool UpOrNOt) { isUp = UpOrNOt; }
+	bool CannonUpOrNot() { return isUp; }
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 };
