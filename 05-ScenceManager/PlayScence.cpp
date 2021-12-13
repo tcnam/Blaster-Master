@@ -174,6 +174,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		player->GetTank()->PushWheels((CWheel*)obj);
 		permanentObjects.push_back(obj);
 		break;
+	case OBJECT_TYPE_BULLET:
+		obj = new CBullet();
+		obj->SetType(OBJECT_TYPE_BULLET);
+		player->PushBullets((CBullet*)obj);
+		permanentObjects.push_back(obj);
+		break;
 	case OBJECT_TYPE_INTERRUPT: 
 		obj = new CInterrupt(); 
 		((CInterrupt*)obj)->SetJason(player);
@@ -321,6 +327,7 @@ void CPlayScene::Update(DWORD dt)
 	//camera->Update(dt);
 	vector<LPGAMEOBJECT> coObjects;
 	vector<LPGAMEOBJECT> coObjectsOfJason;			//Objects for collidding of Jason
+	vector<LPGAMEOBJECT> coObejctOfBullets;
 	if(quadtree!=NULL)
 		quadtree->GetListObject(coObjects, camera);
 	for (unsigned int i = 0; i < permanentObjects.size(); i++)
@@ -337,10 +344,22 @@ void CPlayScene::Update(DWORD dt)
 		}
 	}
 	DebugOut(L"coObjects size:%i\n", coObjects.size());
-	player->Update(dt, &coObjectsOfJason);
+	//player->Update(dt, &coObjectsOfJason);
 	for (size_t i = 0; i < coObjects.size(); i++)
 	{
-		coObjects[i]->Update(dt, &coObjects);
+		switch (coObjects[i]->GetType())
+		{
+		case OBJECT_TYPE_JASON:
+			coObjects[i]->Update(dt, &coObjectsOfJason);
+			break;
+		case OBJECT_TYPE_BULLET:
+			coObjects[i]->Update(dt, &coObejctOfBullets);
+			break;
+		default:
+			coObjects[i]->Update(dt, &coObjects);
+			break;
+		}
+		
 	}
 
 	// skip the rest if scene was already unloaded (Jason::Update might trigger PlayScene::Unload)
@@ -393,7 +412,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	case DIK_A: 
 		Jason->Reset();
 		break;
-	case DIK_R:
+	case DIK_X:
 		float l1, t1, r1, b1, l2, t2, r2, b2;
 		Jason->GetBoundingBox(l1, t1, r1, b1);
 		Jason->GetTank()->GetBoundingBox(l2, t2, r2, b2);
@@ -411,6 +430,10 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 			}
 		}		
 		break;
+	case DIK_Z:		
+		Jason->StartAttack();
+		Jason->SetIsFiring(true);
+		break;
 	}
 }
 void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
@@ -422,6 +445,9 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 	{
 	case DIK_UP:
 		Jason->GetTank()->SetCannonUP(false);
+		break;
+	case DIK_Z:
+		Jason->SetIsFiring(false);
 		break;
 	}
 }

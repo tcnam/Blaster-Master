@@ -69,6 +69,9 @@
     <Filter Include="Framework\Background">
       <UniqueIdentifier>{910e602a-7f5f-420b-804f-c631a8c991b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Jason\Bullet">
+      <UniqueIdentifier>{936061cb-afd4-40c9-a077-eb070d681ee3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -139,6 +142,9 @@
     </ClCompile>
     <ClCompile Include="Background.cpp">
       <Filter>Framework\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Jason\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +219,9 @@
     </ClInclude>
     <ClInclude Include="Background.h">
       <Filter>Framework\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Jason\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

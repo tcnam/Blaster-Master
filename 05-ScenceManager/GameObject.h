@@ -17,6 +17,7 @@ using namespace std;
 #define OBJECT_TYPE_BRICK		4
 #define OBJECT_TYPE_INTERRUPT	5
 #define OBJECT_TYPE_BALLBOT		6
+#define OBJECT_TYPE_BULLET		10
 
 #define OBJECT_TYPE_PORTAL	50
 

@@ -6,8 +6,10 @@
 30	textures\enemies.png	255	255	255
 40	textures\right.png 	0	136	255
 50	textures\jasonleft2.png	0	136	255
+60	textures\items.png	255	255	255
 70	textures\map1bank.png	255	255	255
 80	textures\map1.png	255	255	255
+
 
 
 # id	left	top	right	bottom	texture_id
@@ -54,6 +56,11 @@
 10022	249	49	257	65	40
 10023	209	49	217	65	40	
 10024	289	49	297	65	40
+
+# Jason bullet
+11000	285	82	293	108	60
+11001	300	113	326	121	60
+11002	302	133	328	141	60
 
 
 #ENEMIES
@@ -124,6 +131,14 @@
 #wheel left moving
 409	10014	50	10015	50	10016	50	10017	50
 
+#Bullet normal up
+600	11000	100
+# Bullet normal right
+601	11001	100
+#Bullet normal left
+602	11002	100
+
+
 
 #---------ENEMIES-------
 
@@ -153,6 +168,8 @@
 2	404	405	410	411
 # Wheel
 3	406	408	409
+# Bullets
+4	600	601	602
 # ENEMIES
 # Interrupt
 11	501	502
@@ -175,6 +192,10 @@
 # Wheel
 3	1612	348	3
 3	1612 	348	3
+# Bullets
+10	1612	672	4
+10	1612	672	4
+10	1612	672	4
 #BRICK
 4	-128	0	0	3000	16
 4	64	0	0	16	48
