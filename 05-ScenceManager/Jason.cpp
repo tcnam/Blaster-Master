@@ -15,11 +15,13 @@ CJason::CJason(float x, float y) : CGameObject()
 	SetState(JASON_STATE_IDLE);
 	SetLevel(JASON_LEVEL_TANK);
 	isJumping = false;
+	isFiring = false;
 
 	start_x = x; 
 	start_y = y; 
 	this->x = x; 
 	this->y = y; 
+	bulletIndex = 0;
 }
 
 void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -285,6 +287,11 @@ void CJason::WorldToRender()
 	}
 }
 
+CTank* CJason::GetTank()
+{
+	if (Tank != NULL)
+		return Tank;
+}
 /*
 	Reset JASON status to the beginning state of a scene
 */
@@ -293,5 +300,37 @@ void CJason::Reset()
 	SetState(JASON_STATE_IDLE);
 	SetPosition(start_x, start_y);
 	SetSpeed(0, 0);
+}
+
+void CJason::StartAttack()
+{
+	if (Bullets.size() == 0)
+		return;
+	if (isFiring == true)
+		return;
+	if (bulletIndex >= Bullets.size() )
+		bulletIndex = 0;
+	if (Bullets[bulletIndex]->GetState() == BULLET_STATE_IDLE)
+	{
+		switch (Tank->GetCannon()->CannonUpOrNot())
+		{
+		case false:
+			switch (nx)
+			{
+			case 1:
+				Bullets[bulletIndex]->SetPosition(x + JASON_TANK_BBOX_WIDTH, y + JASON_TANK_BBOX_HEIGHT);
+				break;
+			case -1:
+				Bullets[bulletIndex]->SetPosition(x - JASON_TANK_BBOX_WIDTH / 2, y + JASON_TANK_BBOX_HEIGHT);
+				break;
+			}
+			break;
+		case true:
+			Bullets[bulletIndex]->SetPosition(x + JASON_TANK_BBOX_WIDTH / 2, y + JASON_TANK_BBOX_HEIGHT);
+			break;
+		}
+		Bullets[bulletIndex]->SetState(BULLET_STATE_FIRE,nx,(int)Tank->GetCannon()->CannonUpOrNot());
+	}
+	bulletIndex++;
 }
 

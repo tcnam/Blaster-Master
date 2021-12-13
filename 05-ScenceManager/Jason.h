@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Tank.h"
+#include "Bullet.h"
 
 #define JASON_WALKING_SPEED		0.1f 
 //0.1f
@@ -42,6 +43,7 @@ class CJason : public CGameObject
 	int untouchable;
 
 	bool isJumping;
+	bool isFiring;
 
 	DWORD untouchable_start;
 
@@ -49,6 +51,8 @@ class CJason : public CGameObject
 	float start_y; 
 
 	CTank* Tank;
+	vector<CBullet*> Bullets;
+	int bulletIndex;
 public: 
 	CJason(float x = 0.0f, float y = 0.0f);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
@@ -56,13 +60,22 @@ public:
 	virtual void Render();
 
 	void SetState(int state);
+
 	void SetLevel(int l) { level = l; }
 	int GetLevel() { return level; }
+
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 
 	void SetTank(CTank* tank) { Tank = tank; }
-	CTank* GetTank() { return Tank; }
+	CTank* GetTank();
 
+	bool GetIsFiring() { return isFiring; }
+	void SetIsFiring(bool b) { isFiring = b; }
+
+	void PushBullets(CBullet* bl) { Bullets.push_back(bl); }
+	vector<CBullet*> GetBullets() { return Bullets; }
+	
+	void StartAttack();
 	void Reset();
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
