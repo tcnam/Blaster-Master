@@ -318,14 +318,17 @@ void CJason::StartAttack()
 			switch (nx)
 			{
 			case 1:
+				Bullets[bulletIndex]->SetStartPosition(x + JASON_TANK_BBOX_WIDTH, y + JASON_TANK_BBOX_HEIGHT);
 				Bullets[bulletIndex]->SetPosition(x + JASON_TANK_BBOX_WIDTH, y + JASON_TANK_BBOX_HEIGHT);
 				break;
 			case -1:
+				Bullets[bulletIndex]->SetStartPosition(x - JASON_TANK_BBOX_WIDTH / 2, y + JASON_TANK_BBOX_HEIGHT);
 				Bullets[bulletIndex]->SetPosition(x - JASON_TANK_BBOX_WIDTH / 2, y + JASON_TANK_BBOX_HEIGHT);
 				break;
 			}
 			break;
 		case true:
+			Bullets[bulletIndex]->SetStartPosition(x + JASON_TANK_BBOX_WIDTH / 2, y + JASON_TANK_BBOX_HEIGHT);
 			Bullets[bulletIndex]->SetPosition(x + JASON_TANK_BBOX_WIDTH / 2, y + JASON_TANK_BBOX_HEIGHT);
 			break;
 		}

@@ -14,14 +14,20 @@
 #define BULLET_SPEED_X		0.1f
 #define BULLET_SPEED_Y		0.1f
 
+#define BULLET_DISTANCE_FOR_CHANGE_STATE	160.0f
+
 class CBullet : public CGameObject
 {
+private:
+	float start_x;
+	float start_y;
 public:
 	CBullet();
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Render();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObject = NULL);
 	virtual void WorldToRender();
+	void SetStartPosition(float x, float y);
 	void SetState(int state, int nx, int ny);
 	~CBullet();
 
