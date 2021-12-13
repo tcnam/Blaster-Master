@@ -52,5 +52,5 @@ void CWheel::SetState(int state)
 
 void CWheel::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-
+	
 }
