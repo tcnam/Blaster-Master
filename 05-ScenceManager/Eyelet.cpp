@@ -15,7 +15,7 @@ void CEyelet::GetBoundingBox(float& left, float& top, float& right, float& botto
 
 void CEyelet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	CGameObject::Update(dt, coObjects);
+	
 
 	//
 	// TO-DO: make sure EYELET can interact with the world and to each of them too!
@@ -29,6 +29,7 @@ void CEyelet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vy = EYELET_SPEED_X * cos(M_PI + dem * M_PI / 180);
 		dem++;
 	}
+	CGameObject::Update(dt, coObjects);
 	CGameObject::Update(dt);
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -62,12 +63,12 @@ void CEyelet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 
 
-		if (nx != 0) vx = 0;
-		if (ny != 0)
-		{
-			vy = 0;
+		//if (nx != 0) vx = 0;
+		//if (ny != 0)
+		//{
+		//	vy = 0;
 
-		}
+		//}
 		// block every object first!
 		x += min_tx * dx + nx * 0.4f;
 		y += min_ty * dy + ny * 0.4f;
@@ -103,6 +104,8 @@ void CEyelet::WorldToRender()
 }
 void CEyelet::Render()
 {
+	if (state == EYELET_STATE_IDLE)
+		return;
 	WorldToRender();
 	int ani = -1;
 	switch (nx)
