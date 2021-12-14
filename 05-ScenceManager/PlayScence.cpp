@@ -182,6 +182,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	case OBJECT_TYPE_INTERRUPT: 
 		obj = new CInterrupt(); 
+		((CInterrupt*)obj)->SetInitPosition(x, y);
 		((CInterrupt*)obj)->SetJason(player);
 		obj->SetType(OBJECT_TYPE_INTERRUPT);
 		break;
@@ -191,14 +192,25 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		((CBallbot*)obj)->SetJason(player);
 		obj->SetType(OBJECT_TYPE_BALLBOT);
 		break;
+	case OBJECT_TYPE_EYELET:
+		{
+			obj = new CEyelet();
+			((CEyelet*)obj)->SetInitPosition(x, y);
+			((CEyelet*)obj)->SetJason(player);
+			obj->SetType(OBJECT_TYPE_EYELET);
+			int direction = atoi(tokens[4].c_str());
+			obj->Setnx(direction);
+			obj->SetState(EYELET_STATE_ACTION);
+		}
+		break;
 	case OBJECT_TYPE_BRICK: 
 		{
 			int w = atoi(tokens[4].c_str());
 			int h = atoi(tokens[5].c_str());
 			obj = new CBrick(x,y,w,h);
 			obj->SetType(OBJECT_TYPE_BRICK);
-			break;
 		}
+		break;
 	case OBJECT_TYPE_PORTAL:
 		{	
 			float r = atof(tokens[4].c_str());
@@ -328,6 +340,7 @@ void CPlayScene::Update(DWORD dt)
 	vector<LPGAMEOBJECT> coObjects;
 	vector<LPGAMEOBJECT> coObjectsOfJason;			//Objects for collidding of Jason
 	vector<LPGAMEOBJECT> coObejctOfBullets;
+	vector<LPGAMEOBJECT> coObjectOfEnemies1;
 	if(quadtree!=NULL)
 		quadtree->GetListObject(coObjects, camera);
 	for (unsigned int i = 0; i < permanentObjects.size(); i++)
@@ -340,6 +353,9 @@ void CPlayScene::Update(DWORD dt)
 		{
 		case OBJECT_TYPE_BRICK:
 			coObjectsOfJason.push_back(coObjects[i]);
+			break;
+		case OBJECT_TYPE_JASON:
+			coObjectOfEnemies1.push_back(coObjects[i]);
 			break;
 		}
 	}
@@ -354,6 +370,9 @@ void CPlayScene::Update(DWORD dt)
 			break;
 		case OBJECT_TYPE_BULLET:
 			coObjects[i]->Update(dt, &coObejctOfBullets);
+			break;
+		case OBJECT_TYPE_EYELET:
+			coObjects[i]->Update(dt, &coObjectOfEnemies1);
 			break;
 		default:
 			coObjects[i]->Update(dt, &coObjects);
