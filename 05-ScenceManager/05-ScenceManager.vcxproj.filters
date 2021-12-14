@@ -149,6 +149,9 @@
     <ClCompile Include="Eyelet.cpp">
       <Filter>Object\Enemy\Eyelet</Filter>
     </ClCompile>
+    <ClCompile Include="Stuka.cpp">
+      <Filter>Object\Enemy\Stuka</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -228,6 +231,9 @@
     </ClInclude>
     <ClInclude Include="Eyelet.h">
       <Filter>Object\Enemy\Eyelet</Filter>
+    </ClInclude>
+    <ClInclude Include="Stuka.h">
+      <Filter>Object\Enemy\Stuka</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -136,6 +136,7 @@
     <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Quadtree.cpp" />
+    <ClCompile Include="Stuka.cpp" />
     <ClCompile Include="Tank.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Utils.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="Koopas.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="Quadtree.h" />
+    <ClInclude Include="Stuka.h" />
     <ClInclude Include="Tank.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="Utils.h" />

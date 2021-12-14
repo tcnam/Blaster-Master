@@ -203,6 +203,17 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			obj->SetState(EYELET_STATE_ACTION);
 		}
 		break;
+	case OBJECT_TYPE_STUKA:
+		{
+			obj = new CStuka();
+			((CStuka*)obj)->SetInitPosition(x, y);
+			((CStuka*)obj)->SetJason(player);
+			obj->SetType(OBJECT_TYPE_STUKA);
+			int direction = atoi(tokens[4].c_str());
+			obj->Setnx(direction);
+			obj->SetState(STUKA_STATE_IDLE);
+		}
+		break;
 	case OBJECT_TYPE_BRICK: 
 		{
 			int w = atoi(tokens[4].c_str());
@@ -340,7 +351,8 @@ void CPlayScene::Update(DWORD dt)
 	vector<LPGAMEOBJECT> coObjects;
 	vector<LPGAMEOBJECT> coObjectsOfJason;			//Objects for collidding of Jason
 	vector<LPGAMEOBJECT> coObejctOfBullets;
-	vector<LPGAMEOBJECT> coObjectOfEnemies1;
+	vector<LPGAMEOBJECT> coObjectOfEnemies1;		//not include bircks
+	vector<LPGAMEOBJECT> coObjectOfEnemies2;		//include bricks
 	if(quadtree!=NULL)
 		quadtree->GetListObject(coObjects, camera);
 	for (unsigned int i = 0; i < permanentObjects.size(); i++)
@@ -353,6 +365,7 @@ void CPlayScene::Update(DWORD dt)
 		{
 		case OBJECT_TYPE_BRICK:
 			coObjectsOfJason.push_back(coObjects[i]);
+			coObjectOfEnemies2.push_back(coObjects[i]);
 			break;
 		case OBJECT_TYPE_JASON:
 			coObjectOfEnemies1.push_back(coObjects[i]);
@@ -373,6 +386,9 @@ void CPlayScene::Update(DWORD dt)
 			break;
 		case OBJECT_TYPE_EYELET:
 			coObjects[i]->Update(dt, &coObjectOfEnemies1);
+			break;
+		case OBJECT_TYPE_STUKA:
+			coObjects[i]->Update(dt, &coObjectOfEnemies2);
 			break;
 		default:
 			coObjects[i]->Update(dt, &coObjects);

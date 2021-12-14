@@ -12,6 +12,7 @@
 #include "Quadtree.h"
 #include "Background.h"
 #include "Eyelet.h"
+#include "Stuka.h"
 
 
 
