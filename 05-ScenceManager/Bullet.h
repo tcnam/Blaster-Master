@@ -11,10 +11,10 @@
 #define BULLET_BBOX_WIDTH	26	
 #define BULLET_BBOX_HEIGHT  8
 
-#define BULLET_SPEED_X		0.1f
-#define BULLET_SPEED_Y		0.1f
+#define BULLET_SPEED_X		0.2f
+#define BULLET_SPEED_Y		0.2f
 
-#define BULLET_DISTANCE_FOR_CHANGE_STATE	160.0f
+#define BULLET_DISTANCE_FOR_CHANGE_STATE	320.0f
 
 class CBullet : public CGameObject
 {

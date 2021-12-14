@@ -146,6 +146,9 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Jason\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="Eyelet.cpp">
+      <Filter>Object\Enemy\Eyelet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -222,6 +225,9 @@
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Jason\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Eyelet.h">
+      <Filter>Object\Enemy\Eyelet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

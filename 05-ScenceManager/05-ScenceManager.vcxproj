@@ -131,6 +131,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Cannon.cpp" />
+    <ClCompile Include="Eyelet.cpp" />
     <ClCompile Include="Interrupt.cpp" />
     <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="Portal.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Cannon.h" />
     <ClInclude Include="Define.h" />
+    <ClInclude Include="Eyelet.h" />
     <ClInclude Include="Interrupt.h" />
     <ClInclude Include="Koopas.h" />
     <ClInclude Include="Portal.h" />

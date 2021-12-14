@@ -1,5 +1,5 @@
 #include "Interrupt.h"
-CInterrupt::CInterrupt()
+CInterrupt::CInterrupt():CGameObject()
 {
 	SetState(INTERRUPT_STATE_IDLE);
 }
@@ -29,24 +29,17 @@ void CInterrupt::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	float l1, t1, r1, b1;
 	Jason->GetPosition(jason_x, jason_y);
 	Jason->GetBoundingBox(l1, t1, r1, b1);
-	bool choose_state=CGame::GetInstance()->AABBCheck(l1, t1, r1, b1, x, y + INTERRUPT_BBOX_HEIGHT, x + INTERRUPT_BBOX_WIDTH, y + INTERRUPT_BBOX_HEIGHT + DY_FOR_CHANGE_STATE);
+	bool choose_state=CGame::GetInstance()->AABBCheck(l1, t1, r1, b1, x, y- DY_FOR_CHANGE_STATE, x + INTERRUPT_BBOX_WIDTH, y);
 	if (choose_state)
 		SetState(INTERRUPT_STATE_ACTION);
 	else
 		SetState(INTERRUPT_STATE_IDLE);
 
-	/*if (vx < 0 && x < 0) {
-		x = 0; vx = -vx;
-	}
-
-	if (vx > 0 && x > 290) {
-		x = 290; vx = -vx;
-	}*/
 }
 void CInterrupt::WorldToRender()
 {
 	render_x = x;
-	render_y = -y;
+	render_y = -(y+INTERRUPT_BBOX_HEIGHT);
 }
 void CInterrupt::Render()
 {
@@ -58,7 +51,7 @@ void CInterrupt::Render()
 
 	animation_set->at(ani)->Render(round(render_x), round(render_y));
 
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void CInterrupt::SetState(int state)

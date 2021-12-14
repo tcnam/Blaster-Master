@@ -85,8 +85,8 @@ void CBullet::WorldToRender()
 }
 void CBullet::Render()
 {
-	/*if (state == BULLET_STATE_IDLE)
-		return;*/
+	if (state == BULLET_STATE_IDLE)
+		return;
 	WorldToRender();
 	int alpha = 255;
 	int ani = -1;

@@ -1,14 +1,18 @@
 #pragma once
-
+#define _USE_MATH_DEFINES
 #include <Windows.h>
 #include <d3dx9.h>
 #include <vector>
+#include <cmath>
+#include <math.h>
 #include"Game.h"
 #include "Sprites.h"
 #include "Animations.h"
 
 
 using namespace std;
+
+
 
 #define OBJECT_TYPE_JASON		0
 #define OBJECT_TYPE_TANK		1
@@ -17,6 +21,9 @@ using namespace std;
 #define OBJECT_TYPE_BRICK		4
 #define OBJECT_TYPE_INTERRUPT	5
 #define OBJECT_TYPE_BALLBOT		6
+#define OBJECT_TYPE_EYELET		7
+#define OBJECT_TYPE_BALLCARRY	8
+#define OBJECT_TYPE_STUKA		9
 #define OBJECT_TYPE_BULLET		10
 
 #define OBJECT_TYPE_PORTAL	50
@@ -88,6 +95,8 @@ public:
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
+
+	void Setnx(int direction) { nx = direction; }
 
 	int GetState() { return this->state; }
 

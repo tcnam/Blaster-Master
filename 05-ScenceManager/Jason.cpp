@@ -28,7 +28,7 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
-
+	
 	// Simple fall down
 	vy -= JASON_GRAVITY*dt;
 
@@ -73,6 +73,10 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		if (ny != 0)
 		{
 			vy = 0;
+			
+		}
+		if (ny > 0)
+		{
 			isJumping = false;
 		}
 		// block every object first!
@@ -208,18 +212,23 @@ void CJason::SetState(int state)
 
 	switch (state)
 	{
-	case JASON_STATE_WALKING_RIGHT:
-		vx = JASON_WALKING_SPEED;
+	case JASON_STATE_AUTO_GO:
 		nx = 1;
+		vx = nx * JASON_WALKING_SPEED;
+		//vy = JASON_WALKING_SPEED* cos(M_PI + dem * M_PI / 180);
+		break;
+	case JASON_STATE_WALKING_RIGHT:		
+		nx = 1;
+		vx = nx*JASON_WALKING_SPEED;		
 		if (Tank != NULL && level==JASON_LEVEL_TANK)
 		{
 			Tank->SetState(TANK_STATE_RIGHT);
 			Tank->SetMoving(true);
-		}		
+		}
 		break;
 	case JASON_STATE_WALKING_LEFT: 
-		vx = -JASON_WALKING_SPEED;
 		nx = -1;
+		vx = nx*JASON_WALKING_SPEED;		
 		if (Tank != NULL && level==JASON_LEVEL_TANK)
 		{
 			Tank->SetState(TANK_STATE_LEFT);
@@ -235,7 +244,8 @@ void CJason::SetState(int state)
 		}
 		//vy = JASON_JUMP_SPEED_Y;
 		break; 
-	case JASON_STATE_IDLE: 		
+	case JASON_STATE_IDLE:
+		vy = 0;
 		vx = 0;
 		if (Tank != NULL)
 		{

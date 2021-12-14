@@ -1,7 +1,8 @@
 #include "Ballbot.h"
-CBallbot::CBallbot()
+CBallbot::CBallbot():CGameObject()
 {
 	SetState(BALLBOT_STATE_IDLE);
+	Jason = NULL;
 }
 
 void CBallbot::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -25,7 +26,7 @@ void CBallbot::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	float l1, t1, r1, b1;
 	Jason->GetPosition(jason_x, jason_y);
 	Jason->GetBoundingBox(l1, t1, r1, b1);
-	bool choose_state = CGame::GetInstance()->AABBCheck(l1, t1, r1, b1, x-160.0f, y + BALLBOT_BBOX_HEIGHT, x + +160.0f+BALLBOT_BBOX_WIDTH, y + BALLBOT_BBOX_HEIGHT + DY_FOR_CHANGE_STATE);
+	bool choose_state = CGame::GetInstance()->AABBCheck(l1, t1, r1, b1, x-160.0f, y - DY_FOR_CHANGE_STATE, x + +160.0f+BALLBOT_BBOX_WIDTH, y  );
 	if (choose_state == false)
 		SetState(BALLBOT_STATE_IDLE);
 	else

@@ -15,7 +15,7 @@
 #define INTERRUPT_ANI_IDLE 0
 #define INTERRUPT_ANI_ACTION 1
 
-#define DY_FOR_CHANGE_STATE		160.0f
+#define DY_FOR_CHANGE_STATE		320
 class CInterrupt : public CGameObject
 {
 	
