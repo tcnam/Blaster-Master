@@ -360,7 +360,7 @@ void CPlayScene::Update(DWORD dt)
 		}
 	}
 	DebugOut(L"coObjects size:%i\n", coObjects.size());
-	//player->Update(dt, &coObjectsOfJason);
+	player->Update(dt, &coObjectsOfJason);
 	for (size_t i = 0; i < coObjects.size(); i++)
 	{
 		switch (coObjects[i]->GetType())
@@ -500,11 +500,12 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 		}
 		Jason->SetState(JASON_STATE_WALKING_LEFT);
 	}	
-	else
+	else 
 	{
 		if(game->IsKeyDown(DIK_UP))
 			Jason->GetTank()->SetCannonUP(true);
-		Jason->SetState(JASON_STATE_IDLE);
+		else 			
+			Jason->SetState(JASON_STATE_IDLE);
 	}
 		
 }

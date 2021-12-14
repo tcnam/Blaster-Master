@@ -66,23 +66,20 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		// how to push back JASON if collides with a moving objects, what if JASON is pushed this way into another object?
 		//if (rdx != 0 && rdx!=dx)
 		//	x += nx*abs(rdx); 
-		
-		
-
-		if (nx!=0) vx = 0;
+		if (nx != 0) vx = 0;
 		if (ny != 0)
 		{
 			vy = 0;
-			
+
 		}
 		if (ny > 0)
 		{
 			isJumping = false;
-		}
+		}		
 		// block every object first!
 		x += min_tx * dx + nx * 0.4f;
 		y += min_ty * dy + ny * 0.4f;
-
+		
 
 		//
 		// Collision logic with other objects
@@ -245,7 +242,7 @@ void CJason::SetState(int state)
 		//vy = JASON_JUMP_SPEED_Y;
 		break; 
 	case JASON_STATE_IDLE:
-		vy = 0;
+		vy -=JASON_GRAVITY*dt;
 		vx = 0;
 		if (Tank != NULL)
 		{
