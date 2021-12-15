@@ -495,8 +495,7 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 
 	// disable control key when Jason die 
 	if (Jason->GetState() == JASON_STATE_DIE) return;
-	
-	if (game->IsKeyDown(DIK_RIGHT))
+	if (game->IsKeyDown(DIK_RIGHT)&&!game->IsKeyDown(DIK_LEFT))
 	{
 		if (game->IsKeyDown(DIK_UP))
 			Jason->GetTank()->SetCannonUP(true);
@@ -506,20 +505,23 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 		}
 		Jason->SetState(JASON_STATE_WALKING_RIGHT);
 	}		
-	else if (game->IsKeyDown(DIK_LEFT))
+	else if (game->IsKeyDown(DIK_LEFT)&&!game->IsKeyDown(DIK_RIGHT))
 	{
+		Jason->SetState(JASON_STATE_WALKING_LEFT);
 		if (game->IsKeyDown(DIK_UP))
 			Jason->GetTank()->SetCannonUP(true);
 		else
 		{
 			Jason->GetTank()->SetCannonUP(false);
-		}
-		Jason->SetState(JASON_STATE_WALKING_LEFT);
+		}		
 	}	
 	else 
 	{
-		if(game->IsKeyDown(DIK_UP))
+		if (game->IsKeyDown(DIK_UP) && !game->IsKeyDown(DIK_RIGHT) && !game->IsKeyDown(DIK_LEFT))
+		{
 			Jason->GetTank()->SetCannonUP(true);
+			Jason->SetState(JASON_STATE_IDLE);
+		}		
 		else 			
 			Jason->SetState(JASON_STATE_IDLE);
 	}
