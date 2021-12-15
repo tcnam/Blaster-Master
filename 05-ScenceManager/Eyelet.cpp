@@ -26,11 +26,11 @@ void CEyelet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		dem = 0;
 	if (state == EYELET_STATE_ACTION)
 	{
+		//vx = EYELET_SPEED_X * sin(M_PI + dem * M_PI / 180);
 		vy = EYELET_SPEED_X * cos(M_PI + dem * M_PI / 180);
 		dem++;
 	}
 	CGameObject::Update(dt, coObjects);
-	CGameObject::Update(dt);
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
