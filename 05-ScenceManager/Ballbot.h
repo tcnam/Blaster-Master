@@ -10,20 +10,20 @@
 #define BALLBOT_BBOX_HEIGHT 18
 
 #define BALLBOT_STATE_IDLE		100
-#define BALLBOT_STATE_MOVE_DOWN	200
-#define BALLBOT_STATE_MOVE_UP	300
+#define BALLBOT_STATE_ACTION	200
 #define BALLBOT_STATE_DIE		400
 
 #define BALLBOT_ANI_MOVE_DOWN	0
 #define BALLBOT_ANI_MOVE_UP		1
 
-#define DY_FOR_CHANGE_STATE		96.0f
-#define DY_TO_MOVE_UP			64.0f
+#define DY_FOR_CHANGE_STATE		320.0f
+#define DX_FOR_CHANGE_STATE		128.0f
 class CBallbot : public CGameObject
 {
 private:
 	CJason* Jason;
 	bool isActived;
+	int dem;
 public:
 	CBallbot();
 	void SetJason(CJason* jason) { Jason = jason; }
