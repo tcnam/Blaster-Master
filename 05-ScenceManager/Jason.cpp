@@ -234,12 +234,12 @@ void CJason::SetState(int state)
 		break;
 	case JASON_STATE_JUMP:
 		// TODO: need to check if JASON is *current* on a platform before allowing to jump again
-		if (isJumping == false)
+		/*if (isJumping == false)
 		{
 			isJumping = true;
 			vy = JASON_JUMP_SPEED_Y;
-		}
-		//vy = JASON_JUMP_SPEED_Y;
+		}*/
+		vy = JASON_JUMP_SPEED_Y;
 		break; 
 	case JASON_STATE_IDLE:
 		vy -=JASON_GRAVITY*dt;

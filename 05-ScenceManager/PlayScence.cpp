@@ -184,12 +184,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new CInterrupt(); 
 		((CInterrupt*)obj)->SetInitPosition(x, y);
 		((CInterrupt*)obj)->SetJason(player);
+		((CInterrupt*)obj)->SetInitPosition(x, y);
 		obj->SetType(OBJECT_TYPE_INTERRUPT);
 		break;
 	case OBJECT_TYPE_BALLBOT:
 		obj = new CBallbot();
 		((CBallbot*)obj)->SetInitPosition(x, y);
 		((CBallbot*)obj)->SetJason(player);
+		((CBallbot*)obj)->SetInitPosition(x, y);
 		obj->SetType(OBJECT_TYPE_BALLBOT);
 		break;
 	case OBJECT_TYPE_EYELET:
@@ -197,6 +199,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			obj = new CEyelet();
 			((CEyelet*)obj)->SetInitPosition(x, y);
 			((CEyelet*)obj)->SetJason(player);
+			((CEyelet*)obj)->SetInitPosition(x, y);
 			obj->SetType(OBJECT_TYPE_EYELET);
 			int direction = atoi(tokens[4].c_str());
 			obj->Setnx(direction);
@@ -208,6 +211,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			obj = new CStuka();
 			((CStuka*)obj)->SetInitPosition(x, y);
 			((CStuka*)obj)->SetJason(player);
+			((CStuka*)obj)->SetInitPosition(x, y);
 			obj->SetType(OBJECT_TYPE_STUKA);
 			int direction = atoi(tokens[4].c_str());
 			obj->Setnx(direction);
