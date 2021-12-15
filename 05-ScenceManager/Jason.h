@@ -3,7 +3,7 @@
 #include "Tank.h"
 #include "Bullet.h"
 
-#define JASON_WALKING_SPEED		1000.0f 
+#define JASON_WALKING_SPEED		0.05f 
 //0.1f
 #define JASON_JUMP_SPEED_Y		0.35f
 #define JASON_GRAVITY			0.0008f
@@ -17,16 +17,27 @@
 #define JASON_STATE_WALKING_LEFT	200
 #define JASON_STATE_JUMP			300
 #define JASON_STATE_AUTO_GO			400
+#define JASON_STATE_WALKING_UP		500
+#define JASON_STATE_WALKING_DOWN	600
 #define JASON_STATE_DIE				800
 
 #define JASON_SMALL_ANI_IDLE_RIGHT				0
 #define JASON_SMALL_ANI_IDLE_LEFT				1
-
 #define JASON_SMALL_ANI_WALKING_RIGHT			2
 #define JASON_SMALL_ANI_WALKING_LEFT			3
 
-#define JASON_BIG_BBOX_WIDTH  26	
-#define JASON_BIG_BBOX_HEIGHT 18
+#define JASON_BIG_ANI_IDLE_RIGHT				4
+#define JASON_BIG_ANI_IDLE_LEFT					5
+#define JASON_BIG_ANI_IDLE_UP					6	
+#define JASON_BIG_ANI_IDLE_DOWN					7
+#define JASON_BIG_ANI_WALKING_RIGHT				8
+#define JASON_BIG_ANI_WALKING_LEFT				9
+#define JASON_BIG_ANI_WALKING_UP				10
+#define JASON_BIG_ANI_WALKING_DOWN				11
+
+
+#define JASON_BIG_BBOX_WIDTH  24	
+#define JASON_BIG_BBOX_HEIGHT 32
 
 #define JASON_TANK_BBOX_WIDTH  26	
 #define JASON_TANK_BBOX_HEIGHT 18
@@ -50,6 +61,8 @@ class CJason : public CGameObject
 
 	float start_x;			// initial position of JASON at scene
 	float start_y; 
+	int ny;
+	int laststate;
 
 	CTank* Tank;
 	vector<CBullet*> Bullets;
@@ -61,6 +74,7 @@ public:
 	virtual void Render();
 
 	void SetState(int state);
+	void SetLastState(int s);
 
 	void SetLevel(int l) { level = l; }
 	int GetLevel() { return level; }

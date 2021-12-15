@@ -30,7 +30,8 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	CGameObject::Update(dt);
 	
 	// Simple fall down
-	vy -= JASON_GRAVITY*dt;
+	if(level!=JASON_LEVEL_BIG)
+		vy -= JASON_GRAVITY*dt;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -199,9 +200,45 @@ void CJason::Render()
 			break;
 		}
 	case JASON_LEVEL_BIG:
+		ani = JASON_BIG_ANI_IDLE_DOWN;
+		switch (state)
 		{
+		case JASON_STATE_WALKING_RIGHT:
+			ani = JASON_BIG_ANI_WALKING_RIGHT;
+			break;
+		case JASON_STATE_WALKING_LEFT:
+			ani = JASON_BIG_ANI_WALKING_LEFT;
+			break;
+		case JASON_STATE_WALKING_UP:
+			ani = JASON_BIG_ANI_WALKING_UP;
+			break;
+		case JASON_STATE_WALKING_DOWN:
+			ani = JASON_BIG_ANI_WALKING_DOWN;
+			break;
+		case JASON_STATE_IDLE:
+			switch (laststate)
+			{
+			case JASON_STATE_WALKING_RIGHT:
+				ani = JASON_BIG_ANI_IDLE_RIGHT;
+				break;
+			case JASON_STATE_WALKING_LEFT:
+				ani = JASON_BIG_ANI_IDLE_LEFT;
+				break;
+			case JASON_STATE_WALKING_UP:
+				ani = JASON_BIG_ANI_IDLE_UP;
+				break;
+			case JASON_STATE_WALKING_DOWN:
+				ani = JASON_BIG_ANI_IDLE_DOWN;
+				break;
+			}
 			break;
 		}
+		int alpha = 255;
+		if (untouchable) alpha = 128;
+		animation_set->at(ani)->Render(round(render_x), round(render_y), alpha);
+
+		RenderBoundingBox();
+		break;
 	}
 
 	
@@ -210,52 +247,87 @@ void CJason::Render()
 void CJason::SetState(int state)
 {
 	CGameObject::SetState(state);
-
-	switch (state)
+	if (level == JASON_LEVEL_BIG)
 	{
-	case JASON_STATE_AUTO_GO:
-		nx = 1;
-		vx = nx * JASON_WALKING_SPEED;
-		//vy = JASON_WALKING_SPEED* cos(M_PI + dem * M_PI / 180);
-		break;
-	case JASON_STATE_WALKING_RIGHT:		
-		nx = 1;
-		vx = nx*JASON_WALKING_SPEED;		
-		if (Tank != NULL && level==JASON_LEVEL_TANK)
+		switch (state)
 		{
-			Tank->SetState(TANK_STATE_RIGHT);
-			Tank->SetMoving(true);
+		case JASON_STATE_WALKING_RIGHT:
+			nx = 1;
+			vx = nx * JASON_WALKING_SPEED;
+			vy = 0;
+			break;
+		case JASON_STATE_WALKING_LEFT:
+			nx = -1;
+			vx = nx * JASON_WALKING_SPEED;
+			vy = 0;
+			break;
+		case JASON_STATE_WALKING_UP:
+			ny = 1;
+			vy = ny * JASON_WALKING_SPEED;
+			vx = 0;
+			break;
+		case JASON_STATE_WALKING_DOWN:
+			vx = 0;
+			ny = -1;
+			vy = ny * JASON_WALKING_SPEED;
+			break;
+		case JASON_STATE_IDLE:
+			vx = 0;
+			vy = 0;
+			break;
 		}
-		break;
-	case JASON_STATE_WALKING_LEFT: 
-		nx = -1;
-		vx = nx*JASON_WALKING_SPEED;		
-		if (Tank != NULL && level==JASON_LEVEL_TANK)
+	}
+	else
+	{
+		switch (state)
 		{
-			Tank->SetState(TANK_STATE_LEFT);
-			Tank->SetMoving(true);
-		}
-		break;
-	case JASON_STATE_JUMP:
-		// TODO: need to check if JASON is *current* on a platform before allowing to jump again
-		/*if (isJumping == false)
-		{
-			isJumping = true;
+		case JASON_STATE_AUTO_GO:
+			nx = 1;
+			vx = nx * JASON_WALKING_SPEED;
+			//vy = JASON_WALKING_SPEED* cos(M_PI + dem * M_PI / 180);
+			break;
+		case JASON_STATE_WALKING_RIGHT:
+			nx = 1;
+			vx = nx * JASON_WALKING_SPEED;
+			if (Tank != NULL && level == JASON_LEVEL_TANK)
+			{
+				Tank->SetState(TANK_STATE_RIGHT);
+				Tank->SetMoving(true);
+			}
+			break;
+		case JASON_STATE_WALKING_LEFT:
+			nx = -1;
+			vx = nx * JASON_WALKING_SPEED;
+			if (Tank != NULL && level == JASON_LEVEL_TANK)
+			{
+				Tank->SetState(TANK_STATE_LEFT);
+				Tank->SetMoving(true);
+			}
+			break;
+		case JASON_STATE_JUMP:
+			// TODO: need to check if JASON is *current* on a platform before allowing to jump again
+			/*if (isJumping == false)
+			{
+				isJumping = true;
+				vy = JASON_JUMP_SPEED_Y;
+			}*/
 			vy = JASON_JUMP_SPEED_Y;
-		}*/
-		vy = JASON_JUMP_SPEED_Y;
-		break; 
-	case JASON_STATE_IDLE:
-		vy -=JASON_GRAVITY*dt;
-		vx = 0;
-		if (Tank != NULL)
-		{
-			Tank->SetMoving(false);
+			break;
+		case JASON_STATE_IDLE:
+			if (level == JASON_LEVEL_BIG)
+				vy = 0;
+			else
+				vy -= JASON_GRAVITY * dt;
+			vx = 0;
+			if (Tank != NULL)
+			{
+				Tank->SetMoving(false);
+			}
+			break;
+		case JASON_STATE_DIE:
+			//vy = -JASON_DIE_DEFLECT_SPEED;
+			break;
 		}
-		break;
-	case JASON_STATE_DIE:
-		//vy = -JASON_DIE_DEFLECT_SPEED;
-		break;
 	}
 }
 
@@ -266,8 +338,8 @@ void CJason::GetBoundingBox(float &left, float &top, float &right, float &bottom
 	case JASON_LEVEL_TANK:
 		left = x;
 		top = y;
-		right = x + JASON_BIG_BBOX_WIDTH;
-		bottom = y + JASON_BIG_BBOX_HEIGHT;
+		right = x + JASON_TANK_BBOX_WIDTH;
+		bottom = y + JASON_TANK_BBOX_HEIGHT;
 		break;
 	case JASON_LEVEL_SMALL:
 		left = x;
@@ -275,7 +347,12 @@ void CJason::GetBoundingBox(float &left, float &top, float &right, float &bottom
 		right = x + JASON_SMALL_BBOX_WIDTH;
 		bottom = y + JASON_SMALL_BBOX_HEIGHT;
 		break;
-
+	case JASON_LEVEL_BIG:
+		left = x;
+		top = y;
+		right = x + JASON_BIG_BBOX_WIDTH;
+		bottom = y + JASON_BIG_BBOX_HEIGHT;
+		break;
 	}
 	
 
@@ -296,6 +373,10 @@ void CJason::WorldToRender()
 		render_y = -(y + JASON_SMALL_BBOX_HEIGHT);
 		break;
 	}
+}
+void CJason::SetLastState(int s)
+{
+	laststate = s;
 }
 
 CTank* CJason::GetTank()
