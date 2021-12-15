@@ -3,7 +3,7 @@
 #include "Tank.h"
 #include "Bullet.h"
 
-#define JASON_WALKING_SPEED		0.1f 
+#define JASON_WALKING_SPEED		1000.0f 
 //0.1f
 #define JASON_JUMP_SPEED_Y		0.35f
 #define JASON_GRAVITY			0.0008f

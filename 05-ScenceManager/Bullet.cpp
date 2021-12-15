@@ -18,13 +18,19 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (state == BULLET_STATE_IDLE)
 		return;
-	if (abs(x - start_x) >= BULLET_DISTANCE_FOR_CHANGE_STATE || abs(y - start_y) >= BULLET_DISTANCE_FOR_CHANGE_STATE)
+
+	if (abs(x - start_x) >= BULLET_DISTANCE_FOR_CHANGE_STATE || abs(y - start_y) >= BULLET_DISTANCE_FOR_CHANGE_STATE )
 	{
 		SetState(BULLET_STATE_IDLE,0,0);
+		//return;
 	}
-	// Calculate dx, dy 
-	CGameObject::Update(dt);
 
+	// Calculate dx, dy 
+	CGameObject::Update(dt, coObjects);
+	if (GetTickCount64() - effect_start > EFFECT_TIME&&state==BULLET_STATE_IMPACT)
+	{
+		SetState(BULLET_STATE_IDLE, 0, 0);
+	}
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -63,13 +69,18 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		x += min_tx * dx + nx * 0.4f;
 		y += min_ty * dy + ny * 0.4f;
 
-
 		//
 		// Collision logic with other objects
 		//
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
-			LPCOLLISIONEVENT e = coEventsResult[i];						
+			LPCOLLISIONEVENT e = coEventsResult[i];
+			SetState(BULLET_STATE_IMPACT,0,0);
+			StartEffect();
+			//if (dynamic_cast<CBrick*>(e->obj)) // if e->obj is Goomba 
+			//{
+			//				
+			//}
 		}
 	}
 	
@@ -90,14 +101,24 @@ void CBullet::Render()
 	WorldToRender();
 	int alpha = 255;
 	int ani = -1;
-	if (vy > 0)
-		ani = BULLET_ANI_UP;
-	else
+	switch (state)
 	{
-		if (nx == 1)
-			ani = BULLET_ANI_RIGHT;
-		else
-			ani = BULLET_ANI_LEFT;
+	case BULLET_STATE_IMPACT:
+		ani = BULLET_ANI_IMPACT;
+		break;
+	case BULLET_STATE_FIRE:
+		{
+			if (vy > 0)
+				ani = BULLET_ANI_UP;
+			else
+			{
+				if (nx == 1)
+					ani = BULLET_ANI_RIGHT;
+				else
+					ani = BULLET_ANI_LEFT;
+			}
+		}
+		break;
 	}
 	animation_set->at(ani)->Render(round(render_x), round(render_y), alpha);
 	RenderBoundingBox();
@@ -124,22 +145,39 @@ void CBullet::SetState(int state,int nx, int ny)
 			break;
 		}
 		break;
+	case BULLET_STATE_IMPACT:
+		vx = 0;
+		vy = 0;
+		break;
 	}
 }
 void CBullet::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
-	if (vy > 0)
+	switch (state)
 	{
-		right = x + BULLET_BBOX_HEIGHT;
-		bottom = y + BULLET_BBOX_WIDTH;
+	case BULLET_STATE_FIRE:
+		{
+			if (vy == 0)
+			{
+				right = x + BULLET_BBOX_WIDTH;
+				bottom = y + BULLET_BBOX_HEIGHT;
+
+			}
+			else
+			{
+				right = x + BULLET_BBOX_HEIGHT;
+				bottom = y + BULLET_BBOX_WIDTH;
+			}
+		}	
+		break;
+	default:
+		right = x + BULLET_IMPACT_BBOX_WIDTH;
+		bottom = y + BULLET_IMPACT_BBOX_HEIGT;
+		break;
 	}
-	else
-	{
-		right = x + BULLET_BBOX_WIDTH;
-		bottom = y + BULLET_BBOX_HEIGHT;
-	}
+
 }
 CBullet::~CBullet()
 {

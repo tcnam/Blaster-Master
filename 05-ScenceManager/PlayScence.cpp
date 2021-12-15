@@ -354,9 +354,9 @@ void CPlayScene::Update(DWORD dt)
 	//camera->Update(dt);
 	vector<LPGAMEOBJECT> coObjects;
 	vector<LPGAMEOBJECT> coObjectsOfJason;			//Objects for collidding of Jason
-	vector<LPGAMEOBJECT> coObejctOfBullets;
-	vector<LPGAMEOBJECT> coObjectOfEnemies1;		//not include bircks
-	vector<LPGAMEOBJECT> coObjectOfEnemies2;		//include bricks
+	vector<LPGAMEOBJECT> coObejctsOfBullets;
+	vector<LPGAMEOBJECT> coObjectsOfEnemies1;		//not include bircks
+	vector<LPGAMEOBJECT> coObjectsOfEnemies2;		//include bricks
 	if(quadtree!=NULL)
 		quadtree->GetListObject(coObjects, camera);
 	for (unsigned int i = 0; i < permanentObjects.size(); i++)
@@ -369,10 +369,11 @@ void CPlayScene::Update(DWORD dt)
 		{
 		case OBJECT_TYPE_BRICK:
 			coObjectsOfJason.push_back(coObjects[i]);
-			coObjectOfEnemies2.push_back(coObjects[i]);
+			coObejctsOfBullets.push_back(coObjects[i]);
+			coObjectsOfEnemies2.push_back(coObjects[i]);
 			break;
 		case OBJECT_TYPE_JASON:
-			coObjectOfEnemies1.push_back(coObjects[i]);
+			coObjectsOfEnemies1.push_back(coObjects[i]);
 			break;
 		}
 	}
@@ -386,13 +387,13 @@ void CPlayScene::Update(DWORD dt)
 			coObjects[i]->Update(dt, &coObjectsOfJason);
 			break;
 		case OBJECT_TYPE_BULLET:
-			coObjects[i]->Update(dt, &coObejctOfBullets);
+			coObjects[i]->Update(dt, &coObejctsOfBullets);
 			break;
 		case OBJECT_TYPE_EYELET:
-			coObjects[i]->Update(dt, &coObjectOfEnemies1);
+			coObjects[i]->Update(dt, &coObjectsOfEnemies1);
 			break;
 		case OBJECT_TYPE_STUKA:
-			coObjects[i]->Update(dt, &coObjectOfEnemies2);
+			coObjects[i]->Update(dt, &coObjectsOfEnemies2);
 			break;
 		default:
 			coObjects[i]->Update(dt, &coObjects);
