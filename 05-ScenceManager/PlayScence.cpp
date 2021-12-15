@@ -500,35 +500,72 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 
 	// disable control key when Jason die 
 	if (Jason->GetState() == JASON_STATE_DIE) return;
-	if (game->IsKeyDown(DIK_RIGHT)&&!game->IsKeyDown(DIK_LEFT))
+	switch (Jason->GetLevel())
 	{
-		if (game->IsKeyDown(DIK_UP))
-			Jason->GetTank()->SetCannonUP(true);
-		else
+	case JASON_LEVEL_BIG:
 		{
-			Jason->GetTank()->SetCannonUP(false);
+			if (game->IsKeyDown(DIK_RIGHT) && !game->IsKeyDown(DIK_LEFT))
+			{
+				Jason->SetState(JASON_STATE_WALKING_RIGHT);
+				Jason->SetLastState(JASON_STATE_WALKING_RIGHT);
+			}
+			else if (game->IsKeyDown(DIK_LEFT) && !game->IsKeyDown(DIK_RIGHT))
+			{
+				Jason->SetState(JASON_STATE_WALKING_LEFT);
+				Jason->SetLastState(JASON_STATE_WALKING_LEFT);
+			}
+			else if (game->IsKeyDown(DIK_UP) && !game->IsKeyDown(DIK_DOWN))
+			{
+				Jason->SetState(JASON_STATE_WALKING_UP);
+				Jason->SetLastState(JASON_STATE_WALKING_UP);
+			}
+			else if (game->IsKeyDown(DIK_DOWN) && !game->IsKeyDown(DIK_UP))
+			{
+				Jason->SetState(JASON_STATE_WALKING_DOWN);
+				Jason->SetLastState(JASON_STATE_WALKING_DOWN);
+			}
+			else
+			{
+				Jason->SetState(JASON_STATE_IDLE);
+			}
 		}
-		Jason->SetState(JASON_STATE_WALKING_RIGHT);
-	}		
-	else if (game->IsKeyDown(DIK_LEFT)&&!game->IsKeyDown(DIK_RIGHT))
-	{
-		Jason->SetState(JASON_STATE_WALKING_LEFT);
-		if (game->IsKeyDown(DIK_UP))
-			Jason->GetTank()->SetCannonUP(true);
-		else
+		break;
+	default:
 		{
-			Jason->GetTank()->SetCannonUP(false);
-		}		
-	}	
-	else 
-	{
-		if (game->IsKeyDown(DIK_UP) && !game->IsKeyDown(DIK_RIGHT) && !game->IsKeyDown(DIK_LEFT))
-		{
-			Jason->GetTank()->SetCannonUP(true);
-			Jason->SetState(JASON_STATE_IDLE);
-		}		
-		else 			
-			Jason->SetState(JASON_STATE_IDLE);
+			if (game->IsKeyDown(DIK_RIGHT) && !game->IsKeyDown(DIK_LEFT))
+			{
+				if (game->IsKeyDown(DIK_UP))
+					Jason->GetTank()->SetCannonUP(true);
+				else
+				{
+					Jason->GetTank()->SetCannonUP(false);
+				}
+				Jason->SetState(JASON_STATE_WALKING_RIGHT);
+			}
+			else if (game->IsKeyDown(DIK_LEFT) && !game->IsKeyDown(DIK_RIGHT))
+			{
+				Jason->SetState(JASON_STATE_WALKING_LEFT);
+				if (game->IsKeyDown(DIK_UP))
+					Jason->GetTank()->SetCannonUP(true);
+				else
+				{
+					Jason->GetTank()->SetCannonUP(false);
+				}
+			}
+			else
+			{
+				if (game->IsKeyDown(DIK_UP) && !game->IsKeyDown(DIK_RIGHT) && !game->IsKeyDown(DIK_LEFT))
+				{
+					Jason->GetTank()->SetCannonUP(true);
+					Jason->SetState(JASON_STATE_IDLE);
+				}
+				else
+					Jason->SetState(JASON_STATE_IDLE);
+			}
+		}
+
+		break;
 	}
+
 		
 }
