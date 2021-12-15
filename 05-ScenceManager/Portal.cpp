@@ -16,6 +16,7 @@ void CPortal::WorldToRender()
 }
 void CPortal::Render()
 {
+	WorldToRender();
 	RenderBoundingBox();
 }
 
