@@ -27,15 +27,16 @@ void CBallbot::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		dem = 0;
 	if (state == BALLBOT_STATE_ACTION)
 	{
-		vx = BALLBOT_SPEED_X * sin(M_PI + dem * M_PI / 180);
-		vy = BALLBOT_SPEED_X * cos(M_PI + dem * M_PI / 180);
+		vx = 0;
+		vx = BALLBOT_SPEED_X * sin(M_PI/2+dem * M_PI / 180);
+		vy = BALLBOT_SPEED_X * cos(M_PI/2+dem * M_PI / 180);
 		dem++;
 	}
 	float jason_x, jason_y;
 	float l1, t1, r1, b1;
 	Jason->GetPosition(jason_x, jason_y);
 	Jason->GetBoundingBox(l1, t1, r1, b1);
-	bool choose_state = CGame::GetInstance()->AABBCheck(l1, t1, r1, b1, x-DX_FOR_CHANGE_STATE, y - DY_FOR_CHANGE_STATE, x + BALLBOT_BBOX_WIDTH+DX_FOR_CHANGE_STATE, y);
+	bool choose_state = CGame::GetInstance()->AABBCheck(l1, t1, r1, b1, init_x-DX_FOR_CHANGE_STATE, init_y - DY_FOR_CHANGE_STATE, init_x + BALLBOT_BBOX_WIDTH+DX_FOR_CHANGE_STATE, init_y);
 	if (choose_state == false)
 	{
 		SetState(BALLBOT_STATE_IDLE);
@@ -83,8 +84,8 @@ void CBallbot::SetState(int state)
 		vy = 0;
 		break;
 	case BALLBOT_STATE_ACTION:
-		vx = BALLBOT_SPEED_X * sin(M_PI + dem * M_PI / 180);
-		vy = BALLBOT_SPEED_X * cos(M_PI + dem * M_PI / 180);
+		vx = BALLBOT_SPEED_X * sin(M_PI/2 + dem * M_PI / 180);
+		vy = BALLBOT_SPEED_X * cos(M_PI/2 + dem * M_PI / 180);
 		break;
 	}
 }

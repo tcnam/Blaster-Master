@@ -17,7 +17,7 @@
 #define BALLBOT_ANI_MOVE_UP		1
 
 #define DY_FOR_CHANGE_STATE		320.0f
-#define DX_FOR_CHANGE_STATE		128.0f
+#define DX_FOR_CHANGE_STATE		160.0f
 class CBallbot : public CGameObject
 {
 private:
