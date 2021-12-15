@@ -5,7 +5,7 @@
 
 #define BOUNDRRY_X_MAX 1792.0f
 #define CAMX_IN_USE 330
-#define CAMY_IN_USE 300
+#define CAMY_IN_USE 360
 
 
 class Camera
