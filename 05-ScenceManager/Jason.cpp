@@ -27,7 +27,7 @@ CJason::CJason(float x, float y) : CGameObject()
 void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	// Calculate dx, dy 
-	CGameObject::Update(dt);
+	CGameObject::Update(dt, coObjects);
 	
 	// Simple fall down
 	if(level!=JASON_LEVEL_BIG)
@@ -92,44 +92,15 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-
-			if (dynamic_cast<CGoomba *>(e->obj)) // if e->obj is Goomba 
-			{
-				CGoomba *goomba = dynamic_cast<CGoomba *>(e->obj);
-
-				// jump on top >> kill Goomba and deflect a bit 
-				if (e->ny < 0)
-				{
-					if (goomba->GetState()!= GOOMBA_STATE_DIE)
-					{
-						goomba->SetState(GOOMBA_STATE_DIE);
-						//vy = -JASON_JUMP_DEFLECT_SPEED;
-					}
-				}
-				else if (e->nx != 0)
-				{
-					if (untouchable==0)
-					{
-						if (goomba->GetState()!=GOOMBA_STATE_DIE)
-						{
-							/*if (level > JASON_LEVEL_SMALL)
-							{
-								level = JASON_LEVEL_SMALL;
-								StartUntouchable();
-							}
-							else */
-								SetState(JASON_STATE_DIE);
-						}
-					}
-				}
-			} // if Goomba
-			else if (dynamic_cast<CPortal *>(e->obj))
+			if (dynamic_cast<CPortal *>(e->obj))
 			{
 				CPortal *p = dynamic_cast<CPortal *>(e->obj);
 				CGame::GetInstance()->SwitchScene(p->GetSceneId());
 			}
 		}
 	}
+	// clean up collision events
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	if (level == JASON_LEVEL_TANK)
 	{
 		if (Tank != NULL)
@@ -162,11 +133,7 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 		}
 	}
-	
-		
 
-	// clean up collision events
-	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
 void CJason::Render()
