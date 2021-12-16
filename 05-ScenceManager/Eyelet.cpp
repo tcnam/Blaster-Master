@@ -22,6 +22,8 @@ void CEyelet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// 
 	if (Jason == NULL)
 		return;
+	if (state == EYELET_STATE_DIE)
+		return;
 	if (dem >= 180)
 		dem = 0;
 	if (state == EYELET_STATE_ACTION)
@@ -105,6 +107,8 @@ void CEyelet::WorldToRender()
 void CEyelet::Render()
 {
 	if (state == EYELET_STATE_IDLE)
+		return;
+	if (state == EYELET_STATE_DIE)
 		return;
 	WorldToRender();
 	int ani = -1;

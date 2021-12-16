@@ -21,6 +21,8 @@ void CStuka::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// 
 	if (Jason == NULL)
 		return;
+	if (state == STUKA_STATE_DIE)
+		return;
 	CGameObject::Update(dt, coObjects);
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -28,8 +30,7 @@ void CStuka::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	coEvents.clear();
 
 	// turn off collision when die 
-	if (state != JASON_STATE_DIE)
-		CalcPotentialCollisions(coObjects, coEvents);
+	CalcPotentialCollisions(coObjects, coEvents);
 
 	// reset untouchable timer if untouchable time has passed
 
@@ -99,6 +100,8 @@ void CStuka::WorldToRender()
 }
 void CStuka::Render()
 {
+	if (state == STUKA_STATE_DIE)
+		return;
 	WorldToRender();
 	int ani = -1;
 	switch (nx)

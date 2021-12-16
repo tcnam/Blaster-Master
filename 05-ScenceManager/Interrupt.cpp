@@ -18,13 +18,15 @@ void CInterrupt::GetBoundingBox(float& left, float& top, float& right, float& bo
 
 void CInterrupt::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	CGameObject::Update(dt, coObjects);
 
+	if (Jason == NULL)
+		return;
+	if (state == INTERRUPT_STATE_DIE)
+		return;
+	CGameObject::Update(dt, coObjects);
 	//
 	// TO-DO: make sure INTERRUPT can interact with the world and to each of them too!
 	// 
-	if (Jason == NULL)
-		return;
 	float jason_x, jason_y;
 	float l1, t1, r1, b1;
 	Jason->GetPosition(jason_x, jason_y);
@@ -43,6 +45,8 @@ void CInterrupt::WorldToRender()
 }
 void CInterrupt::Render()
 {
+	if (state == INTERRUPT_STATE_DIE)
+		return;
 	WorldToRender();
 	int ani = INTERRUPT_ANI_IDLE;
 	if (state == INTERRUPT_STATE_ACTION) {

@@ -23,6 +23,8 @@ void CBallbot::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// 
 	if (Jason == NULL)
 		return;
+	if (state == BALLBOT_STATE_DIE)
+		return;
 	if (dem >= 360)
 		dem = 0;
 	if (state == BALLBOT_STATE_ACTION)
@@ -57,7 +59,10 @@ void CBallbot::WorldToRender()
 }
 void CBallbot::Render()
 {
+	if (state == BALLBOT_STATE_DIE)
+		return;
 	WorldToRender();
+
 	int ani = -1;
 	if (vy > 0)
 		ani = BALLBOT_ANI_MOVE_UP;
