@@ -150,11 +150,16 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			DebugOut(L"[ERROR] Jason object was created before!\n");
 			return;
 		}
-		obj = new CJason(x,y); 
-		player = (CJason*)obj;  
-		player->SetType(OBJECT_TYPE_JASON);
-		DebugOut(L"[INFO] Player object created!\n");
-		permanentObjects.push_back(obj);
+		else
+		{
+			obj = new CJason(x, y);
+			player = (CJason*)obj;
+			player->SetType(OBJECT_TYPE_JASON);
+			int level = atoi(tokens[4].c_str());
+			player->SetLevel(level);
+			DebugOut(L"[INFO] Player object created!\n");
+			permanentObjects.push_back(obj);
+		}
 		break;
 	case OBJECT_TYPE_TANK:
 		obj = new CTank(x,y);
@@ -228,10 +233,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	case OBJECT_TYPE_PORTAL:
 		{	
-			float r = atof(tokens[4].c_str());
-			float b = atof(tokens[5].c_str());
+			float w = atof(tokens[4].c_str());
+			float h = atof(tokens[5].c_str());
 			int scene_id = atoi(tokens[6].c_str());
-			obj = new CPortal(x, y, r, b, scene_id);
+			obj = new CPortal(x, y, w, h, scene_id);
+			((CPortal*)obj)->SetType(OBJECT_TYPE_PORTAL);
+			permanentObjects.push_back(obj);
 		}
 		break;
 	default:
@@ -374,12 +381,38 @@ void CPlayScene::Update(DWORD dt)
 			break;
 		case OBJECT_TYPE_JASON:
 			coObjectsOfEnemies1.push_back(coObjects[i]);
+			coObjectsOfEnemies2.push_back(coObjects[i]);
+			break;
+		case OBJECT_TYPE_BALLBOT:
+			if(coObjects[i]->GetState()!=BALLBOT_STATE_DIE)
+				coObejctsOfBullets.push_back(coObjects[i]);
+			break;
+		case OBJECT_TYPE_BALLCARRY:						//haven't implemented
+			if (coObjects[i]->GetState() != BALLBOT_STATE_DIE)		
+				coObejctsOfBullets.push_back(coObjects[i]);
+			break;
+		case OBJECT_TYPE_EYELET:
+			if (coObjects[i]->GetState() != EYELET_STATE_DIE)
+				coObejctsOfBullets.push_back(coObjects[i]);
+			break;
+		case OBJECT_TYPE_INTERRUPT:
+			if (coObjects[i]->GetState() != INTERRUPT_STATE_DIE)
+				coObejctsOfBullets.push_back(coObjects[i]);
+			break;
+		case OBJECT_TYPE_STUKA:
+			if (coObjects[i]->GetState() != STUKA_STATE_DIE)
+				coObejctsOfBullets.push_back(coObjects[i]);
+			break;
+		case OBJECT_TYPE_PORTAL:
+			coObjectsOfJason.push_back(coObjects[i]);
 			break;
 		}
 	}
 	DebugOut(L"coObjects size:%i\n", coObjects.size());
 	player->Update(dt, &coObjectsOfJason);
-	for (size_t i = 0; i < coObjects.size(); i++)
+	// skip the rest if scene was already unloaded (Jason::Update might trigger PlayScene::Unload)
+	if (player == NULL) return;
+	for (size_t i = 1; i < coObjects.size(); i++)
 	{
 		switch (coObjects[i]->GetType())
 		{
@@ -396,15 +429,13 @@ void CPlayScene::Update(DWORD dt)
 			coObjects[i]->Update(dt, &coObjectsOfEnemies2);
 			break;
 		default:
+			if (player == NULL)
+				return;
 			coObjects[i]->Update(dt, &coObjects);
 			break;
 		}
 		
 	}
-
-	// skip the rest if scene was already unloaded (Jason::Update might trigger PlayScene::Unload)
-	if (player == NULL) return; 
-
 	// Update camera to follow Jason
 	//CGame::GetInstance()->SetCamPos(0.0f, -64.0f);
 	camera->Update(dt);
@@ -446,6 +477,9 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	CJason *Jason = ((CPlayScene*)scence)->GetPlayer();
 	switch (KeyCode)
 	{
+	case DIK_S:
+		CGame::GetInstance()->SwitchScene(2);
+		break;
 	case DIK_SPACE:
 		Jason->SetState(JASON_STATE_JUMP);
 		break;
