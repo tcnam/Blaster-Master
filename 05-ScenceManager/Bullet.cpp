@@ -1,5 +1,9 @@
 #include "Bullet.h"
 #include "Camera.h"
+#include "Stuka.h"
+#include"Interrupt.h"
+#include "Eyelet.h"
+#include "Ballbot.h"
 
 CBullet::CBullet():CGameObject()
 {
@@ -75,12 +79,34 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
+			if (this->nx == 1)
+				SetPosition(x + BULLET_BBOX_WIDTH, y);
 			SetState(BULLET_STATE_IMPACT,0,0);
 			StartEffect();
-			//if (dynamic_cast<CBrick*>(e->obj)) // if e->obj is Goomba 
-			//{
-			//				
-			//}
+			if (dynamic_cast<CStuka*>(e->obj)) // if e->obj is Goomba 
+			{
+				CStuka* s = dynamic_cast<CStuka*>(e->obj);
+				if (s->GetState() != STUKA_STATE_DIE)
+					s->SetState(STUKA_STATE_DIE);
+			}
+			else if (dynamic_cast<CInterrupt*>(e->obj))
+			{
+				CInterrupt* i = dynamic_cast<CInterrupt*>(e->obj);
+				if (i->GetState() != INTERRUPT_STATE_DIE)
+					i->SetState(INTERRUPT_STATE_DIE);
+			}
+			else if (dynamic_cast<CBallbot*>(e->obj))
+			{
+				CBallbot* b = dynamic_cast<CBallbot*>(e->obj);
+				if (b->GetState() != BALLBOT_STATE_DIE)
+					b->SetState(BALLBOT_STATE_DIE);
+			}
+			else if (dynamic_cast<CEyelet*>(e->obj))
+			{
+				CEyelet* eye = dynamic_cast<CEyelet*>(e->obj);
+				if (eye->GetState() != EYELET_STATE_DIE)
+					eye->SetState(EYELET_STATE_DIE);
+			}
 		}
 	}
 	
