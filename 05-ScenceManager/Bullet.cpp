@@ -79,33 +79,61 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (this->nx == 1)
-				SetPosition(x + BULLET_BBOX_WIDTH, y);
+			//if (this->nx > 0)
+				//SetPosition(x + BULLET_BBOX_WIDTH, y);
 			SetState(BULLET_STATE_IMPACT,0,0);
 			StartEffect();
+			float collide_x, collide_y;
 			if (dynamic_cast<CStuka*>(e->obj)) // if e->obj is Goomba 
 			{
 				CStuka* s = dynamic_cast<CStuka*>(e->obj);
 				if (s->GetState() != STUKA_STATE_DIE)
+				{
 					s->SetState(STUKA_STATE_DIE);
+					s->GetPosition(collide_x, collide_y);
+					SetPosition(collide_x, collide_y);
+				}					
 			}
 			else if (dynamic_cast<CInterrupt*>(e->obj))
 			{
 				CInterrupt* i = dynamic_cast<CInterrupt*>(e->obj);
 				if (i->GetState() != INTERRUPT_STATE_DIE)
+				{
 					i->SetState(INTERRUPT_STATE_DIE);
+					i->GetPosition(collide_x, collide_y);
+					SetPosition(collide_x, collide_y);
+				}
+					
 			}
 			else if (dynamic_cast<CBallbot*>(e->obj))
 			{
 				CBallbot* b = dynamic_cast<CBallbot*>(e->obj);
 				if (b->GetState() != BALLBOT_STATE_DIE)
+				{
 					b->SetState(BALLBOT_STATE_DIE);
+					b->GetPosition(collide_x, collide_y);
+					SetPosition(collide_x, collide_y);
+				}
+
 			}
 			else if (dynamic_cast<CEyelet*>(e->obj))
 			{
 				CEyelet* eye = dynamic_cast<CEyelet*>(e->obj);
 				if (eye->GetState() != EYELET_STATE_DIE)
+				{
 					eye->SetState(EYELET_STATE_DIE);
+					eye->GetPosition(collide_x, collide_y);
+					SetPosition(collide_x, collide_y);
+				}			
+			}
+			else if (dynamic_cast<CBrick*>(e->obj))
+			{
+				CBrick* brick = dynamic_cast<CBrick*>(e->obj);
+				brick->GetPosition(collide_x, collide_y);
+				if(e->nx<0 && e->ny==0)
+					SetPosition(x+BULLET_BBOX_WIDTH/2, y);
+				if (e->ny != 0 && e->nx == 0)
+					SetPosition(x, collide_y);
 			}
 		}
 	}
