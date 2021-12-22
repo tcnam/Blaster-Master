@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Tank.h"
 #include "Bullet.h"
+#include "RainbowBullet.h"
 
 #define JASON_WALKING_SPEED		0.08f
 //0.08f
@@ -65,8 +66,12 @@ class CJason : public CGameObject
 	int laststate;
 
 	CTank* Tank;
+
 	vector<CBullet*> Bullets;
 	int bulletIndex;
+
+	vector<CRainbowBullet*> rBullets;
+	int rBulletIndex;
 public: 
 	CJason(float x = 0.0f, float y = 0.0f);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
@@ -90,6 +95,9 @@ public:
 
 	void PushBullets(CBullet* bl) { Bullets.push_back(bl); }
 	vector<CBullet*> GetBullets() { return Bullets; }
+
+	void PushRainBullets(CRainbowBullet* rbl) { rBullets.push_back(rbl); }
+	vector<CRainbowBullet*> GetRainBullets() { return rBullets; }
 	
 	void StartAttack();
 	void Reset();

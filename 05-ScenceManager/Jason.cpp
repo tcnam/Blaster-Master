@@ -97,6 +97,9 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			if (dynamic_cast<CPortal *>(e->obj))
 			{
 				CPortal *p = dynamic_cast<CPortal *>(e->obj);
+				Tank = NULL;
+				Bullets.clear();
+				rBullets.clear();
 				CGame::GetInstance()->SwitchScene(p->GetSceneId());
 			}
 		}
@@ -372,36 +375,65 @@ void CJason::Reset()
 
 void CJason::StartAttack()
 {
-	if (Bullets.size() == 0)
-		return;
+
 	if (isFiring == true)
 		return;
-	if (bulletIndex >= Bullets.size() )
-		bulletIndex = 0;
-	if (Bullets[bulletIndex]->GetState() == BULLET_STATE_IDLE)
+	switch (level)
 	{
-		switch (Tank->GetCannon()->CannonUpOrNot())
+	case JASON_LEVEL_TANK:
+	{
+		if (Bullets.size() == 0)
+			return;
+		if (bulletIndex >= Bullets.size())
+			bulletIndex = 0;
+		if (Bullets[bulletIndex]->GetState() == BULLET_STATE_IDLE)
 		{
-		case false:
-			switch (nx)
+			switch (Tank->GetCannon()->CannonUpOrNot())
 			{
-			case 1:
-				Bullets[bulletIndex]->SetStartPosition(x , y + JASON_TANK_BBOX_HEIGHT);
-				Bullets[bulletIndex]->SetPosition(x , y + JASON_TANK_BBOX_HEIGHT);
+			case false:
+				switch (nx)
+				{
+				case 1:
+					Bullets[bulletIndex]->SetStartPosition(x, y + JASON_TANK_BBOX_HEIGHT);
+					Bullets[bulletIndex]->SetPosition(x, y + JASON_TANK_BBOX_HEIGHT);
+					break;
+				case -1:
+					Bullets[bulletIndex]->SetStartPosition(x, y + JASON_TANK_BBOX_HEIGHT);
+					Bullets[bulletIndex]->SetPosition(x, y + JASON_TANK_BBOX_HEIGHT);
+					break;
+				}
 				break;
-			case -1:
-				Bullets[bulletIndex]->SetStartPosition(x , y + JASON_TANK_BBOX_HEIGHT);
-				Bullets[bulletIndex]->SetPosition(x , y + JASON_TANK_BBOX_HEIGHT);
+			case true:
+				Bullets[bulletIndex]->SetStartPosition(x + JASON_TANK_BBOX_WIDTH / 2, y + JASON_TANK_BBOX_HEIGHT);
+				Bullets[bulletIndex]->SetPosition(x + JASON_TANK_BBOX_WIDTH / 2, y + JASON_TANK_BBOX_HEIGHT);
 				break;
 			}
-			break;
-		case true:
-			Bullets[bulletIndex]->SetStartPosition(x + JASON_TANK_BBOX_WIDTH / 2, y + JASON_TANK_BBOX_HEIGHT);
-			Bullets[bulletIndex]->SetPosition(x + JASON_TANK_BBOX_WIDTH / 2, y + JASON_TANK_BBOX_HEIGHT);
-			break;
+			Bullets[bulletIndex]->SetState(BULLET_STATE_FIRE, nx, (int)Tank->GetCannon()->CannonUpOrNot());
 		}
-		Bullets[bulletIndex]->SetState(BULLET_STATE_FIRE,nx,(int)Tank->GetCannon()->CannonUpOrNot());
+		bulletIndex++;
 	}
-	bulletIndex++;
+
+		break;
+	case JASON_LEVEL_BIG:
+	{
+		if (rBullets.size() == 0)
+			return;
+		if (rBulletIndex >= rBullets.size())
+			rBulletIndex = 0;
+		if (rBullets[rBulletIndex]->GetState() == RAINBOWBULLET_STATE_IDLE)
+		{
+			rBullets[rBulletIndex]->SetStartPosition(x + JASON_BIG_BBOX_WIDTH / 2, y + JASON_BIG_BBOX_HEIGHT / 2);
+			rBullets[rBulletIndex]->SetPosition(x + JASON_BIG_BBOX_WIDTH / 2, y + JASON_BIG_BBOX_HEIGHT / 2);
+			if (laststate == JASON_STATE_WALKING_RIGHT || laststate == JASON_STATE_WALKING_LEFT)
+				rBullets[rBulletIndex]->SetState(RAINBOWBULLET_STATE_FIRE, nx, 0);
+			else
+				rBullets[rBulletIndex]->SetState(RAINBOWBULLET_STATE_FIRE, 0, ny);
+		}
+		rBulletIndex++;
+	}
+
+		break;
+	}
+
 }
 
