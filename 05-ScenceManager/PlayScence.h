@@ -13,6 +13,7 @@
 #include "Background.h"
 #include "Eyelet.h"
 #include "Stuka.h"
+#include "WeakBrick.h"
 
 
 

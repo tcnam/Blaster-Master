@@ -25,6 +25,7 @@ using namespace std;
 #define OBJECT_TYPE_BALLCARRY	8
 #define OBJECT_TYPE_STUKA		9
 #define OBJECT_TYPE_BULLET		10
+#define OBJECT_TYPE_WEAKBRICK	11
 
 #define OBJECT_TYPE_PORTAL	50
 

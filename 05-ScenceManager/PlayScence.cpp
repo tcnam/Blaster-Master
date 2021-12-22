@@ -231,6 +231,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			obj->SetType(OBJECT_TYPE_BRICK);
 		}
 		break;
+	case OBJECT_TYPE_WEAKBRICK:
+		{
+			obj = new CWeakBrick(x, y);
+			obj->SetType(OBJECT_TYPE_WEAKBRICK);
+		}
+		break;	
 	case OBJECT_TYPE_PORTAL:
 		{	
 			float w = atof(tokens[4].c_str());
@@ -379,6 +385,13 @@ void CPlayScene::Update(DWORD dt)
 			coObejctsOfBullets.push_back(coObjects[i]);
 			coObjectsOfEnemies2.push_back(coObjects[i]);
 			break;
+		case OBJECT_TYPE_WEAKBRICK:
+			if (coObjects[i]->GetState() == WEAKBRICK_STATE_NORMAL)
+			{
+				//coObjectsOfJason.push_back(coObjects[i]);
+				coObejctsOfBullets.push_back(coObjects[i]);
+			}
+			break;
 		case OBJECT_TYPE_JASON:
 			coObjectsOfEnemies1.push_back(coObjects[i]);
 			coObjectsOfEnemies2.push_back(coObjects[i]);
@@ -412,12 +425,13 @@ void CPlayScene::Update(DWORD dt)
 	player->Update(dt, &coObjectsOfJason);
 	// skip the rest if scene was already unloaded (Jason::Update might trigger PlayScene::Unload)
 	if (player == NULL) return;
-	for (size_t i = 1; i < coObjects.size(); i++)
+	for (size_t i = 0; i < coObjects.size(); i++)
 	{
 		switch (coObjects[i]->GetType())
 		{
 		case OBJECT_TYPE_JASON:
-			coObjects[i]->Update(dt, &coObjectsOfJason);
+			//continue;
+			//coObjects[i]->Update(dt, &coObjectsOfJason);
 			break;
 		case OBJECT_TYPE_BULLET:
 			coObjects[i]->Update(dt, &coObejctsOfBullets);
@@ -428,10 +442,15 @@ void CPlayScene::Update(DWORD dt)
 		case OBJECT_TYPE_STUKA:
 			coObjects[i]->Update(dt, &coObjectsOfEnemies2);
 			break;
+		case OBJECT_TYPE_BALLBOT:
+			coObjects[i]->Update(dt, &coObjectsOfEnemies1);
+			break;
 		default:
 			if (player == NULL)
 				return;
-			coObjects[i]->Update(dt, &coObjects);
+			if (coObjects[i] == NULL)
+				return;
+			coObjects[i]->Update(dt, NULL);
 			break;
 		}
 		
