@@ -26,7 +26,10 @@ void CBallbot::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (state == BALLBOT_STATE_DIE)
 		return;
 	if (dem >= 360)
+	{
 		dem = 0;
+		SetState(BALLBOT_STATE_IDLE);
+	}		
 	if (state == BALLBOT_STATE_ACTION)
 	{
 		vx = 0;
@@ -41,7 +44,8 @@ void CBallbot::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	bool choose_state = CGame::GetInstance()->AABBCheck(l1, t1, r1, b1, init_x-DX_FOR_CHANGE_STATE, init_y - DY_FOR_CHANGE_STATE, init_x + BALLBOT_BBOX_WIDTH+DX_FOR_CHANGE_STATE, init_y);
 	if (choose_state == false)
 	{
-		SetState(BALLBOT_STATE_IDLE);
+		if(dem==0&&state==BALLBOT_STATE_ACTION)
+			SetState(BALLBOT_STATE_IDLE);
 	}		
 	else
 	{
@@ -89,8 +93,8 @@ void CBallbot::SetState(int state)
 		vy = 0;
 		break;
 	case BALLBOT_STATE_ACTION:
-		vx = BALLBOT_SPEED_X * sin(M_PI/2 + dem * M_PI / 180);
-		vy = BALLBOT_SPEED_X * cos(M_PI/2 + dem * M_PI / 180);
+		vx = BALLBOT_SPEED_X * sin(M_PI / 2 + dem * M_PI / 180);
+		vy = BALLBOT_SPEED_X * cos(M_PI / 2 + dem * M_PI / 180);
 		break;
 	}
 }
