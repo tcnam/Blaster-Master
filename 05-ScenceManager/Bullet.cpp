@@ -4,6 +4,7 @@
 #include"Interrupt.h"
 #include "Eyelet.h"
 #include "Ballbot.h"
+#include "WeakBrick.h"
 
 CBullet::CBullet():CGameObject()
 {
@@ -132,6 +133,17 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				brick->GetPosition(collide_x, collide_y);
 				if(e->nx<0 && e->ny==0)
 					SetPosition(x+BULLET_BBOX_WIDTH/2, y);
+				if (e->ny != 0 && e->nx == 0)
+					SetPosition(x, collide_y);
+			}
+			else if (dynamic_cast<CWeakBrick*>(e->obj))
+			{
+				CWeakBrick* wbrick = dynamic_cast<CWeakBrick*>(e->obj);
+				wbrick->GetPosition(collide_x, collide_y);
+				if (wbrick->GetState() == WEAKBRICK_STATE_NORMAL)
+					wbrick->SetState(WEAKBRICK_STATE_DISAPPEAR);
+				if (e->nx < 0 && e->ny == 0)
+					SetPosition(x + BULLET_BBOX_WIDTH / 2, y);
 				if (e->ny != 0 && e->nx == 0)
 					SetPosition(x, collide_y);
 			}
