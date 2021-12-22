@@ -72,6 +72,9 @@
     <Filter Include="Jason\Bullet">
       <UniqueIdentifier>{936061cb-afd4-40c9-a077-eb070d681ee3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Enviroment\WeakBrick">
+      <UniqueIdentifier>{d7ec438e-561a-4cb1-a9d8-1dc431d04237}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -151,6 +154,9 @@
     </ClCompile>
     <ClCompile Include="Stuka.cpp">
       <Filter>Object\Enemy\Stuka</Filter>
+    </ClCompile>
+    <ClCompile Include="WeakBrick.cpp">
+      <Filter>Object\Enviroment\WeakBrick</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -234,6 +240,9 @@
     </ClInclude>
     <ClInclude Include="Stuka.h">
       <Filter>Object\Enemy\Stuka</Filter>
+    </ClInclude>
+    <ClInclude Include="WeakBrick.h">
+      <Filter>Object\Enviroment\WeakBrick</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

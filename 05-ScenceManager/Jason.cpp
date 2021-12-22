@@ -30,8 +30,10 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	CGameObject::Update(dt, coObjects);
 	
 	// Simple fall down
-	if(level!=JASON_LEVEL_BIG)
+	/*
+	if (level != JASON_LEVEL_BIG)
 		vy -= JASON_GRAVITY*dt;
+	*/
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -101,38 +103,43 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-	if (level == JASON_LEVEL_TANK)
+	dx = dy = 0;
+	if (this != NULL) //in case collide with portal
 	{
-		if (Tank != NULL)
+		if (level == JASON_LEVEL_TANK)
 		{
-			switch (nx)
+			if (Tank != NULL)
 			{
-			case 1:
-				switch (Tank->GetCannon()->CannonUpOrNot())
+				switch (nx)
 				{
-				case TRUE:
-					Tank->SetPosition(round(x), round(y+2.0f));
+				case 1:
+					switch (Tank->GetCannon()->CannonUpOrNot())
+					{
+					case TRUE:
+						Tank->SetPosition(round(x), round(y + 2.0f));
+						break;
+					case FALSE:
+						Tank->SetPosition(round(x), round(y));
+						break;
+					}
 					break;
-				case FALSE:
-					Tank->SetPosition(round(x), round(y));
+				case -1:
+					switch (Tank->GetCannon()->CannonUpOrNot())
+					{
+					case TRUE:
+						Tank->SetPosition(round(x + 10.0f), round(y + 2.0f));
+						break;
+					case FALSE:
+						Tank->SetPosition(round(x + 10.0f), round(y));
+						break;
+					}
+
 					break;
 				}
-				break;
-			case -1:
-				switch (Tank->GetCannon()->CannonUpOrNot())
-				{
-				case TRUE:
-					Tank->SetPosition(round(x + 10.0f), round(y + 2.0f));
-					break;
-				case FALSE:
-					Tank->SetPosition(round(x + 10.0f), round(y));
-					break;
-				}
-				
-				break;
 			}
 		}
 	}
+
 
 }
 
@@ -256,6 +263,7 @@ void CJason::SetState(int state)
 		case JASON_STATE_WALKING_RIGHT:
 			nx = 1;
 			vx = nx * JASON_WALKING_SPEED;
+			vy -= JASON_GRAVITY * dt;
 			if (Tank != NULL && level == JASON_LEVEL_TANK)
 			{
 				Tank->SetState(TANK_STATE_RIGHT);
@@ -265,6 +273,7 @@ void CJason::SetState(int state)
 		case JASON_STATE_WALKING_LEFT:
 			nx = -1;
 			vx = nx * JASON_WALKING_SPEED;
+			vy -= JASON_GRAVITY * dt;
 			if (Tank != NULL && level == JASON_LEVEL_TANK)
 			{
 				Tank->SetState(TANK_STATE_LEFT);
@@ -273,12 +282,12 @@ void CJason::SetState(int state)
 			break;
 		case JASON_STATE_JUMP:
 			// TODO: need to check if JASON is *current* on a platform before allowing to jump again
-			/*if (isJumping == false)
+			if (isJumping == false)
 			{
 				isJumping = true;
 				vy = JASON_JUMP_SPEED_Y;
-			}*/
-			vy = JASON_JUMP_SPEED_Y;
+			}
+			//vy = JASON_JUMP_SPEED_Y;
 			break;
 		case JASON_STATE_IDLE:
 			if (level == JASON_LEVEL_BIG)

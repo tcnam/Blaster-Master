@@ -3,10 +3,10 @@
 #include "Tank.h"
 #include "Bullet.h"
 
-#define JASON_WALKING_SPEED		0.05f 
-//0.1f
-#define JASON_JUMP_SPEED_Y		0.35f
-#define JASON_GRAVITY			0.0008f
+#define JASON_WALKING_SPEED		0.08f
+//0.08f
+#define JASON_JUMP_SPEED_Y		0.32f			//0.35f
+#define JASON_GRAVITY			0.0008f			//0.0008f
 
 #define JASON_LEVEL_SMALL		1
 #define JASON_LEVEL_TANK		2
@@ -36,7 +36,7 @@
 #define JASON_BIG_ANI_WALKING_DOWN				11
 
 
-#define JASON_BIG_BBOX_WIDTH  24	
+#define JASON_BIG_BBOX_WIDTH  22	
 #define JASON_BIG_BBOX_HEIGHT 32
 
 #define JASON_TANK_BBOX_WIDTH  26	
