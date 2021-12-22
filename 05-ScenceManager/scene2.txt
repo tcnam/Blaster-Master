@@ -78,14 +78,20 @@
 10036	3	121	23	152	0
 
 
-# Jason bullet
+# Jason bullet normal
 11000	285	82	293	108	60
 11001	300	113	326	121	60
 11002	302	133	328	141	60
 
-# Impact effect
+# Impact effect normal
 11003	149	97	165	110	90
 11004	166	97	182	113	90
+
+# Jason big rainbow bullet
+11005	252	106	260	114	90
+# Impact effect rainbow bullet
+11006	298	103	309	116	90
+11007	279	102	295	118	90
 
 
 #ENEMIES
@@ -207,6 +213,11 @@
 #Impact Bullet normal
 603	11003	100	11004	100
 
+#Rainbow bullet fire
+604	11005	100
+#Impact rainbow bullet
+605	11006	100	11007	100
+
 
 
 #---------ENEMIES-------
@@ -253,6 +264,8 @@ Weak Brick
 3	406	408	409
 # Bullets
 4	600	601	602	603
+# Rainbow bullets
+5	604	605
 # ENEMIES
 # Interrupt
 11	501	502
@@ -271,20 +284,17 @@ Weak Brick
 0	-1984	30000
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
-# type: 0 = Jason , 1 = Tank, 2 = Cannon, 3 = Wheel, 4 = Brick, 5=Interrupt, 6=BallBot, 7=Eyelet, 8=BallCarry, 9=Stuka, 10=Bullet, 11=Weak Brick
+# type: 0 = Jason , 1 = Tank, 2 = Cannon, 3 = Wheel, 4 = Brick, 5=Interrupt, 6=BallBot, 7=Eyelet, 8=BallCarry, 9=Stuka, 10=Bullet, 11=Weak Brick, 12=RainbowBullet
 # JASON
 0	368	640	0	3
-# Tank
-1	1612	348	1
-# Cannon
-2	1612	348	2
-# Wheel
-3	1612	348	3
-3	1612 	348	3
-# Bullets
-10	1612	672	4
-10	1612	672	4
-10	1612	672	4
+12	368	640	5
+12	368	640	5
+12	368	640	5
+12	368	640	5
+12	368	640	5
+12	368	640	5
+12	368	640	5
+
 
 # Enviroment
 11	176	1888	50

@@ -75,6 +75,9 @@
     <Filter Include="Object\Enviroment\WeakBrick">
       <UniqueIdentifier>{d7ec438e-561a-4cb1-a9d8-1dc431d04237}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Jason\RainbowBullet">
+      <UniqueIdentifier>{3f2d722e-6fa4-4e92-8a2d-2a6bb37702e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -157,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="WeakBrick.cpp">
       <Filter>Object\Enviroment\WeakBrick</Filter>
+    </ClCompile>
+    <ClCompile Include="RainbowBullet.cpp">
+      <Filter>Jason\RainbowBullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -243,6 +249,9 @@
     </ClInclude>
     <ClInclude Include="WeakBrick.h">
       <Filter>Object\Enviroment\WeakBrick</Filter>
+    </ClInclude>
+    <ClInclude Include="RainbowBullet.h">
+      <Filter>Jason\RainbowBullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

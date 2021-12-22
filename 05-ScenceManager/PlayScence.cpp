@@ -185,6 +185,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		player->PushBullets((CBullet*)obj);
 		permanentObjects.push_back(obj);
 		break;
+	case OBJECT_TYPE_RAINBOWBULLET:
+		obj = new CRainbowBullet();
+		obj->SetType(OBJECT_TYPE_RAINBOWBULLET);
+		player->PushRainBullets((CRainbowBullet*)obj);
+		permanentObjects.push_back(obj);
+		break;
 	case OBJECT_TYPE_INTERRUPT: 
 		obj = new CInterrupt(); 
 		((CInterrupt*)obj)->SetInitPosition(x, y);
@@ -422,9 +428,9 @@ void CPlayScene::Update(DWORD dt)
 		}
 	}
 	DebugOut(L"coObjects size:%i\n", coObjects.size());
-	player->Update(dt, &coObjectsOfJason);
 	// skip the rest if scene was already unloaded (Jason::Update might trigger PlayScene::Unload)
 	if (player == NULL) return;
+	player->Update(dt, &coObjectsOfJason);
 	for (size_t i = 0; i < coObjects.size(); i++)
 	{
 		switch (coObjects[i]->GetType())
@@ -434,6 +440,9 @@ void CPlayScene::Update(DWORD dt)
 			//coObjects[i]->Update(dt, &coObjectsOfJason);
 			break;
 		case OBJECT_TYPE_BULLET:
+			coObjects[i]->Update(dt, &coObejctsOfBullets);
+			break;
+		case OBJECT_TYPE_RAINBOWBULLET:
 			coObjects[i]->Update(dt, &coObejctsOfBullets);
 			break;
 		case OBJECT_TYPE_EYELET:
