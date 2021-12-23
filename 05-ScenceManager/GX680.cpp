@@ -26,7 +26,15 @@ void CGx680::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	float l1, t1, r1, b1;
 	Jason->GetPosition(jason_x, jason_y);
 	Jason->GetBoundingBox(l1, t1, r1, b1);
-
+	if (jason_x >= x)
+		nx = 1;
+	else
+		nx = -1;
+	if (jason_y > y)
+		ny = 1;
+	else
+		ny = -1;
+	SetState(GX680_STATE_ACTION);
 	CGameObject::Update(dt, coObjects);
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -120,13 +128,9 @@ void CGx680::SetState(int state)
 		vx = 0;
 		vy = 0;
 		break;
-	case BULLET_STATE_IDLE:
-		vx = nx * GX680_SPEED_X;
-		vy = 0;
-		break;
 	case GX680_STATE_ACTION:
-		vx = 0;
-		vy = 0;
+		vx = nx * GX680_SPEED_X;
+		vy = ny * GX680_SPEED_X;
 		//vx = nx * GX680_SPEED_X;
 		//vy = GX680_SPEED_X * cos(M_PI + dem * M_PI / 180);
 		break;

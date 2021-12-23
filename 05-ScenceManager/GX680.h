@@ -13,13 +13,14 @@
 #define GX680_ANI_MOVE		0
 
 
-#define GX680_SPEED_X		0.05f
+#define GX680_SPEED_X		0.03f
 
 class CGx680 : public CGameObject
 {
 
 private:
 	CJason* Jason;
+	int ny;
 public:
 	CGx680();
 	void SetJason(CJason* jason) { Jason = jason; }
