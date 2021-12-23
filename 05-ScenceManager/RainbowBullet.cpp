@@ -5,6 +5,7 @@
 #include "Eyelet.h"
 #include "Ballbot.h"
 #include "WeakBrick.h"
+#include "GX680.h"
 
 CRainbowBullet::CRainbowBullet() :CGameObject()
 {
@@ -31,22 +32,22 @@ void CRainbowBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		SetState(RAINBOWBULLET_STATE_IDLE, 0, 0);
 		//return;
 	}
-	/*if (dem >= 180)
+	if (dem >= 180)
 		dem = 0;
 	if (state == RAINBOWBULLET_STATE_FIRE)
 	{
 		switch (nxORny)
 		{
 		case false:
-			vy = RAINBOWBULLET_SPEED * cos(M_PI + dem * M_PI / 180);
-			dem++;
+			vy = RAINBOWBULLET_SPEED_WAVE * cos(M_PI + dem * M_PI / 180*10);
+			dem=dem++;
 			break;
 		case true:
-			vx= RAINBOWBULLET_SPEED * cos(M_PI + dem * M_PI / 180);
-			dem++;
+			vx= RAINBOWBULLET_SPEED_WAVE * cos(M_PI + dem * M_PI / 180*10);
+			dem=dem++;
 			break;
 		}
-	}*/
+	}
 	// Calculate dx, dy 
 	CGameObject::Update(dt, coObjects);
 	if (GetTickCount64() - effect_start > EFFECT_TIME && state == RAINBOWBULLET_STATE_IMPACT)
@@ -144,6 +145,16 @@ void CRainbowBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					SetPosition(collide_x, collide_y);
 				}
 			}
+			else if (dynamic_cast<CGx680*>(e->obj))
+			{
+				CGx680* g = dynamic_cast<CGx680*>(e->obj);
+				if (g->GetState() != GX680_STATE_DIE)
+				{
+					g->SetState(GX680_STATE_DIE);
+					g->GetPosition(collide_x, collide_y);
+					SetPosition(collide_x, collide_y);
+				}
+			}
 			else if (dynamic_cast<CBrick*>(e->obj))
 			{
 				CBrick* brick = dynamic_cast<CBrick*>(e->obj);
@@ -204,34 +215,28 @@ void CRainbowBullet::SetState(int state, int nx, int ny)
 	switch (state)
 	{
 	case RAINBOWBULLET_STATE_IDLE:
+		dem = 0;
 		vx = 0;
 		vy = 0;
 		break;
 	case RAINBOWBULLET_STATE_FIRE:
 		vx = nx * RAINBOWBULLET_SPEED;
 		vy = ny * RAINBOWBULLET_SPEED;
-		if(vx==0)
-			vx = RAINBOWBULLET_SPEED * cos(M_PI + dem * M_PI / 180);
-		if(vy==0)
-			vy = RAINBOWBULLET_SPEED * cos(M_PI + dem * M_PI / 180);
-		break;
-		/*switch (ny)
+		if (vx == 0)
 		{
-		case 1:			//move depend on ny, so nxORny=true
+			vx = RAINBOWBULLET_SPEED_WAVE * cos(M_PI + dem * M_PI / 180*2);
 			nxORny = true;
-			vx = 0;
-			//vx = RAINBOWBULLET_SPEED * cos(M_PI + dem * M_PI / 180);			
-			vy = ny * RAINBOWBULLET_SPEED;
-			break;
-		case 0:			//move depend on nx, so nxORny=false
-			nxORny = false;
-			vx = nx * RAINBOWBULLET_SPEED;
-			vy = 0;
-			//vy = RAINBOWBULLET_SPEED * cos(M_PI + dem * M_PI / 180);
-			break;
 		}
-		break;*/
+
+		if (vy == 0)
+		{
+			nxORny = false;
+			vy = RAINBOWBULLET_SPEED_WAVE * cos(M_PI + dem * M_PI / 180*2);
+		}			
+		break;
+		
 	case RAINBOWBULLET_STATE_IMPACT:
+		dem = 0;
 		vx = 0;
 		vy = 0;
 		break;
