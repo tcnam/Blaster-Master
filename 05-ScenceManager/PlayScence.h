@@ -14,6 +14,7 @@
 #include "Eyelet.h"
 #include "Stuka.h"
 #include "WeakBrick.h"
+#include "GX680.h"
 
 
 

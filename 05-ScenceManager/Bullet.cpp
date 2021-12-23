@@ -5,6 +5,7 @@
 #include "Eyelet.h"
 #include "Ballbot.h"
 #include "WeakBrick.h"
+#include "GX680.h"
 
 CBullet::CBullet():CGameObject()
 {
@@ -126,6 +127,16 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					eye->GetPosition(collide_x, collide_y);
 					SetPosition(collide_x, collide_y);
 				}			
+			}
+			else if (dynamic_cast<CGx680*>(e->obj))
+			{
+				CGx680* g = dynamic_cast<CGx680*>(e->obj);
+				if (g->GetState() != GX680_STATE_DIE)
+				{
+					g->SetState(GX680_STATE_DIE);
+					g->GetPosition(collide_x, collide_y);
+					SetPosition(collide_x, collide_y);
+				}
 			}
 			else if (dynamic_cast<CBrick*>(e->obj))
 			{

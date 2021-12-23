@@ -78,6 +78,9 @@
     <Filter Include="Jason\RainbowBullet">
       <UniqueIdentifier>{3f2d722e-6fa4-4e92-8a2d-2a6bb37702e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Enemy\GX680">
+      <UniqueIdentifier>{d63eca3a-1d22-469a-bdc9-1df795f2ab43}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -163,6 +166,9 @@
     </ClCompile>
     <ClCompile Include="RainbowBullet.cpp">
       <Filter>Jason\RainbowBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="GX680.cpp">
+      <Filter>Object\Enemy\GX680</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -252,6 +258,9 @@
     </ClInclude>
     <ClInclude Include="RainbowBullet.h">
       <Filter>Jason\RainbowBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="GX680.h">
+      <Filter>Object\Enemy\GX680</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
