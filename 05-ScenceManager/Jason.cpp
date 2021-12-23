@@ -26,6 +26,8 @@ CJason::CJason(float x, float y) : CGameObject()
 
 void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+	if (this == NULL)
+		return;
 	// Calculate dx, dy 
 	CGameObject::Update(dt, coObjects);
 	
@@ -97,10 +99,8 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			if (dynamic_cast<CPortal *>(e->obj))
 			{
 				CPortal *p = dynamic_cast<CPortal *>(e->obj);
-				Tank = NULL;
-				Bullets.clear();
-				rBullets.clear();
 				CGame::GetInstance()->SwitchScene(p->GetSceneId());
+				return;
 			}
 		}
 	}
@@ -377,6 +377,8 @@ void CJason::StartAttack()
 {
 
 	if (isFiring == true)
+		return;
+	if (this == NULL)
 		return;
 	switch (level)
 	{

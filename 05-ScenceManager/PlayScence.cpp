@@ -368,6 +368,7 @@ void CPlayScene::Load()
 
 void CPlayScene::Update(DWORD dt)
 {
+	if (player == NULL) return;
 	// We know that Jason is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
 	//camera->Update(dt);
@@ -429,8 +430,8 @@ void CPlayScene::Update(DWORD dt)
 	}
 	DebugOut(L"coObjects size:%i\n", coObjects.size());
 	// skip the rest if scene was already unloaded (Jason::Update might trigger PlayScene::Unload)
-	if (player == NULL) return;
 	player->Update(dt, &coObjectsOfJason);
+	if (player == NULL) return;
 	for (size_t i = 0; i < coObjects.size(); i++)
 	{
 		switch (coObjects[i]->GetType())
@@ -467,7 +468,8 @@ void CPlayScene::Update(DWORD dt)
 	// Update camera to follow Jason
 	//CGame::GetInstance()->SetCamPos(0.0f, -64.0f);
 	camera->Update(dt);
-	
+	if (player == NULL)
+		return;
 }
 
 void CPlayScene::Render()
@@ -489,12 +491,16 @@ void CPlayScene::Render()
 */
 void CPlayScene::Unload()
 {
+	player = NULL;
+	camera = NULL;
+
 	for (int i = 0; i < objects.size(); i++)
 		delete objects[i];
-
 	objects.clear();
-	player = NULL;
-
+	permanentObjects.clear();
+	background = NULL;
+	quadtree = NULL;
+	
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
 }
 
@@ -503,6 +509,8 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 
 	CJason *Jason = ((CPlayScene*)scence)->GetPlayer();
+	if (Jason == NULL)
+		return;
 	switch (KeyCode)
 	{
 	case DIK_S:
@@ -543,6 +551,8 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 
 	CJason* Jason = ((CPlayScene*)scence)->GetPlayer();
+	if (Jason == NULL)
+		return;
 	switch (KeyCode)
 	{
 	case DIK_UP:
@@ -559,6 +569,8 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 {
 	CGame *game = CGame::GetInstance();
 	CJason *Jason = ((CPlayScene*)scence)->GetPlayer();
+	if (Jason == NULL)
+		return;
 
 	// disable control key when Jason die 
 	if (Jason->GetState() == JASON_STATE_DIE) return;

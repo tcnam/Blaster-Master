@@ -36,7 +36,7 @@ public:
 	void SetMoving(bool move) { isMoving = move; }
 
 	void SetCannon(CCannon* cannon) { Cannon = cannon; }
-	CCannon* GetCannon() { return Cannon; }
+	CCannon* GetCannon() { if(Cannon!=NULL) return Cannon; }
 
 	void PushWheels(CWheel* wheel) { Wheels.push_back(wheel); }
 	vector<CWheel*> GetWheel() { return Wheels; }
