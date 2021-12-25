@@ -17,7 +17,6 @@
 
 class CGx680 : public CGameObject
 {
-
 private:
 	CJason* Jason;
 	int ny;

@@ -81,6 +81,9 @@
     <Filter Include="Object\Enemy\GX680">
       <UniqueIdentifier>{d63eca3a-1d22-469a-bdc9-1df795f2ab43}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Enemy\Drap">
+      <UniqueIdentifier>{7b34a9a1-c591-4b7b-8d34-7593b5b646bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -169,6 +172,9 @@
     </ClCompile>
     <ClCompile Include="GX680.cpp">
       <Filter>Object\Enemy\GX680</Filter>
+    </ClCompile>
+    <ClCompile Include="Drag.cpp">
+      <Filter>Object\Enemy\Drap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -261,6 +267,9 @@
     </ClInclude>
     <ClInclude Include="GX680.h">
       <Filter>Object\Enemy\GX680</Filter>
+    </ClInclude>
+    <ClInclude Include="Drag.h">
+      <Filter>Object\Enemy\Drap</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

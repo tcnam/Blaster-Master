@@ -39,11 +39,11 @@ void CRainbowBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		switch (nxORny)
 		{
 		case false:
-			vy = RAINBOWBULLET_SPEED_WAVE * cos(M_PI + dem * M_PI / 180*10);
+			vy = RAINBOWBULLET_SPEED_WAVE * cos(M_PI + dem * M_PI / 180*20);
 			dem=dem++;
 			break;
 		case true:
-			vx= RAINBOWBULLET_SPEED_WAVE * cos(M_PI + dem * M_PI / 180*10);
+			vx= RAINBOWBULLET_SPEED_WAVE * cos(M_PI + dem * M_PI / 180*20);
 			dem=dem++;
 			break;
 		}
@@ -161,7 +161,7 @@ void CRainbowBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				brick->GetPosition(collide_x, collide_y);
 				if (e->nx < 0 && e->ny == 0)
 					SetPosition(x + RAINBOWBULLET_BBOX_WIDTH / 2, y);
-				if (e->ny != 0 && e->nx == 0)
+				if (e->ny < 0 && e->nx == 0)
 					SetPosition(x, collide_y);
 			}
 			else if (dynamic_cast<CWeakBrick*>(e->obj))
@@ -224,14 +224,14 @@ void CRainbowBullet::SetState(int state, int nx, int ny)
 		vy = ny * RAINBOWBULLET_SPEED;
 		if (vx == 0)
 		{
-			vx = RAINBOWBULLET_SPEED_WAVE * cos(M_PI + dem * M_PI / 180*2);
+			vx = RAINBOWBULLET_SPEED_WAVE * cos(M_PI + dem * M_PI / 180*10);
 			nxORny = true;
 		}
 
 		if (vy == 0)
 		{
 			nxORny = false;
-			vy = RAINBOWBULLET_SPEED_WAVE * cos(M_PI + dem * M_PI / 180*2);
+			vy = RAINBOWBULLET_SPEED_WAVE * cos(M_PI + dem * M_PI / 180*10);
 		}			
 		break;
 		
