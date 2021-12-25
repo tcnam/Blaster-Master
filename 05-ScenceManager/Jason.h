@@ -4,7 +4,7 @@
 #include "Bullet.h"
 #include "RainbowBullet.h"
 
-#define JASON_WALKING_SPEED		0.08f
+#define JASON_WALKING_SPEED		0.13f
 //0.08f
 #define JASON_JUMP_SPEED_Y		0.32f			//0.35f
 #define JASON_GRAVITY			0.0008f			//0.0008f
