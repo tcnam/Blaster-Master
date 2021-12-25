@@ -16,11 +16,36 @@ CGameObject::CGameObject()
 	nx = 1;	
 }
 
-void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	this->dt = dt;
-	dx = vx*dt;
-	dy = vy*dt;
+	dx = vx * dt;
+	dy = vy * dt;
+	if (abs(dx) >= CGame::GetInstance()->GetScreenWidth() / 2)
+	{
+		switch (dx > 0)
+		{
+		case true:
+			dx = CGame::GetInstance()->GetScreenWidth();
+			break;
+		case false:
+			dx = -CGame::GetInstance()->GetScreenWidth();
+			break;
+		}
+	}
+	if (abs(dy) > CGame::GetInstance()->GetScreenHeight()/2)
+	{
+		switch (dy > 0)
+		{
+		case true:
+			dy = CGame::GetInstance()->GetScreenHeight()/2;
+			break;
+		case false:
+			dy= -CGame::GetInstance()->GetScreenHeight()/2;
+			break;
+		}
+	}
+		
 }
 
 /*
