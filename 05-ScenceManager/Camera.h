@@ -3,9 +3,8 @@
 #include "Game.h"
 #include "Jason.h"
 
-#define BOUNDRRY_X_MAX 1792.0f
-#define CAMX_IN_USE 330
-#define CAMY_IN_USE 360
+#define CAMX_IN_USE 336
+#define CAMY_IN_USE 336
 
 
 class Camera
@@ -13,6 +12,11 @@ class Camera
 private:
 	float cam_x;
 	float cam_y;
+
+	float boundary_x_min;
+	float boundary_x_max;
+	float boundary_y_min;
+	float boundary_y_max;
 
 	float render_cam_x;
 	float render_cam_y;
@@ -23,6 +27,7 @@ public:
 	Camera();
 	~Camera();
 	void SetJason(CJason* jason) { Jason = jason; }
+	void SetBoundary(float map_width, float map_height);
 	void SetPosition(float x, float y) { this->cam_x = x, this->cam_y = y; }
 	float GetCamX() { return cam_x; }
 	float GetCamY() { return cam_y; }

@@ -369,10 +369,11 @@ void CPlayScene::Load()
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 
 	camera->SetJason(player);
+	camera->SetBoundary(background->GetWidth(), background->GetHeight());
 	quadtree->NumberOfObjectsInNodes();
 	DebugOut(L"[INFO] Number of Objects %i\n", objects.size());
-	//DebugOut(L"[INFO] Screen Height %i\n",CGame::GetInstance()->GetScreenHeight());
-	//DebugOut(L"[INFO] Screen Width %i\n", CGame::GetInstance()->GetScreenWidth());
+	DebugOut(L"[INFO] Screen Height %i\n",CGame::GetInstance()->GetScreenHeight());
+	DebugOut(L"[INFO] Screen Width %i\n", CGame::GetInstance()->GetScreenWidth());
 }
 
 void CPlayScene::Update(DWORD dt)
@@ -386,12 +387,12 @@ void CPlayScene::Update(DWORD dt)
 	vector<LPGAMEOBJECT> coObejctsOfBullets;
 	vector<LPGAMEOBJECT> coObjectsOfEnemies1;		//not include bircks
 	vector<LPGAMEOBJECT> coObjectsOfEnemies2;		//include bricks
-	if(quadtree!=NULL)
-		quadtree->GetListObject(coObjects, camera);
 	for (unsigned int i = 0; i < permanentObjects.size(); i++)
 	{
 		coObjects.push_back(permanentObjects[i]);
 	}
+	if (quadtree != NULL)
+		quadtree->GetListObject(coObjects, camera);
 	for (unsigned int i = 0; i < coObjects.size(); i++)
 	{
 		switch (coObjects[i]->GetType())

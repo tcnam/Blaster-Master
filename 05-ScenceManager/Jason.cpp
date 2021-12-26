@@ -35,7 +35,7 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	
 	if (level != JASON_LEVEL_BIG)
 		vy -= JASON_GRAVITY*dt;
-	
+	DebugOut(L"vy:%f\n", vy);
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
