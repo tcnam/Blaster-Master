@@ -229,15 +229,27 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			obj->SetState(STUKA_STATE_IDLE);
 		}
 		break;
-	case OBEJCT_TYPE_GX680:
+	case OBJECT_TYPE_GX680:
 	{
 		obj = new CGx680();
 		((CGx680*)obj)->SetInitPosition(x, y);
 		((CGx680*)obj)->SetJason(player);
-		obj->SetType(OBEJCT_TYPE_GX680);
+		obj->SetType(OBJECT_TYPE_GX680);
 		obj->SetState(GX680_STATE_ACTION);
 	}
 		break;
+	case OBJECT_TYPE_DRAG:
+	{
+		obj = new CDrag();
+		((CDrag*)obj)->SetInitPosition(x, y);
+		((CDrag*)obj)->SetJason(player);
+		//((CStuka*)obj)->SetInitPosition(x, y);
+		obj->SetType(OBJECT_TYPE_DRAG);
+		int direction = atoi(tokens[4].c_str());
+		obj->Setnx(direction);
+		obj->SetState(DRAG_STATE_IDLE);
+	}
+	break;
 	case OBJECT_TYPE_BRICK: 
 		{
 			int w = atoi(tokens[4].c_str());
@@ -407,6 +419,7 @@ void CPlayScene::Update(DWORD dt)
 			{
 				coObjectsOfJason.push_back(coObjects[i]);
 				coObejctsOfBullets.push_back(coObjects[i]);
+				coObjectsOfEnemies2.push_back(coObjects[i]);
 			}
 			break;
 		case OBJECT_TYPE_JASON:
@@ -433,8 +446,12 @@ void CPlayScene::Update(DWORD dt)
 			if (coObjects[i]->GetState() != STUKA_STATE_DIE)
 				coObejctsOfBullets.push_back(coObjects[i]);
 			break;
-		case OBEJCT_TYPE_GX680:
+		case OBJECT_TYPE_GX680:
 			if(coObjects[i]->GetState()!=GX680_STATE_DIE)
+				coObejctsOfBullets.push_back(coObjects[i]);
+			break;
+		case OBJECT_TYPE_DRAG:
+			if (coObjects[i]->GetState() != DRAG_STATE_DIE)
 				coObejctsOfBullets.push_back(coObjects[i]);
 			break;
 		case OBJECT_TYPE_PORTAL:
@@ -469,7 +486,10 @@ void CPlayScene::Update(DWORD dt)
 		case OBJECT_TYPE_BALLBOT:
 			coObjects[i]->Update(dt, &coObjectsOfEnemies1);
 			break;
-		case OBEJCT_TYPE_GX680:
+		case OBJECT_TYPE_GX680:
+			coObjects[i]->Update(dt, &coObjectsOfEnemies2);
+			break;
+		case OBJECT_TYPE_DRAG:
 			coObjects[i]->Update(dt, &coObjectsOfEnemies2);
 			break;
 		default:

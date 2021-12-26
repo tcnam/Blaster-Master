@@ -15,6 +15,7 @@
 #include "Stuka.h"
 #include "WeakBrick.h"
 #include "GX680.h"
+#include "Drag.h"
 
 
 
