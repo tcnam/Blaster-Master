@@ -87,7 +87,7 @@ protected:
 
 	int type;
 
-	bool isInserted;
+	bool isInserted;				//for inserting to quadtree
 
 	DWORD dt; 
 
