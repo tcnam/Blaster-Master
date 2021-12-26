@@ -6,6 +6,7 @@
 #include "Ballbot.h"
 #include "WeakBrick.h"
 #include "GX680.h"
+#include "Drag.h"
 
 CRainbowBullet::CRainbowBullet() :CGameObject()
 {
@@ -152,6 +153,16 @@ void CRainbowBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					g->SetState(GX680_STATE_DIE);
 					g->GetPosition(collide_x, collide_y);
+					SetPosition(collide_x, collide_y);
+				}
+			}
+			else if (dynamic_cast<CDrag*>(e->obj))
+			{
+				CDrag* d = dynamic_cast<CDrag*>(e->obj);
+				if (d->GetState() != DRAG_STATE_DIE)
+				{
+					d->SetState(DRAG_STATE_DIE);
+					d->GetPosition(collide_x, collide_y);
 					SetPosition(collide_x, collide_y);
 				}
 			}
