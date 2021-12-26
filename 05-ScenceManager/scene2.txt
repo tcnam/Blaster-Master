@@ -145,8 +145,12 @@
 20032	152	1150	170	1167	30	
 # GX680 Bullet
 20033	214	305	222	313	30
-
-# Enviroment
+# Drag
+20034	44	277	62	293	30
+20035	84	277	102	293	30
+20036	152	277	170	293	30
+20037	192	277	210	293	30
+# ENVIRONMENT
 #MAP
 30000	0	0	496	1984	100
 # Weak Brick
@@ -269,6 +273,8 @@
 # Move
 511	20029	100	20030	100	20031	100	20032	100
 
+#Drag
+512	20034	500	20035	500	20036	500	20037	500
 
 # Enviroment
 Weak Brick
@@ -303,16 +309,19 @@ Weak Brick
 15	510
 # GX680 Pink
 16	511
+# Drag
+17	512
 
 
 # ENVIROMENT
+# Weak Brick
 50	700	
 
 [BACKGROUND]
 0	-1984	30000
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
-# type: 0 = Jason , 1 = Tank, 2 = Cannon, 3 = Wheel, 4 = Brick, 5=Interrupt, 6=BallBot, 7=Eyelet, 8=BallCarry, 9=Stuka, 10=Bullet, 11=Weak Brick, 12=RainbowBullet, 13=GX680
+# type: 0 = Jason , 1 = Tank, 2 = Cannon, 3 = Wheel, 4 = Brick, 5=Interrupt, 6=BallBot, 7=Eyelet, 8=BallCarry, 9=Stuka, 10=Bullet, 11=Weak Brick, 12=RainbowBullet, 13=GX680, 14=DRAG
 # JASON
 0	112	1920	0	3
 12	368	640	5
@@ -346,7 +355,9 @@ Weak Brick
 13	448	288	15	
 13	416	672	16
 
-
+14	208	144	17	-1
+14	288	337	17	1
+14	288	465	17	1
 # Enviroment
 11	176	1888	50
 11	176	1856	50
