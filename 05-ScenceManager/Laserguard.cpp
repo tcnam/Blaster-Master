@@ -74,7 +74,8 @@ void CLaserguard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				CBrick* b = dynamic_cast<CBrick*>(e->obj);
 				if (e->nx != 0 && e->ny == 0)
 				{
-					vx = LASERGUARD_SPEED_X * e->nx;
+					this->nx = -this->nx;
+					SetState(LASERGUARD_STATE_IDLE);
 				}
 			}
 			else if (dynamic_cast<CWeakBrick*>(e->obj))
