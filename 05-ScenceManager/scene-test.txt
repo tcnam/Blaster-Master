@@ -149,6 +149,12 @@
 20036	152	277	170	293	30
 20037	192	277	210	293	30
 
+# LaserGuard
+20038	132	718	149	736	30
+20039	150	718	167	736	30
+#LaserGuard Bullet
+20040	258	12	268	22	60
+
 # Enviroment
 # Weak Brick
 30001	29	10	45	26	60
@@ -267,6 +273,11 @@
 #Drag
 512	20034	500	20035	500	20036	500	20037	500
 
+# LaserGuard
+513	20038	500	20039	500
+# LaserGuard Bullet
+514	20040	100
+
 # Enviroment
 Weak Brick
 700	30001	100
@@ -302,6 +313,10 @@ Weak Brick
 16	511
 # Drag
 17	512
+# Laser Guard
+18	513
+# LaserGuard Bullet
+19	514
 
 # ENVIROMENT
 # Weak Brick
