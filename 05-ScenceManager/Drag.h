@@ -1,11 +1,12 @@
 #pragma once
 #include "GameObject.h"
 #include "Jason.h"
+#include "Brick.h"
+#include "WeakBrick.h"
 
 
-#define DRAG_BBOX_WIDTH 22
-#define DRAG_BBOX_HEIGHT 18
-#define DRAG_BBOX_HEIGHT_ACTION 15
+#define DRAG_BBOX_WIDTH 18
+#define DRAG_BBOX_HEIGHT 16
 
 #define DRAG_STATE_IDLE 100
 #define DRAG_STATE_ACTION	200
@@ -14,7 +15,9 @@
 #define DRAG_ANI_IDLE 0
 #define DRAG_ANI_ACTION 1
 
-#define DY_FOR_CHANGE_STATE		320
+#define DRAG_SPEED		0.1f
+
+#define DISTANCE_FOR_CHANGE_STATE		320
 class CDrag : public CGameObject
 {
 private:
