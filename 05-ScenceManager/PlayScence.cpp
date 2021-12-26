@@ -250,6 +250,17 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj->SetState(DRAG_STATE_IDLE);
 	}
 	break;
+	case OBJECT_TYPE_LASERGUARD:
+	{
+		obj = new CLaserguard();
+		((CLaserguard*)obj)->SetInitPosition(x, y);
+		((CLaserguard*)obj)->SetJason(player);
+		obj->SetType(OBJECT_TYPE_LASERGUARD);
+		int direction = atoi(tokens[4].c_str());
+		obj->Setnx(direction);
+		obj->SetState(LASERGUARD_STATE_IDLE);
+	}
+	break;
 	case OBJECT_TYPE_BRICK: 
 		{
 			int w = atoi(tokens[4].c_str());
@@ -454,6 +465,10 @@ void CPlayScene::Update(DWORD dt)
 			if (coObjects[i]->GetState() != DRAG_STATE_DIE)
 				coObejctsOfBullets.push_back(coObjects[i]);
 			break;
+		case OBJECT_TYPE_LASERGUARD:
+			if (coObjects[i]->GetState() != LASERGUARD_STATE_DIE)
+				coObejctsOfBullets.push_back(coObjects[i]);
+			break;
 		case OBJECT_TYPE_PORTAL:
 			coObjectsOfJason.push_back(coObjects[i]);
 			break;
@@ -490,6 +505,9 @@ void CPlayScene::Update(DWORD dt)
 			coObjects[i]->Update(dt, &coObjectsOfEnemies2);
 			break;
 		case OBJECT_TYPE_DRAG:
+			coObjects[i]->Update(dt, &coObjectsOfEnemies2);
+			break;
+		case OBJECT_TYPE_LASERGUARD:
 			coObjects[i]->Update(dt, &coObjectsOfEnemies2);
 			break;
 		default:
