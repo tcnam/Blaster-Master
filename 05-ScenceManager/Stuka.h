@@ -1,8 +1,9 @@
-#pragma once
+
 #pragma once
 #include "GameObject.h"
 #include "Jason.h"
 #include "Brick.h"
+#include "WeakBrick.h"
 
 
 #define STUKA_BBOX_WIDTH 18

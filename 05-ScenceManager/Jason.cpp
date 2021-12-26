@@ -5,7 +5,6 @@
 #include "Jason.h"
 #include "Game.h"
 
-#include "Goomba.h"
 #include "Portal.h"
 
 CJason::CJason(float x, float y) : CGameObject()

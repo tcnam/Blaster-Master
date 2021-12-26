@@ -84,6 +84,9 @@
     <Filter Include="Object\Enemy\Drap">
       <UniqueIdentifier>{7b34a9a1-c591-4b7b-8d34-7593b5b646bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Enemy\Laserguard">
+      <UniqueIdentifier>{d0651f50-a9b6-44b6-9a27-c042c4ab1f33}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -118,12 +121,6 @@
     </ClCompile>
     <ClCompile Include="Portal.cpp">
       <Filter>Object\Enviroment\Portal</Filter>
-    </ClCompile>
-    <ClCompile Include="Goomba.cpp">
-      <Filter>Object\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Koopas.cpp">
-      <Filter>Object\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Framework</Filter>
@@ -176,6 +173,9 @@
     <ClCompile Include="Drag.cpp">
       <Filter>Object\Enemy\Drap</Filter>
     </ClCompile>
+    <ClCompile Include="Laserguard.cpp">
+      <Filter>Object\Enemy\Laserguard</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -213,12 +213,6 @@
     </ClInclude>
     <ClInclude Include="Portal.h">
       <Filter>Object\Enviroment\Portal</Filter>
-    </ClInclude>
-    <ClInclude Include="Koopas.h">
-      <Filter>Object\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Goomba.h">
-      <Filter>Object\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Object</Filter>
@@ -270,6 +264,9 @@
     </ClInclude>
     <ClInclude Include="Drag.h">
       <Filter>Object\Enemy\Drap</Filter>
+    </ClInclude>
+    <ClInclude Include="Laserguard.h">
+      <Filter>Object\Enemy\Laserguard</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

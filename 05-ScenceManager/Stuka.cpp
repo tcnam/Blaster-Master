@@ -77,6 +77,15 @@ void CStuka::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					vx = STUKA_SPEED_X * e->nx;
 				}
 			}
+			else if (dynamic_cast<CWeakBrick*>(e->obj))
+			{
+				CWeakBrick* b = dynamic_cast<CWeakBrick*>(e->obj);
+				if (e->nx != 0 && e->ny == 0)
+				{
+					this->nx = -this->nx;
+					SetState(STUKA_STATE_IDLE);
+				}
+			}
 		}
 	}
 	// clean up collision events
@@ -127,7 +136,7 @@ void CStuka::SetState(int state)
 		vx = 0;
 		vy = 0;
 		break;
-	case BULLET_STATE_IDLE:
+	case STUKA_STATE_IDLE:
 		vx = nx * STUKA_SPEED_X;
 		vy = 0;
 		break;

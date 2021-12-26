@@ -135,7 +135,7 @@ void CEyelet::SetState(int state)
 		vx = 0;
 		vy = 0;
 		break;
-	case BULLET_STATE_IDLE:
+	case EYELET_STATE_IDLE:
 		vx = 0;
 		vy = 0;
 		break;
