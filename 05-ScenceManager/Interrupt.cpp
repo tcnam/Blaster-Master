@@ -61,17 +61,22 @@ void CInterrupt::Render()
 void CInterrupt::SetState(int state)
 {
 	CGameObject::SetState(state);
-	/*switch (state)
+	switch (state)
 	{
-	case INTERRUPT_STATE_DIE:
-		y += INTERRUPT_BBOX_HEIGHT - INTERRUPT_BBOX_HEIGHT_DIE + 1;
-		vx = 0;
-		vy = 0;
+	case INTERRUPT_STATE_ACTION:
+		ActivateNeoworm();
 		break;
-	case INTERRUPT_STATE_WALKING:
-		vx = -INTERRUPT_WALKING_SPEED;
-		break;
-	}*/
+	}
+}
+void CInterrupt::ActivateNeoworm()
+{
+	if (Worm == NULL)
+		return;
+	if (Worm->GetState() == NEOWORM_STATE_IDLE)
+	{
+		Worm->SetPosition(x + INTERRUPT_BBOX_WIDTH / 3, y );
+		Worm->SetState(NEOWORM_STATE_FALL);
+	}
 }
 CInterrupt::~CInterrupt()
 {

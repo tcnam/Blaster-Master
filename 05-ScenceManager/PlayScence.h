@@ -32,6 +32,7 @@ protected:
 	vector<LPGAMEOBJECT> permanentObjects;
 
 	vector<LPGAMEOBJECT> gunEnemies;
+	vector<LPGAMEOBJECT> interrupts;
 
 	Map* map;
 

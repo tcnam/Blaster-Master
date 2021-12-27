@@ -1,7 +1,7 @@
 #include"Neoworm.h"
 CNeoworm::CNeoworm() :CGameObject()
 {
-	SetState(NEOWORM_STATE_FALL);
+	SetState(NEOWORM_STATE_IDLE);
 	Jason = NULL;
 }
 void CNeoworm::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -34,13 +34,19 @@ void CNeoworm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// 
 	if (Jason == NULL)
 		return;
-	if (state == NEOWORM_STATE_DIE)
+	if (state == NEOWORM_STATE_DIE||state==NEOWORM_STATE_IDLE)
 		return;
 	float jason_x, jason_y;
 	float l1, t1, r1, b1;
 	Jason->GetPosition(jason_x, jason_y);
 	Jason->GetBoundingBox(l1, t1, r1, b1);
 	
+	vy -= NEOWORM_GRAVITY * dt;
+	if (jason_x > x)
+		Setnx(1);
+	else 
+		Setnx(-1);
+		
 	CGameObject::Update(dt, coObjects);
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -98,7 +104,7 @@ void CNeoworm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			else if (dynamic_cast<CWeakBrick*>(e->obj))
 			{
 				CWeakBrick* b = dynamic_cast<CWeakBrick*>(e->obj);
-				if (e->nx != 0 && e->ny == 0)
+				if (e->nx != 0 && e->ny > 0)
 				{
 					this->nx = -this->nx;
 					SetState(NEOWORM_STATE_ACTION);
@@ -106,9 +112,10 @@ void CNeoworm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			else if (dynamic_cast<CJason*>(e->obj))
 			{
-				SetState(NEOWORM_STATE_ACTION);
-				x += dx;
-				y += dy;
+				if(e->ny!=0&&e->nx==0)
+					SetPosition(x, y + 0.1f);
+				//x += dx;
+				//y += dy;
 			}
 		}
 	}
@@ -126,6 +133,8 @@ void CNeoworm::WorldToRender()
 void CNeoworm::Render()
 {
 	if (state == NEOWORM_STATE_DIE)
+		return;
+	if (state == NEOWORM_STATE_IDLE)
 		return;
 	WorldToRender();
 	int ani = -1;
@@ -171,7 +180,6 @@ void CNeoworm::SetState(int state)
 		break;
 	case NEOWORM_STATE_FALL:
 		vx = 0;
-		vy = -NEOWORM_SPEED;
 		break;
 	case NEOWORM_STATE_ACTION:
 		vx = nx * NEOWORM_SPEED;

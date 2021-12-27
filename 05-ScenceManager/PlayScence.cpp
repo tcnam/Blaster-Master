@@ -197,6 +197,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		((CInterrupt*)obj)->SetJason(player);
 		((CInterrupt*)obj)->SetInitPosition(x, y);
 		obj->SetType(OBJECT_TYPE_INTERRUPT);
+		interrupts.push_back(obj);
 		break;
 	case OBJECT_TYPE_BALLBOT:
 		obj = new CBallbot();
@@ -277,6 +278,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			((CNeoworm*)obj)->SetInitPosition(x, y);
 			((CNeoworm*)obj)->SetJason(player);
 			obj->SetType(OBJECT_TYPE_NEOWORM);
+			for (unsigned int i = 0; i < interrupts.size(); i++)
+			{
+				if (((CInterrupt*)interrupts[i])->GetWorm() == NULL)
+				{
+					((CInterrupt*)interrupts[i])->SetWorm((CNeoworm*)obj);
+					break;
+				}
+			}
 		}
 		break;
 	case OBJECT_TYPE_ENEMYBULLET:
@@ -617,6 +626,7 @@ void CPlayScene::Unload()
 	objects.clear();
 	permanentObjects.clear();
 	gunEnemies.clear();
+	interrupts.clear();
 	background = NULL;
 	quadtree = NULL;
 	

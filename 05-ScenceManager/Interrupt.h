@@ -1,8 +1,7 @@
-
 #pragma once
 #include "GameObject.h"
 #include "Jason.h"
-
+#include "Neoworm.h"
 
 #define INTERRUPT_BBOX_WIDTH 22
 #define INTERRUPT_BBOX_HEIGHT 18
@@ -20,10 +19,18 @@ class CInterrupt : public CGameObject
 {
 	
 private:
+	CNeoworm* Worm;
 	CJason* Jason;
 public:
 	CInterrupt();
+
 	void SetJason(CJason* jason) { Jason = jason; }
+
+	void SetWorm(CNeoworm* w) { Worm = w; }
+	CNeoworm* GetWorm() { return Worm; }
+	
+	void ActivateNeoworm();
+
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void WorldToRender();

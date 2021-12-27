@@ -19,12 +19,11 @@
 #define NEOWORM_ACTION_RIGHT	1
 #define NEOWORM_ACTION_LEFT		2
 
-
 #define NEOWORM_SPEED		0.05f
+#define NEOWORM_GRAVITY		0.0008f
 
 class CNeoworm : public CGameObject
 {
-
 private:
 	CJason* Jason;
 public:
