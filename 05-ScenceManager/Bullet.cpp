@@ -8,6 +8,8 @@
 #include "GX680.h"
 #include "Drag.h"
 #include "Laserguard.h"
+#include "Ballcarry.h"
+#include "Neoworm.h"
 
 CBullet::CBullet():CGameObject()
 {
@@ -157,6 +159,26 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					lg->SetState(LASERGUARD_STATE_DIE);
 					lg->GetPosition(collide_x, collide_y);
+					SetPosition(collide_x, collide_y);
+				}
+			}
+			else if (dynamic_cast<CBallcarry*>(e->obj))
+			{
+				CBallcarry* bc = dynamic_cast<CBallcarry*>(e->obj);
+				if (bc->GetState() != BALLCARRY_STATE_DIE)
+				{
+					bc->SetState(BALLCARRY_STATE_DIE);
+					bc->GetPosition(collide_x, collide_y);
+					SetPosition(collide_x, collide_y);
+				}
+			}
+			else if (dynamic_cast<CNeoworm*>(e->obj))
+			{
+				CNeoworm* nw = dynamic_cast<CNeoworm*>(e->obj);
+				if (nw->GetState() != NEOWORM_STATE_DIE)
+				{
+					nw->SetState(NEOWORM_STATE_DIE);
+					nw->GetPosition(collide_x, collide_y);
 					SetPosition(collide_x, collide_y);
 				}
 			}
