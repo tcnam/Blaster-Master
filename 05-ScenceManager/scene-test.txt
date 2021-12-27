@@ -327,7 +327,7 @@ Weak Brick
 
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
-# type: 0 = Jason , 1 = Tank, 2 = Cannon, 3 = Wheel, 4 = Brick, 5=Interrupt, 6=BallBot, 7=Eyelet, 8=BallCarry, 9=Stuka, 10=Bullet
+# type: 0 = Jason , 1 = Tank, 2 = Cannon, 3 = Wheel, 4 = Brick, 5=Interrupt, 6=BallBot, 7=Eyelet, 8=BallCarry, 9=Stuka, 10=Bullet, 11=Weak Brick, 12=RainbowBullet, 13=GX680, 14=DRAG, 15=LASERGUARD, 16=ENEMY BULLET
 # JASON
 0	1612	656	0	2
 # Tank

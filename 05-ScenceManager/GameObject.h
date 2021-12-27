@@ -30,6 +30,7 @@ using namespace std;
 #define OBJECT_TYPE_GX680			13
 #define OBJECT_TYPE_DRAG			14
 #define OBJECT_TYPE_LASERGUARD		15
+#define OBJECT_TYPE_ENEMYBULLET		16
 
 #define OBJECT_TYPE_PORTAL	50
 
