@@ -98,15 +98,15 @@ void CLaserguard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
-	/*float jason_x, jason_y;
+	float jason_x, jason_y;
 	float l1, t1, r1, b1;
 	Jason->GetPosition(jason_x, jason_y);
 	Jason->GetBoundingBox(l1, t1, r1, b1);
-	bool choose_state = CGame::GetInstance()->AABBCheck(l1, t1, r1, b1, x, y - DY_FOR_CHANGE_STATE, x + LASERGUARD_BBOX_WIDTH, y);
+	bool choose_state = CGame::GetInstance()->AABBCheck(l1, t1, r1, b1, x, y - DY_FOR_CHANGE_STATE, x + LASERGUARD_BBOX_WIDTH, y - JASON_BIG_BBOX_HEIGHT);
 	if (choose_state)
 		SetState(LASERGUARD_STATE_ACTION);
 	else
-		SetState(LASERGUARD_STATE_IDLE);*/
+		SetState(LASERGUARD_STATE_IDLE);
 
 }
 void CLaserguard::WorldToRender()
@@ -139,9 +139,32 @@ void CLaserguard::SetState(int state)
 		break;
 	case LASERGUARD_STATE_ACTION:
 		vx = nx * LASERGUARD_SPEED_X;
-		//vy = LASERGUARD_SPEED_X * cos(M_PI + dem * M_PI / 180);
+		vy = 0;
+		StartAttack();
 		break;
 	}
+}
+void CLaserguard::StartAttack()
+{
+	if (EBullet == NULL)
+		return;
+	if (EBullet->GetState() == EBULLET_STATE_IDLE)
+	{
+		switch (this->nx)
+		{
+		case 1:
+			EBullet->SetStartPosition(x + LASERGUARD_BBOX_WIDTH / 2, y + LASERGUARD_BBOX_HEIGHT / 2);
+			EBullet->SetPosition(x + LASERGUARD_BBOX_WIDTH / 2, y + LASERGUARD_BBOX_HEIGHT / 2);
+			break;
+		case -1:
+			EBullet->SetStartPosition(x , y + LASERGUARD_BBOX_HEIGHT / 2);
+			EBullet->SetPosition(x , y + LASERGUARD_BBOX_HEIGHT / 2);
+			break;
+		}
+
+		EBullet->SetState(EBULLET_STATE_FIRE, 0, -1);
+	}
+		
 }
 CLaserguard::~CLaserguard()
 {
