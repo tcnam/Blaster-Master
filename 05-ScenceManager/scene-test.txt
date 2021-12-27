@@ -155,6 +155,16 @@
 #LaserGuard Bullet
 20040	258	12	268	22	60
 
+# BallCarry
+# Idle
+20041	106	653	122	669	30
+# Action
+20042	64	654	82	669	30
+# Run
+20043	85	652	103	669	30
+20044	46	651	62	669	30
+
+
 # Enviroment
 # Weak Brick
 30001	29	10	45	26	60
@@ -278,6 +288,14 @@
 # LaserGuard Bullet
 514	20040	100
 
+# BallCarry
+# Idle
+515	20041	100
+# Action
+516	20042	100
+# Run
+517	20043	200	20044	200
+
 # Enviroment
 Weak Brick
 700	30001	100
@@ -317,6 +335,8 @@ Weak Brick
 18	513
 # LaserGuard Bullet
 19	514
+# Ballcarry
+20	515	516	517	
 
 # ENVIROMENT
 # Weak Brick
@@ -327,7 +347,7 @@ Weak Brick
 
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
-# type: 0 = Jason , 1 = Tank, 2 = Cannon, 3 = Wheel, 4 = Brick, 5=Interrupt, 6=BallBot, 7=Eyelet, 8=BallCarry, 9=Stuka, 10=Bullet, 11=Weak Brick, 12=RainbowBullet, 13=GX680, 14=DRAG, 15=LASERGUARD, 16=ENEMY BULLET
+# type: 0 = Jason , 1 = Tank, 2 = Cannon, 3 = Wheel, 4 = Brick, 5=Interrupt, 6=BallBot, 7=Eyelet, 8=BallCarry, 9=Stuka, 10=Bullet, 11=Weak Brick, 12=RainbowBullet, 13=GX680, 14=DRAG, 15=LASERGUARD, 16=ENEMY BULLET,  18=Bomb
 # JASON
 0	1612	656	0	2
 # Tank
@@ -491,6 +511,9 @@ Weak Brick
 7	1612	608	13	-1
 7	496	256	13	1
 9	1612	656	14	1
+
+8	608	64	20
+8	912	64	20
 
 50	1744	96	0	16	16	2
 50	1440	640	0	16	32	2

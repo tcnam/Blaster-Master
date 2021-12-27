@@ -103,6 +103,7 @@ public:
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
 
 	void Setnx(int direction) { nx = direction; }
+	int Getnx() { return nx; }
 
 	int GetState() { return this->state; }
 

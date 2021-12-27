@@ -158,6 +158,15 @@
 #LaserGuard Bullet
 20040	258	12	268	22	60
 
+# BallCarry
+# Idle
+20041	106	653	122	669	30
+# Action
+20042	64	654	82	669	30
+# Run
+20043	85	652	103	669	30
+20044	46	651	62	669	30
+
 # ENVIRONMENT
 #MAP
 30000	0	0	496	1984	100
@@ -289,6 +298,15 @@
 # LaserGuard Bullet
 514	20040	100
 
+# BallCarry
+# Idle
+515	20041	100
+# Action
+516	20042	100
+# Run
+517	20043	200	20044	200
+
+
 # Enviroment
 Weak Brick
 700	30001	100
@@ -328,7 +346,8 @@ Weak Brick
 18	513
 # LaserGuard Bullet
 19	514
-
+# Ballcarry
+20	515	516	517
 
 # ENVIROMENT
 # Weak Brick

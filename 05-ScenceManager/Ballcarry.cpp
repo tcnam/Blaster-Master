@@ -1,41 +1,52 @@
-#include"Laserguard.h"
-CLaserguard::CLaserguard() :CGameObject()
+#include"Ballcarry.h"
+CBallcarry::CBallcarry() :CGameObject()
 {
-	SetState(LASERGUARD_STATE_IDLE);
+	SetState(BALLCARRY_STATE_IDLE);
 	Jason = NULL;
-	nx = -1;
 }
-void CLaserguard::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void CBallcarry::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
-	right = x + LASERGUARD_BBOX_WIDTH;
-	bottom = y + LASERGUARD_BBOX_HEIGHT;
+	right = x + BALLCARRY_BBOX_WIDTH;
+	bottom = y + BALLCARRY_BBOX_HEIGHT;
 }
 
-void CLaserguard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CBallcarry::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
 	//
-	// TO-DO: make sure LASERGUARD can interact with the world and to each of them too!
+	// TO-DO: make sure BALLCARRY can interact with the world and to each of them too!
 	// 
 	if (Jason == NULL)
 		return;
-	if (state == LASERGUARD_STATE_DIE)
+	if (state == BALLCARRY_STATE_DIE)
 		return;
 	float jason_x, jason_y;
 	float l1, t1, r1, b1;
 	Jason->GetPosition(jason_x, jason_y);
 	Jason->GetBoundingBox(l1, t1, r1, b1);
-	bool choose_state = CGame::GetInstance()->AABBCheck(l1, t1, r1, b1, x, y - DY_FOR_CHANGE_STATE, x + LASERGUARD_BBOX_WIDTH, y - JASON_BIG_BBOX_HEIGHT);
-	if (choose_state)
-		SetState(LASERGUARD_STATE_ACTION);
-	else
-		SetState(LASERGUARD_STATE_IDLE);
+	bool choose_state = CGame::GetInstance()->AABBCheck(l1, t1, r1, b1, x-DISTANCE_FOR_CHANGE_STATE, y, x + BALLCARRY_BBOX_WIDTH+DISTANCE_FOR_CHANGE_STATE, y+BALLCARRY_BBOX_HEIGHT);
+	if (choose_state && state == BALLCARRY_STATE_IDLE)
+	{
+		SetState(BALLCARRY_STATE_ACTION);		
+	}
+
+	//vy -= BALLCARRY_GRAVITY * dt;
 	CGameObject::Update(dt, coObjects);
+	if (GetTickCount64() - action_start > ACTION_TIME && state == BALLCARRY_STATE_ACTION)
+	{
+		if (jason_x > x)
+			Setnx(-1);
+		else
+		{
+			Setnx(1);
+		}
+		SetState(BALLCARRY_STATE_RUN);
+		
+	}
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
-
 	coEvents.clear();
 
 	// turn off collision when die 
@@ -84,7 +95,7 @@ void CLaserguard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (e->nx != 0 && e->ny == 0)
 				{
 					this->nx = -this->nx;
-					SetState(LASERGUARD_STATE_IDLE);
+					SetState(BALLCARRY_STATE_RUN);
 				}
 			}
 			else if (dynamic_cast<CWeakBrick*>(e->obj))
@@ -93,12 +104,12 @@ void CLaserguard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (e->nx != 0 && e->ny == 0)
 				{
 					this->nx = -this->nx;
-					SetState(LASERGUARD_STATE_IDLE);
+					SetState(BALLCARRY_STATE_RUN);
 				}
 			}
 			else if (dynamic_cast<CJason*>(e->obj))
 			{
-				SetState(LASERGUARD_STATE_IDLE);
+				SetState(BALLCARRY_STATE_RUN);
 				x += dx;
 				y += dy;
 			}
@@ -110,64 +121,55 @@ void CLaserguard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 
 }
-void CLaserguard::WorldToRender()
+void CBallcarry::WorldToRender()
 {
 	render_x = x;
-	render_y = -(y + LASERGUARD_BBOX_HEIGHT);
+	render_y = -(y + BALLCARRY_BBOX_HEIGHT);
 }
-void CLaserguard::Render()
+void CBallcarry::Render()
 {
-	if (state == LASERGUARD_STATE_DIE)
+	if (state == BALLCARRY_STATE_DIE)
 		return;
 	WorldToRender();
-	animation_set->at(0)->Render(round(render_x), round(render_y));
+	int ani = -1;
+	switch (state)
+	{
+	case BALLCARRY_STATE_IDLE:
+		ani = BALLCARRY_ANI_IDLE;
+		break;
+	case BALLCARRY_STATE_ACTION:
+		ani = BALLCARRY_ANI_ACTION;
+		break;
+	case BALLCARRY_STATE_RUN:
+		ani = BALLCARRY_ANI_RUN;
+		break;
+	}
+	animation_set->at(ani)->Render(round(render_x), round(render_y));
 
 	RenderBoundingBox();
 }
 
-void CLaserguard::SetState(int state)
+void CBallcarry::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)
 	{
-	case LASERGUARD_STATE_DIE:
+	case BALLCARRY_STATE_DIE:
 		vx = 0;
-		vy = 0;
 		break;
-	case LASERGUARD_STATE_IDLE:
-		vx = nx * LASERGUARD_SPEED_X;
-		vy = 0;
+	case BALLCARRY_STATE_IDLE:
+		vx = 0;
 		break;
-	case LASERGUARD_STATE_ACTION:
-		vx = nx * LASERGUARD_SPEED_X;
-		vy = 0;
-		StartAttack();
+	case BALLCARRY_STATE_ACTION:
+		vx = 0;
+		StartAction();
+		break;
+	case BALLCARRY_STATE_RUN:
+		vx =  nx*BALLCARRY_SPEED_X;
 		break;
 	}
 }
-void CLaserguard::StartAttack()
-{
-	if (EBullet == NULL)
-		return;
-	if (EBullet->GetState() == EBULLET_STATE_IDLE)
-	{
-		switch (this->nx)
-		{
-		case 1:
-			EBullet->SetStartPosition(x + LASERGUARD_BBOX_WIDTH / 2, y + LASERGUARD_BBOX_HEIGHT / 2);
-			EBullet->SetPosition(x + LASERGUARD_BBOX_WIDTH / 2, y + LASERGUARD_BBOX_HEIGHT / 2);
-			break;
-		case -1:
-			EBullet->SetStartPosition(x , y + LASERGUARD_BBOX_HEIGHT / 2);
-			EBullet->SetPosition(x , y + LASERGUARD_BBOX_HEIGHT / 2);
-			break;
-		}
-
-		EBullet->SetState(EBULLET_STATE_FIRE, 0, -1);
-	}
-		
-}
-CLaserguard::~CLaserguard()
+CBallcarry::~CBallcarry()
 {
 
 }

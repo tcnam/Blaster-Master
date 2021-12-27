@@ -263,6 +263,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		gunEnemies.push_back(obj);
 	}
 	break;
+	case OBJECT_TYPE_BALLCARRY:
+		{
+			obj = new CBallcarry();
+			((CBallcarry*)obj)->SetInitPosition(x, y);
+			((CBallcarry*)obj)->SetJason(player);
+			obj->SetType(OBJECT_TYPE_BALLCARRY);
+		}
+		break;
 	case OBJECT_TYPE_ENEMYBULLET:
 	{
 		obj = new CEBullet();
@@ -272,29 +280,28 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		switch (enemyOwner)
 		{
 		case OBJECT_TYPE_LASERGUARD:
-		{
-			for (unsigned int i = 0; i < gunEnemies.size(); i++)
 			{
-				if (gunEnemies[i]->GetType() == OBJECT_TYPE_LASERGUARD)
+				for (unsigned int i = 0; i < gunEnemies.size(); i++)
 				{
-					if (((CLaserguard*)gunEnemies[i])->GetEBullet() == NULL)
+					if (gunEnemies[i]->GetType() == OBJECT_TYPE_LASERGUARD)
 					{
-						((CLaserguard*)gunEnemies[i])->SetEBullet((CEBullet*)obj);
-						break;
+						if (((CLaserguard*)gunEnemies[i])->GetEBullet() == NULL)
+						{
+							((CLaserguard*)gunEnemies[i])->SetEBullet((CEBullet*)obj);
+							break;
+						}
 					}
-				}
 					
+				}
 			}
-		}
 			break;
 		case OBJECT_TYPE_GX680:
-		{
+			{
 
-		}
+			}
 			break;
 		}
 	}
-
 		break;
 	case OBJECT_TYPE_BRICK: 
 		{
@@ -476,7 +483,7 @@ void CPlayScene::Update(DWORD dt)
 			if(coObjects[i]->GetState()!=BALLBOT_STATE_DIE)
 				coObejctsOfBullets.push_back(coObjects[i]);
 			break;
-		case OBJECT_TYPE_BALLCARRY:						//haven't implemented
+		case OBJECT_TYPE_BALLCARRY:						
 			if (coObjects[i]->GetState() != BALLBOT_STATE_DIE)		
 				coObejctsOfBullets.push_back(coObjects[i]);
 			break;
@@ -547,6 +554,9 @@ void CPlayScene::Update(DWORD dt)
 			break;
 		case OBJECT_TYPE_ENEMYBULLET:
 			coObjects[i]->Update(dt, &coObjectsOfEnemies1);
+			break;
+		case OBJECT_TYPE_BALLCARRY:
+			coObjects[i]->Update(dt, &coObjectsOfEnemies2);
 			break;
 		default:
 			if (player == NULL)

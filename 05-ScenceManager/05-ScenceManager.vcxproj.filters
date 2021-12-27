@@ -182,6 +182,9 @@
     <ClCompile Include="EBullet.cpp">
       <Filter>Object\Enemy\EnemyBullet</Filter>
     </ClCompile>
+    <ClCompile Include="Ballcarry.cpp">
+      <Filter>Object\Enemy\BallCarry</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -276,6 +279,9 @@
     </ClInclude>
     <ClInclude Include="EBullet.h">
       <Filter>Object\Enemy\EnemyBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Ballcarry.h">
+      <Filter>Object\Enemy\BallCarry</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
