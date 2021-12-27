@@ -138,6 +138,7 @@
     <ClCompile Include="GX680.cpp" />
     <ClCompile Include="Interrupt.cpp" />
     <ClCompile Include="Laserguard.cpp" />
+    <ClCompile Include="Neoworm.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="RainbowBullet.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="GX680.h" />
     <ClInclude Include="Interrupt.h" />
     <ClInclude Include="Laserguard.h" />
+    <ClInclude Include="Neoworm.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="RainbowBullet.h" />

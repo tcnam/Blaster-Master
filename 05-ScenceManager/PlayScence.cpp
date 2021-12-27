@@ -271,6 +271,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			obj->SetType(OBJECT_TYPE_BALLCARRY);
 		}
 		break;
+	case OBJECT_TYPE_NEOWORM:
+		{
+			obj = new CNeoworm();
+			((CNeoworm*)obj)->SetInitPosition(x, y);
+			((CNeoworm*)obj)->SetJason(player);
+			obj->SetType(OBJECT_TYPE_NEOWORM);
+		}
+		break;
 	case OBJECT_TYPE_ENEMYBULLET:
 	{
 		obj = new CEBullet();
@@ -511,6 +519,10 @@ void CPlayScene::Update(DWORD dt)
 			if (coObjects[i]->GetState() != LASERGUARD_STATE_DIE)
 				coObejctsOfBullets.push_back(coObjects[i]);
 			break;
+		case OBJECT_TYPE_NEOWORM:
+			if (coObjects[i]->GetState() != NEOWORM_STATE_DIE)
+				coObejctsOfBullets.push_back(coObjects[i]);
+			break;
 		case OBJECT_TYPE_PORTAL:
 			coObjectsOfJason.push_back(coObjects[i]);
 			break;
@@ -556,6 +568,9 @@ void CPlayScene::Update(DWORD dt)
 			coObjects[i]->Update(dt, &coObjectsOfEnemies1);
 			break;
 		case OBJECT_TYPE_BALLCARRY:
+			coObjects[i]->Update(dt, &coObjectsOfEnemies2);
+			break;
+		case OBJECT_TYPE_NEOWORM:
 			coObjects[i]->Update(dt, &coObjectsOfEnemies2);
 			break;
 		default:

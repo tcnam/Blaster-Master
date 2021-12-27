@@ -167,6 +167,16 @@
 20043	85	652	103	669	30
 20044	46	651	62	669	30
 
+# Neoworm
+# bullet
+20045	182	1496	191	1505	30
+# aciton right
+20046	172	1266	190	1276	30
+20047	191	1266	209	1276	30
+# action left
+20048	64	1266	82	1276	30
+20049	46	1266	64	1276	30
+
 # ENVIRONMENT
 #MAP
 30000	0	0	496	1984	100
@@ -306,6 +316,13 @@
 # Run
 517	20043	200	20044	200
 
+# Neoworm
+# Fall
+518	20045	100
+# Action right
+519	20046	100	20047	100
+# Action left
+520	20048	100	20049	100
 
 # Enviroment
 Weak Brick
@@ -348,6 +365,8 @@ Weak Brick
 19	514
 # Ballcarry
 20	515	516	517
+# Neoworm
+21	518	519	520
 
 # ENVIROMENT
 # Weak Brick
