@@ -236,6 +236,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		((CGx680*)obj)->SetJason(player);
 		obj->SetType(OBJECT_TYPE_GX680);
 		obj->SetState(GX680_STATE_ACTION);
+		gunEnemies.push_back(obj);
 	}
 		break;
 	case OBJECT_TYPE_DRAG:
@@ -259,8 +260,42 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		int direction = atoi(tokens[4].c_str());
 		obj->Setnx(direction);
 		obj->SetState(LASERGUARD_STATE_IDLE);
+		gunEnemies.push_back(obj);
 	}
 	break;
+	case OBJECT_TYPE_ENEMYBULLET:
+	{
+		obj = new CEBullet();
+		obj->SetType(OBJECT_TYPE_ENEMYBULLET);
+		int enemyOwner = atoi(tokens[4].c_str());
+		((CEBullet*)obj)->SetEnemyOwner(enemyOwner);
+		switch (enemyOwner)
+		{
+		case OBJECT_TYPE_LASERGUARD:
+		{
+			for (unsigned int i = 0; i < gunEnemies.size(); i++)
+			{
+				if (gunEnemies[i]->GetType() == OBJECT_TYPE_LASERGUARD)
+				{
+					if (((CLaserguard*)gunEnemies[i])->GetEBullet() == NULL)
+					{
+						((CLaserguard*)gunEnemies[i])->SetEBullet((CEBullet*)obj);
+						break;
+					}
+				}
+					
+			}
+		}
+			break;
+		case OBJECT_TYPE_GX680:
+		{
+
+		}
+			break;
+		}
+	}
+
+		break;
 	case OBJECT_TYPE_BRICK: 
 		{
 			int w = atoi(tokens[4].c_str());
@@ -510,6 +545,9 @@ void CPlayScene::Update(DWORD dt)
 		case OBJECT_TYPE_LASERGUARD:
 			coObjects[i]->Update(dt, &coObjectsOfEnemies2);
 			break;
+		case OBJECT_TYPE_ENEMYBULLET:
+			coObjects[i]->Update(dt, &coObjectsOfEnemies1);
+			break;
 		default:
 			if (player == NULL)
 				return;
@@ -553,6 +591,7 @@ void CPlayScene::Unload()
 		delete objects[i];
 	objects.clear();
 	permanentObjects.clear();
+	gunEnemies.clear();
 	background = NULL;
 	quadtree = NULL;
 	

@@ -17,6 +17,7 @@
 #include "GX680.h"
 #include "Drag.h"
 #include "Laserguard.h"
+#include "EBullet.h"
 
 
 
@@ -27,6 +28,8 @@ protected:
 
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> permanentObjects;
+
+	vector<LPGAMEOBJECT> gunEnemies;
 
 	Map* map;
 

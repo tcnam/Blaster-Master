@@ -87,6 +87,9 @@
     <Filter Include="Object\Enemy\Laserguard">
       <UniqueIdentifier>{d0651f50-a9b6-44b6-9a27-c042c4ab1f33}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Enemy\EnemyBullet">
+      <UniqueIdentifier>{6ec7e8ce-0226-49bc-a49f-a3c7cee206da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -175,6 +178,9 @@
     </ClCompile>
     <ClCompile Include="Laserguard.cpp">
       <Filter>Object\Enemy\Laserguard</Filter>
+    </ClCompile>
+    <ClCompile Include="EBullet.cpp">
+      <Filter>Object\Enemy\EnemyBullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -267,6 +273,9 @@
     </ClInclude>
     <ClInclude Include="Laserguard.h">
       <Filter>Object\Enemy\Laserguard</Filter>
+    </ClInclude>
+    <ClInclude Include="EBullet.h">
+      <Filter>Object\Enemy\EnemyBullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
