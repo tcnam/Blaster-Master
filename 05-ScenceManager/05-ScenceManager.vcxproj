@@ -136,7 +136,10 @@
     <ClCompile Include="Drag.cpp" />
     <ClCompile Include="EBullet.cpp" />
     <ClCompile Include="Eyelet.cpp" />
+    <ClCompile Include="Font.cpp" />
     <ClCompile Include="GX680.cpp" />
+    <ClCompile Include="Healthbar.cpp" />
+    <ClCompile Include="Hud.cpp" />
     <ClCompile Include="Interrupt.cpp" />
     <ClCompile Include="Laserguard.cpp" />
     <ClCompile Include="Neoworm.cpp" />
@@ -172,7 +175,10 @@
     <ClInclude Include="Drag.h" />
     <ClInclude Include="EBullet.h" />
     <ClInclude Include="Eyelet.h" />
+    <ClInclude Include="Font.h" />
     <ClInclude Include="GX680.h" />
+    <ClInclude Include="Healthbar.h" />
+    <ClInclude Include="Hud.h" />
     <ClInclude Include="Interrupt.h" />
     <ClInclude Include="Laserguard.h" />
     <ClInclude Include="Neoworm.h" />

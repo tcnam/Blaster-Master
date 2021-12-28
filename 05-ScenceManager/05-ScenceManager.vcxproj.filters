@@ -96,6 +96,18 @@
     <Filter Include="Object\Enemy\BallCarry\Bomb">
       <UniqueIdentifier>{9d09a30d-48be-4c1d-9f0e-c70ea6e50432}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Jason\Hud">
+      <UniqueIdentifier>{132f58cc-4796-4666-ad32-a03a0a87994b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Jason\Hud\Healthbar">
+      <UniqueIdentifier>{9f608d9e-3fb3-4f0c-8b62-5f3096c7d387}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Jason\Hud\Energybar">
+      <UniqueIdentifier>{bffeb756-e98b-480f-a7d8-5bd4c36834ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Jason\Hud\Font">
+      <UniqueIdentifier>{0e6d673c-6e1a-4e2a-8caf-9cc049cbd45a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -196,6 +208,15 @@
     </ClCompile>
     <ClCompile Include="Bomb.cpp">
       <Filter>Object\Enemy\BallCarry\Bomb</Filter>
+    </ClCompile>
+    <ClCompile Include="Hud.cpp">
+      <Filter>Jason\Hud</Filter>
+    </ClCompile>
+    <ClCompile Include="Healthbar.cpp">
+      <Filter>Jason\Hud\Healthbar</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Jason\Hud\Font</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -300,6 +321,15 @@
     </ClInclude>
     <ClInclude Include="Bomb.h">
       <Filter>Object\Enemy\BallCarry\Bomb</Filter>
+    </ClInclude>
+    <ClInclude Include="Hud.h">
+      <Filter>Jason\Hud</Filter>
+    </ClInclude>
+    <ClInclude Include="Healthbar.h">
+      <Filter>Jason\Hud\Healthbar</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Jason\Hud\Font</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
