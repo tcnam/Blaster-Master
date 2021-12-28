@@ -12,12 +12,12 @@
 90	textures\jason3.png	0	162	232
 100	textures\map2.png	255	255	255
 110	textures\che.png	255	255	255
+120	textures\hud.png	153	217	234
 
 # id	left	top	right	bottom	texture_id
 
 [SPRITES]
-#MAP
-30000	0	0	1792	1024	80
+
 # JASON TANK
 # Tank
 # right
@@ -176,6 +176,8 @@
 
 
 # Enviroment
+#MAP
+30000	0	0	1792	1024	80
 # Weak Brick
 30001	29	10	45	26	60
 # Hidden Layer
@@ -195,6 +197,13 @@
 30008	158	157	190	221	110
 # Auto door scene 1
 30009	126	238	222	270	110
+
+#HUD
+# Cover
+40000	45	26	53	59	120
+# Items inside cover
+40001	59	19	65	22	120
+
 
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
 [ANIMATIONS]
@@ -385,6 +394,8 @@ Weak Brick
 1486	-672	30009
 1486	-416	30009
 1486	-160	30009
+[HUD]
+0	40000
 
 
 [OBJECTS]
