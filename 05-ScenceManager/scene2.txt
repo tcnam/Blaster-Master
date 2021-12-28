@@ -11,7 +11,7 @@
 80	textures\map1.png	255	255	255
 90	textures\jason3.png	0	162	232
 100	textures\map2.png	255	255	255
-
+110	textures\che.png	255	255	255
 
 
 
@@ -182,6 +182,25 @@
 30000	0	0	496	1984	100
 # Weak Brick
 30001	29	10	45	26	60
+
+# Hidden Layer
+# Brick big 3 right
+30002	6	23	134	55	110
+# Brick big 3 left
+30003	186	23	314	55	110
+# Brick big 2 right
+30004	219	157	299	189	110
+# Brick big 2 left
+30005	61	158	141	190	110
+# Brick big 1 right
+30006	34	92	98	124	110
+# Brick big 1 left
+30007	249	90	313	122	110
+# Auto door scene 2
+30008	158	157	190	221	110
+# Auto door scene 1
+30009	130	239	222	271	110
+
 
 
 
@@ -374,6 +393,26 @@ Weak Brick
 
 [BACKGROUND]
 0	-1984	30000
+96	-1808	30002
+32	-1680	30003
+96	-1552	30002
+32	-1296	30007
+160	-1296	30006
+32	-1040	30003
+96	-784	30002
+32	-528	30003
+96	-400	30002
+
+32	-272	30005
+144	-272	30004
+288	-272	30005	
+400	-272	30004
+288	-784	30005
+400	-784	30004
+
+112	-272	30008
+368	-272	30008
+368	-784	30008
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
 # type: 0 = Jason , 1 = Tank, 2 = Cannon, 3 = Wheel, 4 = Brick, 5=Interrupt, 6=BallBot, 7=Eyelet, 8=BallCarry, 9=Stuka, 10=Bullet, 11=Weak Brick, 12=RainbowBullet, 13=GX680, 14=DRAG, 15=LASERGUARD, 16=ENEMY BULLET
@@ -564,12 +603,12 @@ Weak Brick
 4	96	704	0	128	48
 4	32	448	0	128	48
 4	96	320	0	128	48
-4	32	192	0	80	80
-4	144	192	0	80	80
-4	288	192	0	80	80	
-4	400	192	0	80	80
-4	288	704	0	80	80
-4	400	704	0	80	80
+4	32	192	0	80	48
+4	144	192	0	80	48
+4	288	192	0	80	48	
+4	400	192	0	80	48
+4	288	704	0	80	48
+4	400	704	0	80	48
 4	288	976	0	192	48
 
 4	32	1968	0	192	16

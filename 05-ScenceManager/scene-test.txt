@@ -10,8 +10,8 @@
 70	textures\map1bank.png	255	255	255
 80	textures\map1.png	255	255	255
 90	textures\jason3.png	0	162	232
-
-
+100	textures\map2.png	255	255	255
+110	textures\che.png	255	255	255
 
 # id	left	top	right	bottom	texture_id
 
@@ -178,6 +178,23 @@
 # Enviroment
 # Weak Brick
 30001	29	10	45	26	60
+# Hidden Layer
+# Brick big 3 right
+30002	6	23	134	55	110
+# Brick big 3 left
+30003	186	23	314	55	110
+# Brick big 2 right
+30004	219	157	299	189	110
+# Brick big 2 left
+30005	61	158	141	190	110
+# Brick big 1 right
+30006	34	92	98	124	110
+# Brick big 1 left
+30007	249	90	313	122	110
+# Auto door scene 2
+30008	158	157	190	221	110
+# Auto door scene 1
+30009	126	238	222	270	110
 
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
 [ANIMATIONS]
@@ -363,6 +380,9 @@ Weak Brick
 50	700
 [BACKGROUND]
 -2	-1019	30000
+1486	-672	30009
+1486	-416	30009
+1486	-160	30009
 
 
 [OBJECTS]

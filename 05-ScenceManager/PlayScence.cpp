@@ -17,7 +17,6 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):CScene(id, filePath)
 	player = NULL;
 	map = NULL;
 	quadtree = NULL;
-	background = NULL;
 }
 
 /*
@@ -385,12 +384,17 @@ void CPlayScene::_ParseSection_BACKGROUND(string line)
 	float x = (float)atof(tokens[0].c_str());
 	float y = (float)atof(tokens[1].c_str());
 	int sprite_id = atoi(tokens[2].c_str());
-	
-	background->SetPosition(x, y);
+	CBackground* b = new CBackground();
+	b->SetPosition(x, y);
 	LPSPRITE sprites = CSprites::GetInstance()->Get(sprite_id);
-	background->SetSprite(sprites);
-	background->CalculateWidthHeight();
-	quadtree = new Quadtree(0.0f, 0.0f, 0.0f, background->GetWidth(), background->GetHeight());
+	b->SetSprite(sprites);
+	backgrounds.push_back(b);
+	if (backgrounds.size() == 1)
+	{
+		backgrounds[0]->CalculateWidthHeight();
+		quadtree = new Quadtree(0.0f, 0.0f, 0.0f, backgrounds[0]->GetWidth(), backgrounds[0]->GetHeight());
+	}
+
 }
 void CPlayScene::Load()
 {
@@ -405,7 +409,6 @@ void CPlayScene::Load()
 	char str[MAX_SCENE_LINE];
 	
 	camera = new Camera();
-	background = new CBackground();
 	while (f.getline(str, MAX_SCENE_LINE))
 	{
 		string line(str);
@@ -451,7 +454,7 @@ void CPlayScene::Load()
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 
 	camera->SetJason(player);
-	camera->SetBoundary(background->GetWidth(), background->GetHeight());
+	camera->SetBoundary(backgrounds[0]->GetWidth(), backgrounds[0]->GetHeight());
 	quadtree->NumberOfObjectsInNodes();
 	DebugOut(L"[INFO] Number of Objects %i\n", objects.size());
 	DebugOut(L"[INFO] Screen Height %i\n",CGame::GetInstance()->GetScreenHeight());
@@ -605,12 +608,16 @@ void CPlayScene::Render()
 	{
 		this->map->Render((int)camera->GetCamX(), (int)camera->GetCamY());
 	}*/
-	if (background)
+	if (backgrounds[0]!=NULL)
 	{
-		background->Draw();
+		backgrounds[0]->Draw();
 	}
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
+	for (unsigned int i = 1; i < backgrounds.size(); i++)
+	{
+		backgrounds[i]->Draw();
+	}
 }
 
 /*
@@ -621,13 +628,15 @@ void CPlayScene::Unload()
 	player = NULL;
 	camera = NULL;
 
-	for (int i = 0; i < objects.size(); i++)
+	for (unsigned int i = 0; i < objects.size(); i++)
 		delete objects[i];
 	objects.clear();
 	permanentObjects.clear();
 	gunEnemies.clear();
 	interrupts.clear();
-	background = NULL;
+	for (unsigned int i = 0; i < backgrounds.size(); i++)
+		delete backgrounds[i];
+	backgrounds.clear();
 	quadtree = NULL;
 	
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);

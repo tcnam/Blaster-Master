@@ -36,7 +36,7 @@ protected:
 
 	Map* map;
 
-	CBackground* background;
+	vector<CBackground*> backgrounds;
 
 	Camera* camera;
 
