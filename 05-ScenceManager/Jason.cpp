@@ -158,7 +158,8 @@ void CJason::Render()
 	{
 	case JASON_LEVEL_TANK:
 		{
-			RenderBoundingBox();
+			
+			//RenderBoundingBox();
 			break;
 		}
 	case JASON_LEVEL_SMALL:
@@ -177,7 +178,7 @@ void CJason::Render()
 
 			animation_set->at(ani)->Render(round(render_x), round(render_y), alpha);
 
-			RenderBoundingBox();
+			//RenderBoundingBox();
 			break;
 		}
 	case JASON_LEVEL_BIG:
@@ -218,7 +219,7 @@ void CJason::Render()
 		if (untouchable) alpha = 128;
 		animation_set->at(ani)->Render(round(render_x), round(render_y), alpha);
 
-		RenderBoundingBox();
+		//RenderBoundingBox();
 		break;
 	}
 
@@ -400,12 +401,12 @@ void CJason::StartAttack()
 				switch (nx)
 				{
 				case 1:
-					Bullets[bulletIndex]->SetStartPosition(x, y + JASON_TANK_BBOX_HEIGHT-2);
-					Bullets[bulletIndex]->SetPosition(x, y + JASON_TANK_BBOX_HEIGHT-2);
+					Bullets[bulletIndex]->SetStartPosition(x, y + JASON_TANK_BBOX_HEIGHT- JASON_TANK_BBOX_HEIGHT/9);
+					Bullets[bulletIndex]->SetPosition(x, y + JASON_TANK_BBOX_HEIGHT- JASON_TANK_BBOX_HEIGHT / 9);
 					break;
 				case -1:
-					Bullets[bulletIndex]->SetStartPosition(x, y + JASON_TANK_BBOX_HEIGHT-2);
-					Bullets[bulletIndex]->SetPosition(x, y + JASON_TANK_BBOX_HEIGHT-2);
+					Bullets[bulletIndex]->SetStartPosition(x, y + JASON_TANK_BBOX_HEIGHT- JASON_TANK_BBOX_HEIGHT / 9);
+					Bullets[bulletIndex]->SetPosition(x, y + JASON_TANK_BBOX_HEIGHT- JASON_TANK_BBOX_HEIGHT / 9);
 					break;
 				}
 				break;

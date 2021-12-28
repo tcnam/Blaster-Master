@@ -117,10 +117,13 @@ void CBomb::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			else if (dynamic_cast<CJason*>(e->obj))
 			{
+				CJason* player = dynamic_cast<CJason*>(e->obj);
 				if (e->ny != 0 && e->nx == 0)
 					SetPosition(x, y + 0.1f);
 				//x += dx;
 				//y += dy;
+				if(state==BOMB_STATE_ACTION)
+					player->StartUntouchable();
 			}
 		}
 	}

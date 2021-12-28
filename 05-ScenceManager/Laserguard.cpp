@@ -101,6 +101,7 @@ void CLaserguard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				SetState(LASERGUARD_STATE_IDLE);
 				x += dx;
 				y += dy;
+				Jason->StartUntouchable();
 			}
 		}
 	}

@@ -74,7 +74,8 @@ void CStuka::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				CBrick* b = dynamic_cast<CBrick*>(e->obj);
 				if (e->nx != 0 && e->ny == 0)
 				{
-					vx = STUKA_SPEED_X * e->nx;
+					this->nx = -this->nx;
+					SetState(STUKA_STATE_IDLE);
 				}
 			}
 			else if (dynamic_cast<CWeakBrick*>(e->obj))
@@ -85,6 +86,13 @@ void CStuka::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					this->nx = -this->nx;
 					SetState(STUKA_STATE_IDLE);
 				}
+			}
+			else if (dynamic_cast<CJason*>(e->obj))
+			{
+				SetState(STUKA_STATE_IDLE);
+				x += min_tx * dx + nx * 0.4f;
+				y += min_ty * dy + ny * 0.4f;
+				Jason->StartUntouchable();
 			}
 		}
 	}

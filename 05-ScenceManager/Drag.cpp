@@ -102,9 +102,11 @@ void CDrag::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			else if (dynamic_cast<CJason*>(e->obj))
 			{
+				CJason* player = dynamic_cast<CJason*>(e->obj);
 				SetState(DRAG_STATE_ACTION);
 				x += dx;
 				y += dy;
+				player->StartUntouchable();
 			}
 		}
 	}

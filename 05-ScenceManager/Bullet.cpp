@@ -98,7 +98,7 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					s->SetState(STUKA_STATE_DIE);
 					s->GetPosition(collide_x, collide_y);
-					SetPosition(collide_x, collide_y+BULLET_BBOX_HEIGHT);
+					SetPosition(collide_x, collide_y+ BULLET_IMPACT_BBOX_HEIGT);
 				}					
 			}
 
@@ -109,7 +109,7 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					i->SetState(INTERRUPT_STATE_DIE);
 					i->GetPosition(collide_x, collide_y);
-					SetPosition(collide_x, collide_y + BULLET_BBOX_HEIGHT);
+					SetPosition(collide_x, collide_y + BULLET_IMPACT_BBOX_HEIGT);
 				}
 					
 			}
@@ -120,7 +120,7 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					b->SetState(BALLBOT_STATE_DIE);
 					b->GetPosition(collide_x, collide_y);
-					SetPosition(collide_x, collide_y + BULLET_BBOX_HEIGHT);
+					SetPosition(collide_x, collide_y + BULLET_IMPACT_BBOX_HEIGT);
 				}
 
 			}
@@ -131,7 +131,7 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					eye->SetState(EYELET_STATE_DIE);
 					eye->GetPosition(collide_x, collide_y);
-					SetPosition(collide_x, collide_y + BULLET_BBOX_HEIGHT);
+					SetPosition(collide_x, collide_y + BULLET_IMPACT_BBOX_HEIGT);
 				}			
 			}
 			else if (dynamic_cast<CGx680*>(e->obj))
@@ -141,7 +141,7 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					g->SetState(GX680_STATE_DIE);
 					g->GetPosition(collide_x, collide_y);
-					SetPosition(collide_x, collide_y);
+					SetPosition(collide_x, collide_y + BULLET_IMPACT_BBOX_HEIGT);
 				}
 			}
 			else if (dynamic_cast<CDrag*>(e->obj))
@@ -151,7 +151,7 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					d->SetState(DRAG_STATE_DIE);
 					d->GetPosition(collide_x, collide_y);
-					SetPosition(collide_x, collide_y);
+					SetPosition(collide_x, collide_y + BULLET_IMPACT_BBOX_HEIGT);
 				}
 			}
 			else if (dynamic_cast<CLaserguard*>(e->obj))
@@ -161,7 +161,7 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					lg->SetState(LASERGUARD_STATE_DIE);
 					lg->GetPosition(collide_x, collide_y);
-					SetPosition(collide_x, collide_y);
+					SetPosition(collide_x, collide_y + BULLET_IMPACT_BBOX_HEIGT);
 				}
 			}
 			else if (dynamic_cast<CBallcarry*>(e->obj))
@@ -171,7 +171,7 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					i->SetState(BALLCARRY_STATE_DIE);
 					i->GetPosition(collide_x, collide_y);
-					SetPosition(collide_x, collide_y + BULLET_BBOX_HEIGHT);
+					SetPosition(collide_x, collide_y + BULLET_IMPACT_BBOX_HEIGT);
 				}
 			}
 			else if (dynamic_cast<CNeoworm*>(e->obj))
@@ -181,7 +181,7 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					nw->SetState(NEOWORM_STATE_DIE);
 					nw->GetPosition(collide_x, collide_y);
-					SetPosition(collide_x, collide_y);
+					SetPosition(collide_x, collide_y + BULLET_IMPACT_BBOX_HEIGT);
 				}
 			}
 			else if (dynamic_cast<CBrick*>(e->obj))

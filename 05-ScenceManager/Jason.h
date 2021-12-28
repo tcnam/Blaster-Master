@@ -47,7 +47,7 @@
 #define JASON_SMALL_BBOX_HEIGHT 16
 
 
-#define JASON_UNTOUCHABLE_TIME 5000
+#define JASON_UNTOUCHABLE_TIME 1000
 
 
 class CJason : public CGameObject
@@ -84,7 +84,7 @@ public:
 	void SetLevel(int l) { level = l; }
 	int GetLevel() { return level; }
 
-	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
+	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 
 	void SetTank(CTank* tank) { Tank = tank; }
 	CTank* GetTank();

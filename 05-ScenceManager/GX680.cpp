@@ -89,6 +89,12 @@ void CGx680::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					vx = GX680_SPEED_X * e->nx;
 				}
 			}
+			else if (dynamic_cast<CJason*>(e->obj))
+			{
+				Jason->StartUntouchable();
+				x += dx;
+				y += dy;
+			}
 		}
 	}
 	// clean up collision events

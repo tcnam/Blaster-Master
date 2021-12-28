@@ -82,7 +82,13 @@ void CEyelet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-
+			if (dynamic_cast<CJason*>(e->obj))
+			{
+				SetState(EYELET_STATE_ACTION);
+				x += min_tx * dx + nx * 0.4f;
+				y += min_ty * dy + ny * 0.4f;
+				Jason->StartUntouchable();
+			}
 		}
 	}
 	// clean up collision events
