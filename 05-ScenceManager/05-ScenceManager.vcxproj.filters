@@ -93,6 +93,9 @@
     <Filter Include="Object\Enemy\Neoworm">
       <UniqueIdentifier>{70c9ede6-a957-407f-b0ea-68eb9e7a4090}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Enemy\BallCarry\Bomb">
+      <UniqueIdentifier>{9d09a30d-48be-4c1d-9f0e-c70ea6e50432}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -190,6 +193,9 @@
     </ClCompile>
     <ClCompile Include="Neoworm.cpp">
       <Filter>Object\Enemy\Neoworm</Filter>
+    </ClCompile>
+    <ClCompile Include="Bomb.cpp">
+      <Filter>Object\Enemy\BallCarry\Bomb</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -291,6 +297,9 @@
     </ClInclude>
     <ClInclude Include="Neoworm.h">
       <Filter>Object\Enemy\Neoworm</Filter>
+    </ClInclude>
+    <ClInclude Include="Bomb.h">
+      <Filter>Object\Enemy\BallCarry\Bomb</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

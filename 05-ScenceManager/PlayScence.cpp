@@ -287,37 +287,47 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			}
 		}
 		break;
-	case OBJECT_TYPE_ENEMYBULLET:
-	{
-		obj = new CEBullet();
-		obj->SetType(OBJECT_TYPE_ENEMYBULLET);
-		int enemyOwner = atoi(tokens[4].c_str());
-		((CEBullet*)obj)->SetEnemyOwner(enemyOwner);
-		switch (enemyOwner)
+	case OBJECT_TYPE_BOMB:
 		{
-		case OBJECT_TYPE_LASERGUARD:
-			{
-				for (unsigned int i = 0; i < gunEnemies.size(); i++)
-				{
-					if (gunEnemies[i]->GetType() == OBJECT_TYPE_LASERGUARD)
-					{
-						if (((CLaserguard*)gunEnemies[i])->GetEBullet() == NULL)
-						{
-							((CLaserguard*)gunEnemies[i])->SetEBullet((CEBullet*)obj);
-							break;
-						}
-					}
-					
-				}
-			}
-			break;
-		case OBJECT_TYPE_GX680:
-			{
-
-			}
-			break;
+			obj = new CBomb();
+			((CBomb*)obj)->SetInitPosition(x, y);
+			((CBomb*)obj)->SetJason(player);
+			obj->SetType(OBJECT_TYPE_BOMB);
+			int ballcarryindex = atoi(tokens[4].c_str());
+			((CBomb*)obj)->SetStartPosition(x, y);
 		}
-	}
+		break;
+	case OBJECT_TYPE_ENEMYBULLET:
+		{
+			obj = new CEBullet();
+			obj->SetType(OBJECT_TYPE_ENEMYBULLET);
+			int enemyOwner = atoi(tokens[4].c_str());
+			((CEBullet*)obj)->SetEnemyOwner(enemyOwner);
+			switch (enemyOwner)
+			{
+			case OBJECT_TYPE_LASERGUARD:
+				{
+					for (unsigned int i = 0; i < gunEnemies.size(); i++)
+					{
+						if (gunEnemies[i]->GetType() == OBJECT_TYPE_LASERGUARD)
+						{
+							if (((CLaserguard*)gunEnemies[i])->GetEBullet() == NULL)
+							{
+								((CLaserguard*)gunEnemies[i])->SetEBullet((CEBullet*)obj);
+								break;
+							}
+						}
+					
+					}
+				}
+				break;
+			case OBJECT_TYPE_GX680:
+				{
+
+				}
+				break;
+			}
+		}
 		break;
 	case OBJECT_TYPE_BRICK: 
 		{
@@ -535,6 +545,7 @@ void CPlayScene::Update(DWORD dt)
 			if (coObjects[i]->GetState() != NEOWORM_STATE_DIE)
 				coObejctsOfBullets.push_back(coObjects[i]);
 			break;
+
 		case OBJECT_TYPE_PORTAL:
 			coObjectsOfJason.push_back(coObjects[i]);
 			break;
@@ -583,6 +594,9 @@ void CPlayScene::Update(DWORD dt)
 			coObjects[i]->Update(dt, &coObjectsOfEnemies2);
 			break;
 		case OBJECT_TYPE_NEOWORM:
+			coObjects[i]->Update(dt, &coObjectsOfEnemies2);
+			break;
+		case OBJECT_TYPE_BOMB:
 			coObjects[i]->Update(dt, &coObjectsOfEnemies2);
 			break;
 		default:

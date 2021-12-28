@@ -20,6 +20,7 @@
 #include "EBullet.h"
 #include "Ballcarry.h"
 #include "Neoworm.h"
+#include "Bomb.h"
 
 
 

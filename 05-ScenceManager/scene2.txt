@@ -199,7 +199,7 @@
 # Auto door scene 2
 30008	158	157	190	221	110
 # Auto door scene 1
-30009	130	239	222	271	110
+30009	126	238	222	270	110
 
 
 
@@ -386,6 +386,8 @@ Weak Brick
 20	515	516	517
 # Neoworm
 21	518	519	520
+# Bomb
+22	514	603
 
 # ENVIROMENT
 # Weak Brick
