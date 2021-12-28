@@ -35,7 +35,7 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	
 	if (level != JASON_LEVEL_BIG)
 		vy -= JASON_GRAVITY*dt;
-	DebugOut(L"vy:%f\n", vy);
+	//DebugOut(L"vy:%f\n", vy);
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -400,12 +400,12 @@ void CJason::StartAttack()
 				switch (nx)
 				{
 				case 1:
-					Bullets[bulletIndex]->SetStartPosition(x, y + JASON_TANK_BBOX_HEIGHT);
-					Bullets[bulletIndex]->SetPosition(x, y + JASON_TANK_BBOX_HEIGHT);
+					Bullets[bulletIndex]->SetStartPosition(x, y + JASON_TANK_BBOX_HEIGHT-2);
+					Bullets[bulletIndex]->SetPosition(x, y + JASON_TANK_BBOX_HEIGHT-2);
 					break;
 				case -1:
-					Bullets[bulletIndex]->SetStartPosition(x, y + JASON_TANK_BBOX_HEIGHT);
-					Bullets[bulletIndex]->SetPosition(x, y + JASON_TANK_BBOX_HEIGHT);
+					Bullets[bulletIndex]->SetStartPosition(x, y + JASON_TANK_BBOX_HEIGHT-2);
+					Bullets[bulletIndex]->SetPosition(x, y + JASON_TANK_BBOX_HEIGHT-2);
 					break;
 				}
 				break;

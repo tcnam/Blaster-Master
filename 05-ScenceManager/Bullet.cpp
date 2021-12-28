@@ -85,12 +85,13 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
+			DebugOut(L"Object type:%i\n",e->obj->GetType());
 			//if (this->nx > 0)
 				//SetPosition(x + BULLET_BBOX_WIDTH, y);
 			SetState(BULLET_STATE_IMPACT,0,0);
 			StartEffect();
 			float collide_x, collide_y;
-			if (dynamic_cast<CStuka*>(e->obj)) // if e->obj is Goomba 
+			if (dynamic_cast<CStuka*>(e->obj)) 
 			{
 				CStuka* s = dynamic_cast<CStuka*>(e->obj);
 				if (s->GetState() != STUKA_STATE_DIE)
@@ -100,6 +101,7 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					SetPosition(collide_x, collide_y+BULLET_BBOX_HEIGHT);
 				}					
 			}
+
 			else if (dynamic_cast<CInterrupt*>(e->obj))
 			{
 				CInterrupt* i = dynamic_cast<CInterrupt*>(e->obj);
@@ -164,12 +166,12 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			else if (dynamic_cast<CBallcarry*>(e->obj))
 			{
-				CBallcarry* bc = dynamic_cast<CBallcarry*>(e->obj);
-				if (bc->GetState() != BALLCARRY_STATE_DIE)
+				CBallcarry* i = dynamic_cast<CBallcarry*>(e->obj);
+				if (i->GetState() != BALLCARRY_STATE_DIE)
 				{
-					bc->SetState(BALLCARRY_STATE_DIE);
-					bc->GetPosition(collide_x, collide_y);
-					SetPosition(collide_x, collide_y);
+					i->SetState(BALLCARRY_STATE_DIE);
+					i->GetPosition(collide_x, collide_y);
+					SetPosition(collide_x, collide_y + BULLET_BBOX_HEIGHT);
 				}
 			}
 			else if (dynamic_cast<CNeoworm*>(e->obj))

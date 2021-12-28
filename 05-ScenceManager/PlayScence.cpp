@@ -295,7 +295,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			((CBomb*)obj)->SetJason(player);
 			obj->SetType(OBJECT_TYPE_BOMB);
 			int ballcarryindex = atoi(tokens[4].c_str());
-			ballcarries[ballcarryindex]->PushBomb((CBomb*)obj);
+			((CBallcarry*)ballcarries[ballcarryindex])->PushBomb((CBomb*)obj);
 		}
 		break;
 	case OBJECT_TYPE_ENEMYBULLET:
@@ -516,7 +516,7 @@ void CPlayScene::Update(DWORD dt)
 			break;
 		case OBJECT_TYPE_BALLCARRY:
 			if (coObjects[i]->GetState() != BALLCARRY_STATE_DIE)
-				coObejctsOfBullets.push_back(coObjects[i]);
+				coObejctsOfBullets.push_back(coObjects[i]);		
 			break;
 		case OBJECT_TYPE_EYELET:
 			if (coObjects[i]->GetState() != EYELET_STATE_DIE)
@@ -551,7 +551,7 @@ void CPlayScene::Update(DWORD dt)
 			break;
 		}
 	}
-	DebugOut(L"coObjects size:%i\n", coObjects.size());
+	//DebugOut(L"coObjects size:%i\n", coObjects.size());
 	// skip the rest if scene was already unloaded (Jason::Update might trigger PlayScene::Unload)
 	player->Update(dt, &coObjectsOfJason);
 	if (player == NULL) return;

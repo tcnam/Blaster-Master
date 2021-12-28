@@ -20,7 +20,7 @@ void CBallcarry::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// 
 	if (Jason == NULL)
 		return;
-	if (state == BALLCARRY_STATE_DIE)
+ 	if (state == BALLCARRY_STATE_DIE)
 		return;
 	float jason_x, jason_y;
 	float l1, t1, r1, b1;
@@ -43,7 +43,7 @@ void CBallcarry::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			Setnx(1);
 		}
 		SetState(BALLCARRY_STATE_RUN);
-		
+		action_start = 0;
 	}
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -110,8 +110,8 @@ void CBallcarry::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			else if (dynamic_cast<CJason*>(e->obj))
 			{
 				SetState(BALLCARRY_STATE_RUN);
-				x += dx;
-				y += dy;
+				x += min_tx * dx + nx * 0.4f;
+				y += min_ty * dy + ny * 0.4f;
 			}
 		}
 	}
@@ -188,6 +188,7 @@ void CBallcarry::SetState(int state)
 	{
 	case BALLCARRY_STATE_DIE:
 		vx = 0;
+		vy = 0;
 		break;
 	case BALLCARRY_STATE_IDLE:
 		vx = 0;
