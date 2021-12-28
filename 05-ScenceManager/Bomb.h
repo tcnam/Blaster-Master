@@ -17,8 +17,8 @@
 #define BOMB_ANI_IDLE		0
 #define BOMB_ANI_EXPLODE	1
 
-#define BOMB_SPEED_X		0.02f
-#define BOMB_SPEED_Y		0.02f
+#define BOMB_SPEED_X		0.008f
+#define BOMB_SPEED_Y		0.05f
 
 #define DISTANCE_TO_CHANGE_STATE	32.0f
 

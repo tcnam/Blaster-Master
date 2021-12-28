@@ -269,6 +269,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			((CBallcarry*)obj)->SetInitPosition(x, y);
 			((CBallcarry*)obj)->SetJason(player);
 			obj->SetType(OBJECT_TYPE_BALLCARRY);
+			ballcarries.push_back((CBallcarry*)obj);
 		}
 		break;
 	case OBJECT_TYPE_NEOWORM:
@@ -294,7 +295,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			((CBomb*)obj)->SetJason(player);
 			obj->SetType(OBJECT_TYPE_BOMB);
 			int ballcarryindex = atoi(tokens[4].c_str());
-			((CBomb*)obj)->SetStartPosition(x, y);
+			ballcarries[ballcarryindex]->PushBomb((CBomb*)obj);
 		}
 		break;
 	case OBJECT_TYPE_ENEMYBULLET:
@@ -513,8 +514,8 @@ void CPlayScene::Update(DWORD dt)
 			if(coObjects[i]->GetState()!=BALLBOT_STATE_DIE)
 				coObejctsOfBullets.push_back(coObjects[i]);
 			break;
-		case OBJECT_TYPE_BALLCARRY:						
-			if (coObjects[i]->GetState() != BALLBOT_STATE_DIE)		
+		case OBJECT_TYPE_BALLCARRY:
+			if (coObjects[i]->GetState() != BALLCARRY_STATE_DIE)
 				coObejctsOfBullets.push_back(coObjects[i]);
 			break;
 		case OBJECT_TYPE_EYELET:
@@ -545,7 +546,6 @@ void CPlayScene::Update(DWORD dt)
 			if (coObjects[i]->GetState() != NEOWORM_STATE_DIE)
 				coObejctsOfBullets.push_back(coObjects[i]);
 			break;
-
 		case OBJECT_TYPE_PORTAL:
 			coObjectsOfJason.push_back(coObjects[i]);
 			break;
@@ -648,6 +648,7 @@ void CPlayScene::Unload()
 	permanentObjects.clear();
 	gunEnemies.clear();
 	interrupts.clear();
+	ballcarries.clear();
 	for (unsigned int i = 0; i < backgrounds.size(); i++)
 		delete backgrounds[i];
 	backgrounds.clear();

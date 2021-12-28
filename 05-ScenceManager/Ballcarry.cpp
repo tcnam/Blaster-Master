@@ -148,7 +148,39 @@ void CBallcarry::Render()
 
 	RenderBoundingBox();
 }
+void CBallcarry::ActivateBombs()
+{
+	if (bombs.size() == NULL)
+		return;
+	for (unsigned int i = 0; i < bombs.size(); i++)
+	{
+		switch (i)
+		{
+		case 0:
+			bombs[i]->Setnx(-1);
+			bombs[i]->SetStartPosition(x , y);
+			bombs[i]->SetPosition(x , y);
+			break;
+		case 1:
+			bombs[i]->Setnx(-1);
+			bombs[i]->SetStartPosition(x + BALLCARRY_BBOX_WIDTH / 2, y);
+			bombs[i]->SetPosition(x + BALLCARRY_BBOX_WIDTH / 2 , y);
+			break;
+		case 2:
+			bombs[i]->Setnx(1);
+			bombs[i]->SetStartPosition(x + BALLCARRY_BBOX_WIDTH / 2 , y);
+			bombs[i]->SetPosition(x + BALLCARRY_BBOX_WIDTH / 2 , y);
+			break;
+		case 3:
+			bombs[i]->Setnx(1);
+			bombs[i]->SetStartPosition(x + BALLCARRY_BBOX_WIDTH , y);
+			bombs[i]->SetPosition(x + BALLCARRY_BBOX_WIDTH , y);
+			break;
+		}
 
+		bombs[i]->SetState(BOMB_STATE_JUMP);
+	}
+}
 void CBallcarry::SetState(int state)
 {
 	CGameObject::SetState(state);
@@ -162,6 +194,7 @@ void CBallcarry::SetState(int state)
 		break;
 	case BALLCARRY_STATE_ACTION:
 		vx = 0;
+		ActivateBombs();
 		StartAction();
 		break;
 	case BALLCARRY_STATE_RUN:

@@ -4,6 +4,7 @@
 #include "Jason.h"
 #include "Brick.h"
 #include "WeakBrick.h"
+#include "Bomb.h"
 
 
 #define BALLCARRY_BBOX_WIDTH	17
@@ -29,9 +30,15 @@ class CBallcarry : public CGameObject
 private:
 	CJason* Jason;
 	DWORD action_start;
+	vector<CBomb*> bombs;
 public:
 	CBallcarry();
+
 	void SetJason(CJason* jason) { Jason = jason; }
+	void PushBomb(CBomb* b) { bombs.push_back(b); }
+	vector<CBomb*> GetBombs() { return bombs; }
+	void ActivateBombs();
+
 	void StartAction() { action_start = GetTickCount64(); }
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

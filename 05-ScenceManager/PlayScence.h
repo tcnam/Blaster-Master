@@ -34,6 +34,7 @@ protected:
 
 	vector<LPGAMEOBJECT> gunEnemies;
 	vector<LPGAMEOBJECT> interrupts;
+	vector<CBallcarry*> ballcarries;
 
 	Map* map;
 

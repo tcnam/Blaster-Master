@@ -4,6 +4,7 @@
 
 #include "Jason.h"
 #include "Game.h"
+#include "Brick.h"
 
 #include "Portal.h"
 
@@ -100,6 +101,10 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				CPortal *p = dynamic_cast<CPortal *>(e->obj);
 				CGame::GetInstance()->SwitchScene(p->GetSceneId());
 				return;
+			}
+			else if (dynamic_cast<CBrick*>(e->obj))
+			{
+
 			}
 		}
 	}

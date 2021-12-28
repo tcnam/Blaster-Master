@@ -1,7 +1,7 @@
 #include"Bomb.h"
 CBomb::CBomb() :CGameObject()
 {
-	SetState(BOMB_STATE_JUMP);
+	SetState(BOMB_STATE_IDLE);
 	Jason = NULL;
 	start_x = start_y = 0.0f;
 	explode_start = 0;
@@ -165,13 +165,13 @@ void CBomb::SetState(int state)
 		break;
 	case BOMB_STATE_FALL:
 		vy = -BOMB_SPEED_Y;
-		vx = 0;
+		vx = nx * BOMB_SPEED_X;
 		break;
 	case BOMB_STATE_ACTION:
 		break;
 	case BOMB_STATE_JUMP:
 		vy = BOMB_SPEED_Y;
-		vx = nx * BOMB_SPEED_X * 0.1;
+		vx = nx * BOMB_SPEED_X ;
 		break;
 	}
 }
