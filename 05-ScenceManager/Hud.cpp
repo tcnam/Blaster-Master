@@ -15,6 +15,7 @@ void CHud::Update()
 		return;
 	camera->GetRenderPosition(render_cam_x, render_cam_y);
 	healthbar->SetRenderPosition(render_cam_x, render_cam_y);
+	healthbar->Update();
 }
 void CHud::Render()
 {

@@ -423,6 +423,14 @@ Weak Brick
 
 [HUD]
 0	40000
+1	40001
+1	40001
+1	40001
+1	40001
+1	40001
+1	40001
+1	40001
+1	40001
 
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type

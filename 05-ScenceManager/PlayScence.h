@@ -22,6 +22,7 @@
 #include "Neoworm.h"
 #include "Bomb.h"
 #include "Hud.h"
+#include "Singlebar.h"
 
 
 

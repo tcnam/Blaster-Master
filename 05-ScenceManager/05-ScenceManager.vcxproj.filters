@@ -108,6 +108,9 @@
     <Filter Include="Jason\Hud\Font">
       <UniqueIdentifier>{0e6d673c-6e1a-4e2a-8caf-9cc049cbd45a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Jason\Hud\Singlebar">
+      <UniqueIdentifier>{0fc88b34-08ae-4a04-af1d-76f285b337aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -217,6 +220,9 @@
     </ClCompile>
     <ClCompile Include="Font.cpp">
       <Filter>Jason\Hud\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="Singlebar.cpp">
+      <Filter>Jason\Hud\Singlebar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -330,6 +336,9 @@
     </ClInclude>
     <ClInclude Include="Font.h">
       <Filter>Jason\Hud\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Singlebar.h">
+      <Filter>Jason\Hud\Singlebar</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

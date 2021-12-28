@@ -418,9 +418,20 @@ void CPlayScene::_ParseSection_HUD(string line)
 	switch (type)
 	{
 	case HUD_TYPE_HEALTHBAR:
-		CHealthbar* healthbar = new CHealthbar();
-		healthbar->SetSprite(sprite);
-		hud->SetHealthbar(healthbar);
+		{
+			CHealthbar* healthbar = new CHealthbar();
+			healthbar->SetSprite(sprite);
+			hud->SetHealthbar(healthbar);
+		}
+
+		break;
+	case HUD_TYPE_SINGLEBAR:
+		{
+			CSinglebar* singlebar = new CSinglebar();
+			singlebar->SetSprite(sprite);
+			hud->GetHealthbar()->PushSingleBar(singlebar);
+		}
+		
 		break;
 	}
 }
@@ -693,6 +704,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_S:
+		CGame::GetInstance()->SetHealth(CGame::GetInstance()->GetHealth() - 1);
 		CGame::GetInstance()->SwitchScene(2);
 		break;
 	case DIK_SPACE:

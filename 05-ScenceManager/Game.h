@@ -41,6 +41,8 @@ class CGame
 	int screen_width;
 	int screen_height; 
 
+	int player_health=8;
+
 	unordered_map<int, LPSCENE> scenes;
 	int current_scene; 
 
@@ -62,6 +64,9 @@ public:
 
 	int GetScreenWidth() { return screen_width; }
 	int GetScreenHeight() { return screen_height; }
+
+	int GetHealth() { return player_health; }
+	void SetHealth(int h) { player_health = h; }
 
 	static void SweptAABB(
 		float ml,			// move left 
