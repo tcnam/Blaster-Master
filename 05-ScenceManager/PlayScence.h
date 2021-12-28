@@ -21,6 +21,7 @@
 #include "Ballcarry.h"
 #include "Neoworm.h"
 #include "Bomb.h"
+#include "Hud.h"
 
 
 
@@ -37,10 +38,10 @@ protected:
 	vector<LPGAMEOBJECT> ballcarries;
 
 	Map* map;
-
 	vector<CBackground*> backgrounds;
 
 	Camera* camera;
+	CHud* hud;
 
 	Quadtree* quadtree;
 
@@ -51,6 +52,7 @@ protected:
 	void _ParseSection_OBJECTS(string line);
 	void _ParseSection_MAP(string line);
 	void _ParseSection_BACKGROUND(string line);
+	void _ParseSection_HUD(string line);
 
 	
 public: 

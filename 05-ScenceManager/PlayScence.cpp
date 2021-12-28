@@ -17,6 +17,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):CScene(id, filePath)
 	player = NULL;
 	map = NULL;
 	quadtree = NULL;
+	hud = NULL;
 }
 
 /*
@@ -32,6 +33,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):CScene(id, filePath)
 #define SCENE_SECTION_OBJECTS	6
 #define SCENE_SECTION_MAP		7
 #define SCENE_SECTION_BACKGROUND	8
+#define SCENE_SECTION_HUD			9
 
 
 
@@ -405,7 +407,22 @@ void CPlayScene::_ParseSection_BACKGROUND(string line)
 		backgrounds[0]->CalculateWidthHeight();
 		quadtree = new Quadtree(0.0f, 0.0f, 0.0f, backgrounds[0]->GetWidth(), backgrounds[0]->GetHeight());
 	}
-
+}
+void CPlayScene::_ParseSection_HUD(string line)
+{
+	vector<string> tokens = split(line);
+	if (tokens.size() < 2)return;
+	int type = atoi(tokens[0].c_str());
+	int sprite_id = atoi(tokens[1].c_str());
+	LPSPRITE sprite = CSprites::GetInstance()->Get(sprite_id);
+	switch (type)
+	{
+	case HUD_TYPE_HEALTHBAR:
+		CHealthbar* healthbar = new CHealthbar();
+		healthbar->SetSprite(sprite);
+		hud->SetHealthbar(healthbar);
+		break;
+	}
 }
 void CPlayScene::Load()
 {
@@ -420,6 +437,7 @@ void CPlayScene::Load()
 	char str[MAX_SCENE_LINE];
 	
 	camera = new Camera();
+	hud = new CHud();
 	while (f.getline(str, MAX_SCENE_LINE))
 	{
 		string line(str);
@@ -441,6 +459,9 @@ void CPlayScene::Load()
 		if (line == "[BACKGROUND]") {
 			section = SCENE_SECTION_BACKGROUND; continue;
 		}
+		if (line == "[HUD]") {
+			section = SCENE_SECTION_HUD; continue;
+		}
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }	
 
 		//
@@ -455,6 +476,7 @@ void CPlayScene::Load()
 			case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
 			case SCENE_SECTION_MAP: _ParseSection_MAP(line); break;
 			case SCENE_SECTION_BACKGROUND: _ParseSection_BACKGROUND(line); break;
+			case SCENE_SECTION_HUD: _ParseSection_HUD(line); break;
 		}
 	}
 
@@ -466,6 +488,7 @@ void CPlayScene::Load()
 
 	camera->SetJason(player);
 	camera->SetBoundary(backgrounds[0]->GetWidth(), backgrounds[0]->GetHeight());
+	hud->SetCamera(camera);
 	quadtree->NumberOfObjectsInNodes();
 	DebugOut(L"[INFO] Number of Objects %i\n", objects.size());
 	DebugOut(L"[INFO] Screen Height %i\n",CGame::GetInstance()->GetScreenHeight());
@@ -612,6 +635,7 @@ void CPlayScene::Update(DWORD dt)
 	// Update camera to follow Jason
 	//CGame::GetInstance()->SetCamPos(0.0f, -64.0f);
 	camera->Update(dt);
+	hud->Update();
 	if (player == NULL)
 		return;
 }
@@ -632,6 +656,7 @@ void CPlayScene::Render()
 	{
 		backgrounds[i]->Draw();
 	}
+	hud->Render();
 }
 
 /*
@@ -641,6 +666,7 @@ void CPlayScene::Unload()
 {
 	player = NULL;
 	camera = NULL;
+	hud = NULL;
 
 	for (unsigned int i = 0; i < objects.size(); i++)
 		delete objects[i];
