@@ -3,6 +3,7 @@
 #include "Jason.h"
 #include "Brick.h"
 #include "WeakBrick.h"
+#include "Reward.h"
 
 
 #define NEOWORM_IDLE_BBOX_WIDTH			9
@@ -26,9 +27,12 @@ class CNeoworm : public CGameObject
 {
 private:
 	CJason* Jason;
+	CReward* Reward;
 public:
 	CNeoworm();
 	void SetJason(CJason* jason) { Jason = jason; }
+	void SetReward(CReward* r) { Reward = r; }
+	CReward* GetReward() { return Reward; }
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void WorldToRender();

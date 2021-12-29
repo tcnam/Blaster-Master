@@ -124,7 +124,7 @@ void CLaserguard::Render()
 	WorldToRender();
 	animation_set->at(0)->Render(round(render_x), round(render_y));
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CLaserguard::SetState(int state)

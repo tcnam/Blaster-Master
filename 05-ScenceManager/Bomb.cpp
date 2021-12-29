@@ -150,7 +150,7 @@ void CBomb::Render()
 		ani = BOMB_ANI_EXPLODE;
 	animation_set->at(ani)->Render(round(render_x), round(render_y));
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CBomb::SetState(int state)

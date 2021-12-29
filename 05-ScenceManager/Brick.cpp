@@ -16,7 +16,7 @@ void CBrick::Render()
 {
 	WorldToRender();
 	//animation_set->at(0)->Render(x, y);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CBrick::WorldToRender()

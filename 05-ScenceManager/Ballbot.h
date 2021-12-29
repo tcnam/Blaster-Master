@@ -2,6 +2,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Jason.h"
+#include "Reward.h"
 
 #define  BALLBOT_SPEED_X		0.05f
 #define	 BALLBOT_SPEED_Y		0.05f
@@ -22,11 +23,15 @@ class CBallbot : public CGameObject
 {
 private:
 	CJason* Jason;
+	CReward* Reward;
 	bool isActived;
 	int dem;
 public:
 	CBallbot();
 	void SetJason(CJason* jason) { Jason = jason; }
+
+	void SetReward(CReward* r) { Reward = r; }
+	CReward* GetReward() { return Reward; }
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void WorldToRender();

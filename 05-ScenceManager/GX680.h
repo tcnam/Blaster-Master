@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "Jason.h"
 #include "Brick.h"
-
+#include "Reward.h"
 
 #define GX680_BBOX_WIDTH 18
 #define GX680_BBOX_HEIGHT 18
@@ -22,9 +22,12 @@ class CGx680 : public CGameObject
 private:
 	CJason* Jason;
 	int ny;
+	CReward* Reward;
 public:
 	CGx680();
 	void SetJason(CJason* jason) { Jason = jason; }
+	void SetReward(CReward* r) { Reward = r; }
+	CReward* GetReward() { return Reward; }
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void WorldToRender();

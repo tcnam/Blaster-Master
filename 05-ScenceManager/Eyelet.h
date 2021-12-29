@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Jason.h"
-
+#include "Reward.h"
 
 #define EYELET_BBOX_WIDTH 18
 #define EYELET_BBOX_HEIGHT 18
@@ -22,9 +22,12 @@ class CEyelet : public CGameObject
 private:
 	CJason* Jason;
 	int dem;
+	CReward* Reward;
 public:
 	CEyelet();
 	void SetJason(CJason* jason) { Jason = jason; }
+	void SetReward(CReward* r) { Reward = r; }
+	CReward* GetReward() { return Reward; }
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void WorldToRender();

@@ -130,7 +130,7 @@ void CEyelet::Render()
 	}
 	animation_set->at(ani)->Render(round(render_x), round(render_y));
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CEyelet::SetState(int state)

@@ -38,7 +38,8 @@ protected:
 	vector<LPGAMEOBJECT> gunEnemies;
 	vector<LPGAMEOBJECT> interrupts;
 	vector<LPGAMEOBJECT> ballcarries;
-	vector<LPGAMEOBJECT> enemies;
+	vector<LPGAMEOBJECT> rewardlist;
+	int rewardIndex;
 
 	Map* map;
 	vector<CBackground*> backgrounds;

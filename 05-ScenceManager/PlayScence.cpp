@@ -18,6 +18,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):CScene(id, filePath)
 	map = NULL;
 	quadtree = NULL;
 	hud = NULL;
+	rewardIndex = 0;
 }
 
 /*
@@ -198,16 +199,18 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		((CInterrupt*)obj)->SetJason(player);
 		((CInterrupt*)obj)->SetInitPosition(x, y);
 		obj->SetType(OBJECT_TYPE_INTERRUPT);
-		enemies.push_back(obj);
 		interrupts.push_back(obj);
+		((CInterrupt*)obj)->SetReward((CReward*)rewardlist[rewardIndex]);
+		rewardIndex++;
 		break;
 	case OBJECT_TYPE_BALLBOT:
 		obj = new CBallbot();
 		((CBallbot*)obj)->SetInitPosition(x, y);
 		((CBallbot*)obj)->SetJason(player);
 		((CBallbot*)obj)->SetInitPosition(x, y);
-		enemies.push_back(obj);
 		obj->SetType(OBJECT_TYPE_BALLBOT);
+		((CBallbot*)obj)->SetReward((CReward*)rewardlist[rewardIndex]);
+		rewardIndex++;
 		break;
 	case OBJECT_TYPE_EYELET:
 		{
@@ -219,7 +222,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			int direction = atoi(tokens[4].c_str());
 			obj->Setnx(direction);
 			obj->SetState(EYELET_STATE_ACTION);
-			enemies.push_back(obj);
+			((CEyelet*)obj)->SetReward((CReward*)rewardlist[rewardIndex]);
+			rewardIndex++;
 		}
 		break;
 	case OBJECT_TYPE_STUKA:
@@ -232,45 +236,49 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			int direction = atoi(tokens[4].c_str());
 			obj->Setnx(direction);
 			obj->SetState(STUKA_STATE_IDLE);
-			enemies.push_back(obj);
+			((CStuka*)obj)->SetReward((CReward*)rewardlist[rewardIndex]);
+			rewardIndex++;
 		}
 		break;
 	case OBJECT_TYPE_GX680:
-	{
-		obj = new CGx680();
-		((CGx680*)obj)->SetInitPosition(x, y);
-		((CGx680*)obj)->SetJason(player);
-		obj->SetType(OBJECT_TYPE_GX680);
-		gunEnemies.push_back(obj);
-		enemies.push_back(obj);
-	}
+		{
+			obj = new CGx680();
+			((CGx680*)obj)->SetInitPosition(x, y);
+			((CGx680*)obj)->SetJason(player);
+			obj->SetType(OBJECT_TYPE_GX680);
+			gunEnemies.push_back(obj);
+			((CGx680*)obj)->SetReward((CReward*)rewardlist[rewardIndex]);
+			rewardIndex++;
+		}
 		break;
 	case OBJECT_TYPE_DRAG:
-	{
-		obj = new CDrag();
-		((CDrag*)obj)->SetInitPosition(x, y);
-		((CDrag*)obj)->SetJason(player);
-		//((CStuka*)obj)->SetInitPosition(x, y);
-		obj->SetType(OBJECT_TYPE_DRAG);
-		int direction = atoi(tokens[4].c_str());
-		obj->Setnx(direction);
-		obj->SetState(DRAG_STATE_IDLE);
-		enemies.push_back(obj);
-	}
-	break;
+		{
+			obj = new CDrag();
+			((CDrag*)obj)->SetInitPosition(x, y);
+			((CDrag*)obj)->SetJason(player);
+			//((CStuka*)obj)->SetInitPosition(x, y);
+			obj->SetType(OBJECT_TYPE_DRAG);
+			int direction = atoi(tokens[4].c_str());
+			obj->Setnx(direction);
+			obj->SetState(DRAG_STATE_IDLE);
+			((CDrag*)obj)->SetReward((CReward*)rewardlist[rewardIndex]);
+			rewardIndex++;
+		}
+		break;
 	case OBJECT_TYPE_LASERGUARD:
-	{
-		obj = new CLaserguard();
-		((CLaserguard*)obj)->SetInitPosition(x, y);
-		((CLaserguard*)obj)->SetJason(player);
-		obj->SetType(OBJECT_TYPE_LASERGUARD);
-		int direction = atoi(tokens[4].c_str());
-		obj->Setnx(direction);
-		obj->SetState(LASERGUARD_STATE_IDLE);
-		gunEnemies.push_back(obj);
-		enemies.push_back(obj);
-	}
-	break;
+		{
+			obj = new CLaserguard();
+			((CLaserguard*)obj)->SetInitPosition(x, y);
+			((CLaserguard*)obj)->SetJason(player);
+			obj->SetType(OBJECT_TYPE_LASERGUARD);
+			int direction = atoi(tokens[4].c_str());
+			obj->Setnx(direction);
+			obj->SetState(LASERGUARD_STATE_IDLE);
+			gunEnemies.push_back(obj);
+			((CLaserguard*)obj)->SetReward((CReward*)rewardlist[rewardIndex]);
+			rewardIndex++;
+		}
+		break;
 	case OBJECT_TYPE_BALLCARRY:
 		{
 			obj = new CBallcarry();
@@ -278,7 +286,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			((CBallcarry*)obj)->SetJason(player);
 			obj->SetType(OBJECT_TYPE_BALLCARRY);
 			ballcarries.push_back((CBallcarry*)obj);
-			enemies.push_back(obj);
+			((CBallcarry*)obj)->SetReward((CReward*)rewardlist[rewardIndex]);
+			rewardIndex++;
 		}
 		break;
 	case OBJECT_TYPE_NEOWORM:
@@ -295,7 +304,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 					break;
 				}
 			}
-			enemies.push_back(obj);
+			((CNeoworm*)obj)->SetReward((CReward*)rewardlist[rewardIndex]);
+			rewardIndex++;
 		}
 		break;
 	case OBJECT_TYPE_BOMB:
@@ -314,8 +324,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			((CReward*)obj)->SetInitPosition(x, y);
 			((CReward*)obj)->SetPosition(x, y);
 			obj->SetType(OBJECT_TYPE_REWARD);
-			int enemyindex = atoi(tokens[4].c_str());
-
+			rewardlist.push_back(obj);
 		}
 		break;
 	case OBJECT_TYPE_ENEMYBULLET:
@@ -708,16 +717,16 @@ void CPlayScene::Unload()
 	for (unsigned int i = 0; i < objects.size(); i++)
 		delete objects[i];
 	objects.clear();
-	enemies.clear();
 	permanentObjects.clear();
 	gunEnemies.clear();
 	interrupts.clear();
 	ballcarries.clear();
+	rewardlist.clear();
 	for (unsigned int i = 0; i < backgrounds.size(); i++)
 		delete backgrounds[i];
 	backgrounds.clear();
 	quadtree = NULL;
-	
+	rewardIndex = 0;
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
 }
 

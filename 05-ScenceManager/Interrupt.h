@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Jason.h"
 #include "Neoworm.h"
+#include "Reward.h"
 
 #define INTERRUPT_BBOX_WIDTH 22
 #define INTERRUPT_BBOX_HEIGHT 18
@@ -21,6 +22,7 @@ class CInterrupt : public CGameObject
 private:
 	CNeoworm* Worm;
 	CJason* Jason;
+	CReward* Reward;
 public:
 	CInterrupt();
 
@@ -30,7 +32,8 @@ public:
 	CNeoworm* GetWorm() { return Worm; }
 	
 	void ActivateNeoworm();
-
+	void SetReward(CReward* r) { Reward = r; }
+	CReward* GetReward() { return Reward; }
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void WorldToRender();

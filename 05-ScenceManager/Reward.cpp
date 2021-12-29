@@ -1,7 +1,8 @@
 #include "Reward.h"
+#include "Jason.h"
 CReward::CReward() :CGameObject()
 {
-	SetState(REWARD_STATE_ACTION);
+	SetState(REWARD_STATE_IDLE);
 	SetTypeReward(REWARD_TYPE_POWER);
 }
 
@@ -107,10 +108,16 @@ void CReward::Render()
 
 	//RenderBoundingBox();
 }
-
+int CReward::ChooseReward()
+{
+	int randomReward[10] = { 0,10,20,0,0,0,0,10,20,0 };
+	int randIndex = rand() % 10;
+	return randomReward[randIndex];
+}
 void CReward::SetState(int state)
 {
 	CGameObject::SetState(state);
+	SetTypeReward(ChooseReward());
 	vx = 0;
 	vy = 0;
 }

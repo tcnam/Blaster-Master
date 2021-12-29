@@ -5,6 +5,7 @@
 #include "Brick.h"
 #include "WeakBrick.h"
 #include "Bomb.h"
+#include "Reward.h"
 
 
 #define BALLCARRY_BBOX_WIDTH	17
@@ -31,6 +32,7 @@ private:
 	CJason* Jason;
 	DWORD action_start;
 	vector<CBomb*> bombs;
+	CReward* Reward;
 public:
 	CBallcarry();
 
@@ -39,6 +41,8 @@ public:
 	vector<CBomb*> GetBombs() { return bombs; }
 	void ActivateBombs();
 
+	void SetReward(CReward* r) { Reward = r; }
+	CReward* GetReward() { return Reward; }
 	void StartAction() { action_start = GetTickCount64(); }
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

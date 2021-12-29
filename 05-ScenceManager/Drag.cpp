@@ -128,7 +128,7 @@ void CDrag::Render()
 
 	animation_set->at(0)->Render(round(render_x), round(render_y));
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CDrag::SetState(int state)

@@ -108,7 +108,7 @@ void CInterrupt::Render()
 
 	animation_set->at(ani)->Render(round(render_x), round(render_y));
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CInterrupt::SetState(int state)

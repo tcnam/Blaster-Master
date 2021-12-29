@@ -111,7 +111,7 @@ void CEBullet::Render()
 		return;
 	WorldToRender();
 	animation_set->at(0)->Render(round(render_x), round(render_y), 255);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 void CEBullet::SetState(int state, int nx, int ny)
 {

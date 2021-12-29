@@ -3,6 +3,7 @@
 #include "Jason.h"
 #include "Brick.h"
 #include "WeakBrick.h"
+#include "Reward.h"
 
 
 #define DRAG_BBOX_WIDTH 18
@@ -22,9 +23,12 @@ class CDrag : public CGameObject
 {
 private:
 	CJason* Jason;
+	CReward* Reward;
 public:
 	CDrag();
 	void SetJason(CJason* jason) { Jason = jason; }
+	void SetReward(CReward* r) { Reward = r; }
+	CReward* GetReward() { return Reward; }
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void WorldToRender();

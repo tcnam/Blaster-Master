@@ -99,6 +99,11 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					s->SetState(STUKA_STATE_DIE);
 					s->GetPosition(collide_x, collide_y);
 					SetPosition(collide_x, collide_y+ BULLET_IMPACT_BBOX_HEIGT);
+					if (s->GetReward() != NULL)
+					{
+						s->GetReward()->SetState(REWARD_STATE_ACTION);
+						s->GetReward()->SetPosition(collide_x, collide_y);
+					}
 				}					
 			}
 
@@ -110,6 +115,11 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					i->SetState(INTERRUPT_STATE_DIE);
 					i->GetPosition(collide_x, collide_y);
 					SetPosition(collide_x, collide_y + BULLET_IMPACT_BBOX_HEIGT);
+					if (i->GetReward() != NULL)
+					{
+						i->GetReward()->SetState(REWARD_STATE_ACTION);
+						i->GetReward()->SetPosition(collide_x, collide_y);
+					}
 				}
 					
 			}
@@ -121,6 +131,11 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					b->SetState(BALLBOT_STATE_DIE);
 					b->GetPosition(collide_x, collide_y);
 					SetPosition(collide_x, collide_y + BULLET_IMPACT_BBOX_HEIGT);
+					if (b->GetReward() != NULL)
+					{
+						b->GetReward()->SetState(REWARD_STATE_ACTION);
+						b->GetReward()->SetPosition(collide_x, collide_y);
+					}
 				}
 
 			}
@@ -132,6 +147,11 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					eye->SetState(EYELET_STATE_DIE);
 					eye->GetPosition(collide_x, collide_y);
 					SetPosition(collide_x, collide_y + BULLET_IMPACT_BBOX_HEIGT);
+					if (eye->GetReward() != NULL)
+					{
+						eye->GetReward()->SetState(REWARD_STATE_ACTION);
+						eye->GetReward()->SetPosition(collide_x, collide_y);
+					}
 				}			
 			}
 			else if (dynamic_cast<CGx680*>(e->obj))
@@ -142,6 +162,11 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					g->SetState(GX680_STATE_DIE);
 					g->GetPosition(collide_x, collide_y);
 					SetPosition(collide_x, collide_y + BULLET_IMPACT_BBOX_HEIGT);
+					if (g->GetReward() != NULL)
+					{
+						g->GetReward()->SetState(REWARD_STATE_ACTION);
+						g->GetReward()->SetPosition(collide_x, collide_y);
+					}
 				}
 			}
 			else if (dynamic_cast<CDrag*>(e->obj))
@@ -152,6 +177,11 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					d->SetState(DRAG_STATE_DIE);
 					d->GetPosition(collide_x, collide_y);
 					SetPosition(collide_x, collide_y + BULLET_IMPACT_BBOX_HEIGT);
+					if (d->GetReward() != NULL)
+					{
+						d->GetReward()->SetState(REWARD_STATE_ACTION);
+						d->GetReward()->SetPosition(collide_x, collide_y);
+					}
 				}
 			}
 			else if (dynamic_cast<CLaserguard*>(e->obj))
@@ -162,6 +192,11 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					lg->SetState(LASERGUARD_STATE_DIE);
 					lg->GetPosition(collide_x, collide_y);
 					SetPosition(collide_x, collide_y + BULLET_IMPACT_BBOX_HEIGT);
+					if (lg->GetReward() != NULL)
+					{
+						lg->GetReward()->SetState(REWARD_STATE_ACTION);
+						lg->GetReward()->SetPosition(collide_x, collide_y);
+					}
 				}
 			}
 			else if (dynamic_cast<CBallcarry*>(e->obj))
@@ -172,16 +207,27 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					i->SetState(BALLCARRY_STATE_DIE);
 					i->GetPosition(collide_x, collide_y);
 					SetPosition(collide_x, collide_y + BULLET_IMPACT_BBOX_HEIGT);
+					if (i->GetReward() != NULL)
+					{
+						i->GetReward()->SetState(REWARD_STATE_ACTION);
+						i->GetReward()->SetPosition(collide_x, collide_y);
+					}
 				}
 			}
 			else if (dynamic_cast<CNeoworm*>(e->obj))
 			{
 				CNeoworm* nw = dynamic_cast<CNeoworm*>(e->obj);
-				if (nw->GetState() != NEOWORM_STATE_DIE)
+				if (nw->GetState() == NEOWORM_STATE_ACTION)
 				{
 					nw->SetState(NEOWORM_STATE_DIE);
 					nw->GetPosition(collide_x, collide_y);
 					SetPosition(collide_x, collide_y + BULLET_IMPACT_BBOX_HEIGT);
+					if (nw->GetReward() != NULL)
+					{
+						nw->GetReward()->SetState(REWARD_STATE_ACTION);
+						nw->GetReward()->SetPosition(collide_x, collide_y);
+					}
+						
 				}
 			}
 			else if (dynamic_cast<CBrick*>(e->obj))
@@ -244,7 +290,7 @@ void CBullet::Render()
 		break;
 	}
 	animation_set->at(ani)->Render(round(render_x), round(render_y), alpha);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 void CBullet::SetState(int state,int nx, int ny)
 {
