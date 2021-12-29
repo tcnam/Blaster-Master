@@ -15,6 +15,8 @@ CTank::CTank(float x, float y) : CGameObject()
 	start_y = y;
 	this->x = x;
 	this->y = y;
+
+	isUntouchable = false;
 }
 void CTank::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -24,6 +26,12 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		for (unsigned int i = 0; i < Wheels.size(); i++)
 		{
+			if (isUntouchable == true)
+				Wheels[i]->SetUntouchable(true);
+			else
+			{
+				Wheels[i]->SetUntouchable(false);
+			}
 			switch (state)
 			{
 			case TANK_STATE_RIGHT:
@@ -61,6 +69,13 @@ void CTank::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				break;
 			}
 		}
+	}
+
+	if (isUntouchable == true)
+		Cannon->SetUntouchable(true);
+	else
+	{
+		Cannon->SetUntouchable(false);
 	}
 	switch (isCannonUp)
 	{
@@ -108,6 +123,8 @@ void CTank::Render()
 	WorldToRender();
 	int ani = -1;
 	int alpha = 255;
+	if (isUntouchable == true)
+		alpha = 128;
 	switch (isCannonUp)
 	{
 	case false:

@@ -51,6 +51,7 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		untouchable_start = 0;
 		untouchable = 0;
+		Tank->SetUntouchable(false);
 	}
 
 	// No collision occured, proceed normally
@@ -381,6 +382,7 @@ void CJason::StartUntouchable()
 {
 	CGame::GetInstance()->SetHealth(CGame::GetInstance()->GetHealth() - 1);
 	untouchable = 1; 
+	Tank->SetUntouchable(true);
 	untouchable_start = GetTickCount64();
 }
 
@@ -417,8 +419,8 @@ void CJason::StartAttack()
 				}
 				break;
 			case true:
-				Bullets[bulletIndex]->SetStartPosition(x + JASON_TANK_BBOX_WIDTH / 2, y + JASON_TANK_BBOX_HEIGHT);
-				Bullets[bulletIndex]->SetPosition(x + JASON_TANK_BBOX_WIDTH / 2, y + JASON_TANK_BBOX_HEIGHT);
+				Bullets[bulletIndex]->SetStartPosition(x + JASON_TANK_BBOX_WIDTH / 2, y + JASON_TANK_BBOX_HEIGHT/2);
+				Bullets[bulletIndex]->SetPosition(x + JASON_TANK_BBOX_WIDTH / 2, y + JASON_TANK_BBOX_HEIGHT/2);
 				break;
 			}
 			Bullets[bulletIndex]->SetState(BULLET_STATE_FIRE, nx, (int)Tank->GetCannon()->CannonUpOrNot());

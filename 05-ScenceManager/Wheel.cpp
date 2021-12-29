@@ -27,7 +27,8 @@ void CWheel::Render()
 	WorldToRender();
 	int ani = -1;
 	int alpha = 255;
-
+	if (isUntouchable == true)
+		alpha = 128;
 		switch (state)
 		{
 		case WHEEL_STATE_MOVE_RIGHT:

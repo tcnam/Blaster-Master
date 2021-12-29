@@ -22,6 +22,7 @@ class CTank : public CGameObject
 
 	bool isCannonUp;
 	bool isMoving;
+	bool isUntouchable;
 
 	float start_x;			// initial position of JASON at scene
 	float start_y;
@@ -32,6 +33,8 @@ public:
 	virtual void Render();
 
 	void SetState(int state);
+
+	void SetUntouchable(bool b) { isUntouchable = b; }
 	void SetCannonUP(bool UpOrNOt) { isCannonUp = UpOrNOt; }
 	void SetMoving(bool move) { isMoving = move; }
 

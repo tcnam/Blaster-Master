@@ -47,7 +47,7 @@
 #define JASON_SMALL_BBOX_HEIGHT 16
 
 
-#define JASON_UNTOUCHABLE_TIME 5000
+#define JASON_UNTOUCHABLE_TIME 3000
 
 
 class CJason : public CGameObject

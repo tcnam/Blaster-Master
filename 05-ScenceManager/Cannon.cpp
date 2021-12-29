@@ -24,6 +24,8 @@ void CCannon::Render()
 	WorldToRender();
 	int ani = -1;
 	int alpha = 255;
+	if (isUntouchable == true)
+		alpha = 128;
 	switch (isUp)
 	{
 	case false:
