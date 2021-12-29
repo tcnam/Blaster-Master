@@ -7,13 +7,15 @@
 #define GX680_BBOX_WIDTH 18
 #define GX680_BBOX_HEIGHT 18
 
+#define GX680_STATE_IDLE	100
 #define GX680_STATE_ACTION	200
 #define GX680_STATE_DIE		300
 
 #define GX680_ANI_MOVE		0
 
-
 #define GX680_SPEED_X		0.03f
+
+#define DISTANCE_TO_CHANGE_STATE	112.0f
 
 class CGx680 : public CGameObject
 {

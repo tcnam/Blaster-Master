@@ -1,7 +1,7 @@
 #include"GX680.h"
 CGx680::CGx680() :CGameObject()
 {
-	SetState(GX680_STATE_ACTION);
+	SetState(GX680_STATE_IDLE);
 	Jason = NULL;
 }
 void CGx680::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -34,7 +34,17 @@ void CGx680::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		ny = 1;
 	else
 		ny = -1;
-	SetState(GX680_STATE_ACTION);
+	bool choosestate = CGame::GetInstance()->AABBCheck(
+		l1, t1, r1, b1,
+		x - DISTANCE_TO_CHANGE_STATE,
+		y - DISTANCE_TO_CHANGE_STATE,
+		x + GX680_BBOX_WIDTH + DISTANCE_TO_CHANGE_STATE,
+		y + GX680_BBOX_HEIGHT+DISTANCE_TO_CHANGE_STATE);
+	if (choosestate == true&&state==GX680_STATE_IDLE)
+		SetState(GX680_STATE_ACTION);
+	if (state == GX680_STATE_ACTION)			//reset speed
+		SetState(GX680_STATE_ACTION);
+
 	CGameObject::Update(dt, coObjects);
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -91,9 +101,10 @@ void CGx680::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			else if (dynamic_cast<CJason*>(e->obj))
 			{
-				Jason->StartUntouchable();
-				x += dx;
-				y += dy;
+				x += min_tx * dx + nx * 0.4f;
+				y += min_ty * dy + ny * 0.4f;
+				if (Jason->GetUntouchable() != 1)
+					Jason->StartUntouchable();
 			}
 		}
 	}
@@ -122,7 +133,7 @@ void CGx680::Render()
 	}
 	animation_set->at(0)->Render(round(render_x), round(render_y));
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CGx680::SetState(int state)
@@ -130,6 +141,10 @@ void CGx680::SetState(int state)
 	CGameObject::SetState(state);
 	switch (state)
 	{
+	case GX680_STATE_IDLE:
+		vx = 0;
+		vy = 0;
+		break;
 	case GX680_STATE_DIE:
 		vx = 0;
 		vy = 0;
