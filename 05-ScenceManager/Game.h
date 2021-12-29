@@ -66,7 +66,7 @@ public:
 	int GetScreenHeight() { return screen_height; }
 
 	int GetHealth() { return player_health; }
-	void SetHealth(int h) { player_health = h; }
+	void SetHealth(int h);
 
 	static void SweptAABB(
 		float ml,			// move left 

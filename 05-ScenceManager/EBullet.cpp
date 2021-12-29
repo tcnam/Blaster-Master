@@ -87,7 +87,8 @@ void CEBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					//player->SetState(JASON_STATE_DIE);
 					player->GetPosition(collide_x, collide_y);
 					SetPosition(collide_x, collide_y + EBULLET_BBOX_HEIGHT);
-					player->StartUntouchable();
+					if (player->GetUntouchable() != 1)
+						player->StartUntouchable();
 				}
 			}
 	

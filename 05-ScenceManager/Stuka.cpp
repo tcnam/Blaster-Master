@@ -92,7 +92,8 @@ void CStuka::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				SetState(STUKA_STATE_IDLE);
 				x += min_tx * dx + nx * 0.4f;
 				y += min_ty * dy + ny * 0.4f;
-				Jason->StartUntouchable();
+				if (Jason->GetUntouchable() != 1)
+					Jason->StartUntouchable();
 			}
 		}
 	}

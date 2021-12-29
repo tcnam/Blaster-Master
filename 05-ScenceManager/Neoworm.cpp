@@ -114,7 +114,8 @@ void CNeoworm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				if(e->ny!=0&&e->nx==0)
 					SetPosition(x, y + 0.1f);
-				Jason->StartUntouchable();
+				if (Jason->GetUntouchable() != 1)
+					Jason->StartUntouchable();
 				//x += dx;
 				//y += dy;
 			}

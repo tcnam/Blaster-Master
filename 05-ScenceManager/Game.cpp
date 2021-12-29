@@ -404,3 +404,9 @@ void CGame::SwitchScene(int scene_id)
 	CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
 	s->Load();	
 }
+void CGame::SetHealth(int h)
+{
+	if (h <= -1||h>=8)
+		h = 8;
+	player_health = h;
+}

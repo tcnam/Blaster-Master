@@ -106,7 +106,8 @@ void CDrag::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				SetState(DRAG_STATE_ACTION);
 				x += dx;
 				y += dy;
-				player->StartUntouchable();
+				if (Jason->GetUntouchable() != 1)
+					Jason->StartUntouchable();
 			}
 		}
 	}

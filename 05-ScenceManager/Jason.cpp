@@ -377,6 +377,12 @@ void CJason::Reset()
 	SetPosition(start_x, start_y);
 	SetSpeed(0, 0);
 }
+void CJason::StartUntouchable()
+{
+	CGame::GetInstance()->SetHealth(CGame::GetInstance()->GetHealth() - 1);
+	untouchable = 1; 
+	untouchable_start = GetTickCount64();
+}
 
 void CJason::StartAttack()
 {

@@ -237,7 +237,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		((CGx680*)obj)->SetInitPosition(x, y);
 		((CGx680*)obj)->SetJason(player);
 		obj->SetType(OBJECT_TYPE_GX680);
-		obj->SetState(GX680_STATE_ACTION);
 		gunEnemies.push_back(obj);
 	}
 		break;
