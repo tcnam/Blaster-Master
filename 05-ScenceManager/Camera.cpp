@@ -16,7 +16,7 @@ void Camera::Update(DWORD time)
 	float cx, cy;
 	Jason->GetPosition(cx, cy);
 	cx -= (float)CGame::GetInstance()->GetScreenWidth() / 2;
-	cy -= (float)CGame::GetInstance()->GetScreenHeight() /2;
+	cy -= (float)CGame::GetInstance()->GetScreenHeight() /4;
 	cam_x = cx;
 	cam_y = cy;
 

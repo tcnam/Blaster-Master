@@ -605,12 +605,19 @@ void CPlayScene::Update(DWORD dt)
 		case OBJECT_TYPE_EYELET:
 			coObjects[i]->Update(dt, &coObjectsOfEnemies1);
 			break;
-		case OBJECT_TYPE_STUKA:
-			coObjects[i]->Update(dt, &coObjectsOfEnemies2);
+		case OBJECT_TYPE_INTERRUPT:
+			coObjects[i]->Update(dt, &coObjectsOfEnemies1);
 			break;
 		case OBJECT_TYPE_BALLBOT:
 			coObjects[i]->Update(dt, &coObjectsOfEnemies1);
 			break;
+		case OBJECT_TYPE_ENEMYBULLET:
+			coObjects[i]->Update(dt, &coObjectsOfEnemies1);
+			break;
+
+		case OBJECT_TYPE_STUKA:
+			coObjects[i]->Update(dt, &coObjectsOfEnemies2);
+			break;	
 		case OBJECT_TYPE_GX680:
 			coObjects[i]->Update(dt, &coObjectsOfEnemies2);
 			break;
@@ -619,9 +626,6 @@ void CPlayScene::Update(DWORD dt)
 			break;
 		case OBJECT_TYPE_LASERGUARD:
 			coObjects[i]->Update(dt, &coObjectsOfEnemies2);
-			break;
-		case OBJECT_TYPE_ENEMYBULLET:
-			coObjects[i]->Update(dt, &coObjectsOfEnemies1);
 			break;
 		case OBJECT_TYPE_BALLCARRY:
 			coObjects[i]->Update(dt, &coObjectsOfEnemies2);

@@ -23,7 +23,7 @@ void CInterrupt::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	if (state == INTERRUPT_STATE_DIE)
 		return;
-	CGameObject::Update(dt, coObjects);
+	
 	//
 	// TO-DO: make sure INTERRUPT can interact with the world and to each of them too!
 	// 
@@ -36,6 +36,59 @@ void CInterrupt::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		SetState(INTERRUPT_STATE_ACTION);
 	else
 		SetState(INTERRUPT_STATE_IDLE);
+	CGameObject::Update(dt, coObjects);
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+	coEvents.clear();
+
+	// turn off collision when die 
+	CalcPotentialCollisions(coObjects, coEvents);
+
+	// reset untouchable timer if untouchable time has passed
+
+	// No collision occured, proceed normally
+	if (coEvents.size() == 0)
+	{
+		x += dx;
+		y += dy;
+	}
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny;
+		float rdx = 0;
+		float rdy = 0;
+
+		// TODO: This is a very ugly designed function!!!!
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+
+		// how to push back JASON if collides with a moving objects, what if JASON is pushed this way into another object?
+		//if (rdx != 0 && rdx!=dx)
+		//	x += nx*abs(rdx); 
+		if (nx != 0) vx = 0;
+		if (ny != 0)
+		{
+			vy = 0;
+		}
+		// block every object first!
+		x += min_tx * dx + nx * 0.4f;
+		y += min_ty * dy + ny * 0.4f;
+		//
+		// Collision logic with other objects
+		//
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
+			if (dynamic_cast<CJason*>(e->obj))
+			{
+				x += min_tx * dx + nx * 0.4f;
+				y += min_ty * dy + ny * 0.4f;
+				if (Jason->GetUntouchable() != 1)
+					Jason->StartUntouchable();
+			}
+		}
+	}
+	// clean up collision events
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
 }
 void CInterrupt::WorldToRender()
