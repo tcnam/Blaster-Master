@@ -207,6 +207,11 @@
 # Items inside cover
 40001	59	19	65	22	120
 
+#Reward
+# health
+50000	105	109	121	125	60
+# power
+50001	255	109	271	125	60
 
 
 
@@ -352,6 +357,12 @@
 Weak Brick
 700	30001	100
 
+# Reward
+# Health
+800	50000	100
+# Power
+801	50001	100
+
 #
 # id	ani1	ani2	ani3
 #
@@ -398,6 +409,10 @@ Weak Brick
 # Weak Brick
 50	700	
 
+
+# Reward
+80	800	801
+
 [BACKGROUND]
 0	-1984	30000
 96	-1808	30002
@@ -434,7 +449,10 @@ Weak Brick
 
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
-# type: 0 = Jason , 1 = Tank, 2 = Cannon, 3 = Wheel, 4 = Brick, 5=Interrupt, 6=BallBot, 7=Eyelet, 8=BallCarry, 9=Stuka, 10=Bullet, 11=Weak Brick, 12=RainbowBullet, 13=GX680, 14=DRAG, 15=LASERGUARD, 16=ENEMY BULLET
+# type: 0 = Jason , 1 = Tank, 2 = Cannon, 3 = Wheel, 4 = Brick, 5=Interrupt,
+# 6=BallBot, 7=Eyelet, 8=BallCarry, 9=Stuka, 10=Bullet, 
+# 11=Weak Brick, 12=RainbowBullet, 13=GX680, 14=DRAG, 15=LASERGUARD, 
+# 16=ENEMY BULLET, 17=NEOWORM,  18=BOMB, 19=REWARD
 # JASON
 0	112	1920	0	3
 12	368	640	5

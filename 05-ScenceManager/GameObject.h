@@ -33,6 +33,7 @@ using namespace std;
 #define OBJECT_TYPE_ENEMYBULLET		16
 #define OBJECT_TYPE_NEOWORM			17
 #define OBJECT_TYPE_BOMB			18
+#define OBJECT_TYPE_REWARD			19
 
 #define OBJECT_TYPE_PORTAL	50
 
@@ -93,6 +94,9 @@ protected:
 	int type;
 
 	bool isInserted;				//for inserting to quadtree
+
+	bool isCollideNx;
+	bool isCollideNyDown;
 
 	DWORD dt; 
 

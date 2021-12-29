@@ -3,8 +3,8 @@
 #include "Game.h"
 #include "Jason.h"
 
-#define CAMX_IN_USE 336
-#define CAMY_IN_USE 336
+#define CAMX_IN_USE 272
+#define CAMY_IN_USE 256
 
 
 class Camera

@@ -146,6 +146,7 @@
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="RainbowBullet.cpp" />
+    <ClCompile Include="Reward.cpp" />
     <ClCompile Include="Singlebar.cpp" />
     <ClCompile Include="Stuka.cpp" />
     <ClCompile Include="Tank.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="Portal.h" />
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="RainbowBullet.h" />
+    <ClInclude Include="Reward.h" />
     <ClInclude Include="Singlebar.h" />
     <ClInclude Include="Stuka.h" />
     <ClInclude Include="Tank.h" />

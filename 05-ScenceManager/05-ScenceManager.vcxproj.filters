@@ -111,6 +111,9 @@
     <Filter Include="Jason\Hud\Singlebar">
       <UniqueIdentifier>{0fc88b34-08ae-4a04-af1d-76f285b337aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Enemy\Reward">
+      <UniqueIdentifier>{6a6d38f9-cc1d-47e6-8208-305883871ccc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -223,6 +226,9 @@
     </ClCompile>
     <ClCompile Include="Singlebar.cpp">
       <Filter>Jason\Hud\Singlebar</Filter>
+    </ClCompile>
+    <ClCompile Include="Reward.cpp">
+      <Filter>Object\Enemy\Reward</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -339,6 +345,9 @@
     </ClInclude>
     <ClInclude Include="Singlebar.h">
       <Filter>Jason\Hud\Singlebar</Filter>
+    </ClInclude>
+    <ClInclude Include="Reward.h">
+      <Filter>Object\Enemy\Reward</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

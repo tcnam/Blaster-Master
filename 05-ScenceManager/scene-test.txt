@@ -204,6 +204,12 @@
 # Items inside cover
 40001	59	19	65	22	120
 
+#Reward
+# health
+50000	105	109	121	125	60
+# power
+50001	255	109	271	125	60
+
 
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
 [ANIMATIONS]
@@ -344,6 +350,12 @@
 Weak Brick
 700	30001	100
 
+# Reward
+# Health
+800	50000	100
+# Power
+801	50001	100
+
 #
 # id	ani1	ani2	ani3
 #
@@ -386,9 +398,15 @@ Weak Brick
 # Bomb
 22	514	603
 
+
 # ENVIROMENT
 # Weak Brick
 50	700
+
+# Reward
+80	800	801
+
+
 [BACKGROUND]
 -2	-1019	30000
 1486	-672	30009
@@ -408,7 +426,10 @@ Weak Brick
 
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
-# type: 0 = Jason , 1 = Tank, 2 = Cannon, 3 = Wheel, 4 = Brick, 5=Interrupt, 6=BallBot, 7=Eyelet, 8=BallCarry, 9=Stuka, 10=Bullet, 11=Weak Brick, 12=RainbowBullet, 13=GX680, 14=DRAG, 15=LASERGUARD, 16=ENEMY BULLET,  18=Bomb
+# type: 0 = Jason , 1 = Tank, 2 = Cannon, 3 = Wheel, 4 = Brick, 5=Interrupt,
+# 6=BallBot, 7=Eyelet, 8=BallCarry, 9=Stuka, 10=Bullet, 
+# 11=Weak Brick, 12=RainbowBullet, 13=GX680, 14=DRAG, 15=LASERGUARD, 
+# 16=ENEMY BULLET, 17=NEOWORM,  18=BOMB, 19=REWARD
 # JASON
 0	1612	656	0	2
 # Tank
@@ -423,8 +444,6 @@ Weak Brick
 10	1612	672	4
 10	1612	672	4
 #BRICK
-4	-128	0	0	3000	16
-4	64	0	0	16	48
 
 4	1440	624	0	192	16	
 4	1616	608	0	16	16
@@ -582,8 +601,8 @@ Weak Brick
 9	288	208	14	1
 9	896	112	14	-1
 9	1024	144	14	-1
-9	1200	176	14	-1
-9	1264	176	14	-1
+9	1100	144	14	-1
+9	1132	144	14	-1
 
 17	1632	688	21
 17	1632	688	21
@@ -598,6 +617,7 @@ Weak Brick
 18	912	64	22	1
 18	912	64	22	1
 
+19	1612	688	80	0
 
 50	1744	96	0	16	16	2
 50	1440	640	0	16	32	2

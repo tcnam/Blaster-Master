@@ -13,7 +13,8 @@ CGameObject::CGameObject()
 	x = y = 0;
 	//render_x = render_y = 0;
 	vx = vy = 0;
-	nx = 1;	
+	nx = 1;
+	isCollideNx = isCollideNyDown = false;
 }
 
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

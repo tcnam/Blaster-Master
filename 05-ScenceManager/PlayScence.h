@@ -23,8 +23,7 @@
 #include "Bomb.h"
 #include "Hud.h"
 #include "Singlebar.h"
-
-
+#include "Reward.h"
 
 class CPlayScene: public CScene
 {
@@ -32,11 +31,14 @@ protected:
 	CJason *player;					// A play scene has to have player, right? 
 
 	vector<LPGAMEOBJECT> objects;
+	//vector<LPGAMEOBJECT> coObjects;
+	vector<LPGAMEOBJECT> tempObjects;			//store objects still inside camera;
 	vector<LPGAMEOBJECT> permanentObjects;
 
 	vector<LPGAMEOBJECT> gunEnemies;
 	vector<LPGAMEOBJECT> interrupts;
 	vector<LPGAMEOBJECT> ballcarries;
+	vector<LPGAMEOBJECT> enemies;
 
 	Map* map;
 	vector<CBackground*> backgrounds;
