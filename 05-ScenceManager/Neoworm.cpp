@@ -113,7 +113,9 @@ void CNeoworm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			else if (dynamic_cast<CJason*>(e->obj))
 			{
 				if(e->ny!=0&&e->nx==0)
-					SetPosition(x, y + 0.1f);
+					SetPosition(x, y - ny * 0.4f);
+				if(e->nx!=0&&e->ny==0)
+					SetPosition(x-nx*0.4f, y);
 				if (Jason->GetUntouchable() != 1)
 					Jason->StartUntouchable();
 				//x += dx;

@@ -91,6 +91,8 @@ void CBomb::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		// block every object first!
 		x += min_tx * dx + nx * 0.4f;
 		y += min_ty * dy + ny * 0.4f;
+		SetState(BOMB_STATE_ACTION);
+		StartExplode();
 		//
 		// Collision logic with other objects
 		//
@@ -100,7 +102,7 @@ void CBomb::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			if (dynamic_cast<CBrick*>(e->obj))
 			{
 				CBrick* b = dynamic_cast<CBrick*>(e->obj);
-				if (e->nx == 0 && e->ny > 0&&state==BOMB_STATE_FALL)
+				if (e->ny != 0)
 				{
 					SetState(BOMB_STATE_ACTION);
 					StartExplode();
@@ -171,6 +173,8 @@ void CBomb::SetState(int state)
 		vx = nx * BOMB_SPEED_X;
 		break;
 	case BOMB_STATE_ACTION:
+		vx = 0;
+		vy = 0;
 		break;
 	case BOMB_STATE_JUMP:
 		vy = BOMB_SPEED_Y;
