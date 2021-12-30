@@ -34,7 +34,7 @@ public:
 
 	void SetState(int state);
 
-	void SetUntouchable(bool b) { isUntouchable = b; }
+	void SetUntouchable(bool b) { if(this!=NULL) isUntouchable = b; }
 	void SetCannonUP(bool UpOrNOt) { isCannonUp = UpOrNOt; }
 	void SetMoving(bool move) { isMoving = move; }
 
