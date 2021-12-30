@@ -58,6 +58,8 @@ protected:
 	void _ParseSection_BACKGROUND(string line);
 	void _ParseSection_HUD(string line);
 
+	bool IsInsideCamera(LPGAMEOBJECT obj);
+
 	
 public: 
 	CPlayScene(int id, LPCWSTR filePath);

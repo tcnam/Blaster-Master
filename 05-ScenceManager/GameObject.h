@@ -94,7 +94,7 @@ protected:
 	int type;
 
 	bool isInserted;				//for inserting to quadtree
-
+	bool isActivated;				//for updating objects still inside camera
 	bool isCollideNx;
 	bool isCollideNyDown;
 
@@ -118,6 +118,9 @@ public:
 
 	void SetIsInserted(bool insertOrnot) { this->isInserted = insertOrnot; }
 	bool GetIsInserted(){ return isInserted; }
+
+	void SetIsActivated(bool b) { this->isActivated = b; }
+	bool GetIsActivated() { return this->isActivated; }
 
 	void SetInitPosition(float tempx, float tempy) { this->init_x = tempx, this->init_y = tempy; }
 	void GetInitPosition(float& tempx, float& tempy) { tempx = this->init_x; tempy = this->init_y; }

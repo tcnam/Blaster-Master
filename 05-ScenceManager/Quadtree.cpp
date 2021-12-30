@@ -158,7 +158,11 @@ void Quadtree::GetListObject(vector<CGameObject*>& Obj, Camera* camera)
 	{
 		for (unsigned int i = 0; i < ObjectList.size(); i++)
 		{
-			Obj.push_back(ObjectList[i]);
+			if (ObjectList[i]->GetIsActivated() == false)
+			{
+				ObjectList[i]->SetIsActivated(true);
+				Obj.push_back(ObjectList[i]);
+			}
 		}
 		//DebugOut(L"List object wrong 2:%i\n", Obj.size());
 	}

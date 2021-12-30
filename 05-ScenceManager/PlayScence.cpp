@@ -532,7 +532,18 @@ void CPlayScene::Load()
 	DebugOut(L"[INFO] Screen Height %i\n",CGame::GetInstance()->GetScreenHeight());
 	DebugOut(L"[INFO] Screen Width %i\n", CGame::GetInstance()->GetScreenWidth());
 }
-
+bool CPlayScene::IsInsideCamera(LPGAMEOBJECT obj)
+{
+	float camX, camY;
+	if (camera != NULL)
+		camera->GetPosition(camX, camY);
+	float l, t, r, b;
+	obj->GetBoundingBox(l, t, r, b);
+	return CGame::GetInstance()->AABBCheck(
+		l,t,r,b,
+		camX, camY, camX+CAMX_IN_USE, camY+CAMY_IN_USE);
+		
+}
 void CPlayScene::Update(DWORD dt)
 {
 	if (player == NULL) return;
@@ -547,12 +558,34 @@ void CPlayScene::Update(DWORD dt)
 	for (unsigned int i = 0; i < permanentObjects.size(); i++)
 	{
 		coObjects.push_back(permanentObjects[i]);
+		permanentObjects[i]->SetIsActivated(true);
 	}
 	if (quadtree != NULL)
 		quadtree->GetListObject(coObjects, camera);
+	for (unsigned int i = 0; i < tempObjects.size(); i++)
+	{
+		if (IsInsideCamera(tempObjects[i]) == true)
+		{
+			if (tempObjects[i]->GetIsActivated() == false)
+			{
+				tempObjects[i]->SetIsActivated(true);
+				coObjects.push_back(tempObjects[i]);
+			}
+		}
+		else
+		{
+			if (tempObjects[i]->GetIsActivated() == false)
+			{
+				float init_x, init_y;
+				tempObjects[i]->GetInitPosition(init_x, init_y);
+				tempObjects[i]->SetPosition(init_x, init_y);
+			}
+		}
+	}
+
+	tempObjects.clear();
 	for (unsigned int i = 0; i < coObjects.size(); i++)
 	{
-		//tempObjects.push_back(coObjects[i]);
 		switch (coObjects[i]->GetType())
 		{
 		case OBJECT_TYPE_BRICK:
@@ -573,16 +606,28 @@ void CPlayScene::Update(DWORD dt)
 			coObjectsOfEnemies2.push_back(coObjects[i]);
 			break;
 		case OBJECT_TYPE_BALLBOT:
-			if(coObjects[i]->GetState()!=BALLBOT_STATE_DIE)
+			if (coObjects[i]->GetState() != BALLBOT_STATE_DIE)
+			{
 				coObejctsOfBullets.push_back(coObjects[i]);
+				tempObjects.push_back(coObjects[i]);
+			}
+				
 			break;
 		case OBJECT_TYPE_BALLCARRY:
 			if (coObjects[i]->GetState() != BALLCARRY_STATE_DIE)
-				coObejctsOfBullets.push_back(coObjects[i]);		
+			{
+				coObejctsOfBullets.push_back(coObjects[i]);
+				tempObjects.push_back(coObjects[i]);
+			}
+					
 			break;
 		case OBJECT_TYPE_EYELET:
 			if (coObjects[i]->GetState() != EYELET_STATE_DIE)
+			{
 				coObejctsOfBullets.push_back(coObjects[i]);
+				tempObjects.push_back(coObjects[i]);
+			}
+				
 			break;
 		case OBJECT_TYPE_INTERRUPT:
 			if (coObjects[i]->GetState() != INTERRUPT_STATE_DIE)
@@ -590,23 +635,41 @@ void CPlayScene::Update(DWORD dt)
 			break;
 		case OBJECT_TYPE_STUKA:
 			if (coObjects[i]->GetState() != STUKA_STATE_DIE)
+			{
 				coObejctsOfBullets.push_back(coObjects[i]);
+				tempObjects.push_back(coObjects[i]);
+			}
 			break;
 		case OBJECT_TYPE_GX680:
-			if(coObjects[i]->GetState()!=GX680_STATE_DIE)
+			if (coObjects[i]->GetState() != GX680_STATE_DIE)
+			{
 				coObejctsOfBullets.push_back(coObjects[i]);
+				tempObjects.push_back(coObjects[i]);
+			}				
 			break;
 		case OBJECT_TYPE_DRAG:
 			if (coObjects[i]->GetState() != DRAG_STATE_DIE)
+			{
 				coObejctsOfBullets.push_back(coObjects[i]);
+				tempObjects.push_back(coObjects[i]);
+			}
+				
 			break;
 		case OBJECT_TYPE_LASERGUARD:
 			if (coObjects[i]->GetState() != LASERGUARD_STATE_DIE)
+			{
 				coObejctsOfBullets.push_back(coObjects[i]);
+				tempObjects.push_back(coObjects[i]);
+			}
+				
 			break;
 		case OBJECT_TYPE_NEOWORM:
 			if (coObjects[i]->GetState() != NEOWORM_STATE_DIE)
+			{
 				coObejctsOfBullets.push_back(coObjects[i]);
+				tempObjects.push_back(coObjects[i]);
+			}
+				
 			break;
 		case OBJECT_TYPE_PORTAL:
 			coObjectsOfJason.push_back(coObjects[i]);
@@ -682,7 +745,7 @@ void CPlayScene::Update(DWORD dt)
 			coObjects[i]->Update(dt, NULL);
 			break;
 		}
-		
+		coObjects[i]->SetIsActivated(false);
 	}
 	// Update camera to follow Jason
 	//CGame::GetInstance()->SetCamPos(0.0f, -64.0f);
@@ -724,6 +787,7 @@ void CPlayScene::Unload()
 		delete objects[i];
 	objects.clear();
 	permanentObjects.clear();
+	tempObjects.clear();
 	gunEnemies.clear();
 	interrupts.clear();
 	ballcarries.clear();

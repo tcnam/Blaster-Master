@@ -15,6 +15,8 @@ CGameObject::CGameObject()
 	vx = vy = 0;
 	nx = 1;
 	isCollideNx = isCollideNyDown = false;
+	isActivated = false;
+
 }
 
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
