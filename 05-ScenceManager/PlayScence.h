@@ -24,6 +24,7 @@
 #include "Hud.h"
 #include "Singlebar.h"
 #include "Reward.h"
+#include "AutoDoor.h"
 
 class CPlayScene: public CScene
 {

@@ -34,6 +34,7 @@ using namespace std;
 #define OBJECT_TYPE_NEOWORM			17
 #define OBJECT_TYPE_BOMB			18
 #define OBJECT_TYPE_REWARD			19
+#define OBJECT_TYPE_AUTODOOR		20
 
 #define OBJECT_TYPE_PORTAL	50
 

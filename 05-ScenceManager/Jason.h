@@ -3,6 +3,7 @@
 #include "Tank.h"
 #include "Bullet.h"
 #include "RainbowBullet.h"
+#include "AutoDoor.h"
 
 #define JASON_WALKING_SPEED		0.13f
 //0.08f

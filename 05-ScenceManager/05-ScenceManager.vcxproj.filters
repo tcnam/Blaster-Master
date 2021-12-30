@@ -114,6 +114,9 @@
     <Filter Include="Object\Enemy\Reward">
       <UniqueIdentifier>{6a6d38f9-cc1d-47e6-8208-305883871ccc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Enviroment\AutoDoor">
+      <UniqueIdentifier>{81c501ed-6484-49fc-b568-5627f6e7b365}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -229,6 +232,9 @@
     </ClCompile>
     <ClCompile Include="Reward.cpp">
       <Filter>Object\Enemy\Reward</Filter>
+    </ClCompile>
+    <ClCompile Include="AutoDoor.cpp">
+      <Filter>Object\Enviroment\AutoDoor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -348,6 +354,9 @@
     </ClInclude>
     <ClInclude Include="Reward.h">
       <Filter>Object\Enemy\Reward</Filter>
+    </ClInclude>
+    <ClInclude Include="AutoDoor.h">
+      <Filter>Object\Enviroment\AutoDoor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

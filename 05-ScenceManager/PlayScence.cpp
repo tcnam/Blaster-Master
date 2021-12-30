@@ -370,6 +370,19 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			obj->SetType(OBJECT_TYPE_WEAKBRICK);
 		}
 		break;	
+	case OBJECT_TYPE_AUTODOOR:
+		{
+			int x2 = atoi(tokens[4].c_str());
+			int y2 = atoi(tokens[5].c_str());
+			int x3 = atoi(tokens[6].c_str());
+			int y3 = atoi(tokens[7].c_str());
+			int x4 = atoi(tokens[8].c_str());
+			int y4 = atoi(tokens[9].c_str());
+
+			obj = new CAutodoor(x,y,x2,y2,x3,y3,x4,y4);
+			obj->SetType(OBJECT_TYPE_AUTODOOR);
+		}
+		break;
 	case OBJECT_TYPE_PORTAL:
 		{	
 			float w = atof(tokens[4].c_str());
@@ -596,6 +609,9 @@ void CPlayScene::Update(DWORD dt)
 				coObjectsOfEnemies2.push_back(coObjects[i]);
 			}
 			break;
+		case OBJECT_TYPE_AUTODOOR:
+			coObjectsOfJason.push_back(coObjects[i]);
+			break;
 		case OBJECT_TYPE_JASON:
 			coObjectsOfEnemies1.push_back(coObjects[i]);
 			coObjectsOfEnemies2.push_back(coObjects[i]);
@@ -802,6 +818,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	CJason *Jason = ((CPlayScene*)scence)->GetPlayer();
 	if (Jason == NULL)
 		return;
+	if (Jason->GetState() == JASON_STATE_AUTO_GO) return;
 	switch (KeyCode)
 	{
 	case DIK_S:
@@ -813,6 +830,9 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 		break;
 	case DIK_A: 
 		Jason->Reset();
+		break;
+	case DIK_Q:
+		Jason->SetState(JASON_STATE_AUTO_GO);
 		break;
 	case DIK_X:
 		float l1, t1, r1, b1, l2, t2, r2, b2;
@@ -845,6 +865,7 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 	CJason* Jason = ((CPlayScene*)scence)->GetPlayer();
 	if (Jason == NULL)
 		return;
+	if (Jason->GetState() == JASON_STATE_AUTO_GO) return;
 	switch (KeyCode)
 	{
 	case DIK_UP:
@@ -866,6 +887,7 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 
 	// disable control key when Jason die 
 	if (Jason->GetState() == JASON_STATE_DIE) return;
+	if (Jason->GetState() == JASON_STATE_AUTO_GO) return;
 	switch (Jason->GetLevel())
 	{
 	case JASON_LEVEL_BIG:

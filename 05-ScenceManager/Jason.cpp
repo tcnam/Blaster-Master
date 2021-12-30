@@ -111,6 +111,24 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			{
 
 			}
+			else if (dynamic_cast<CAutodoor*>(e->obj))
+			{
+				CAutodoor* ad = dynamic_cast<CAutodoor*>(e->obj);
+				if (state != JASON_STATE_AUTO_GO)
+				{
+					
+					SwithIsCameraFollowValue();
+					SetState(JASON_STATE_AUTO_GO);
+					ad->SwitchLocation();
+				}
+				else
+				{
+					ad->SwitchLocation();
+					SetState(JASON_STATE_IDLE);
+					x += min_tx * dx + nx * 0.4f;
+				}
+
+			}
 		}
 	}
 	// clean up collision events
@@ -269,8 +287,7 @@ void CJason::SetState(int state)
 		switch (state)
 		{
 		case JASON_STATE_AUTO_GO:
-			nx = 1;
-			vx = nx * JASON_WALKING_SPEED;
+			vx = nx * JASON_WALKING_SPEED/2;
 			//vy = JASON_WALKING_SPEED* cos(M_PI + dem * M_PI / 180);
 			break;
 		case JASON_STATE_WALKING_RIGHT:
