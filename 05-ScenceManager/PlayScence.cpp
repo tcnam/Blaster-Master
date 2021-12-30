@@ -648,7 +648,13 @@ void CPlayScene::Update(DWORD dt)
 			break;
 
 		case OBJECT_TYPE_STUKA:
-			coObjects[i]->Update(dt, &coObjectsOfEnemies2);
+			if(coObjects[i]->GetState()==STUKA_STATE_ACTION)
+				coObjects[i]->Update(dt, &coObjectsOfEnemies1);
+			else
+			{
+				coObjects[i]->Update(dt, &coObjectsOfEnemies2);
+			}
+			
 			break;	
 		case OBJECT_TYPE_GX680:
 			coObjects[i]->Update(dt, &coObjectsOfEnemies2);

@@ -18,13 +18,14 @@
 
 #define STUKA_SPEED_X		0.08f
 
-#define DY_FOR_CHANGE_STATE		320
+#define DY_FOR_CHANGE_STATE		128.0f
 class CStuka : public CGameObject
 {
 
 private:
 	CJason* Jason;
 	CReward* Reward;
+	int dem;
 public:
 	CStuka();
 	void SetJason(CJason* jason) { Jason = jason; }

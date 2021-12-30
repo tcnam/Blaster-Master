@@ -4,6 +4,7 @@ CStuka::CStuka() :CGameObject()
 	SetState(STUKA_STATE_IDLE);
 	Jason = NULL;
 	nx = -1;
+	dem = 0;
 }
 void CStuka::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
@@ -23,6 +24,21 @@ void CStuka::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	if (state == STUKA_STATE_DIE)
 		return;
+	float jason_x, jason_y;
+	float l1, t1, r1, b1;
+	Jason->GetPosition(jason_x, jason_y);
+	Jason->GetBoundingBox(l1, t1, r1, b1);
+	bool choose_state = CGame::GetInstance()->AABBCheck(l1, t1, r1, b1, x, y - DY_FOR_CHANGE_STATE, x + STUKA_BBOX_WIDTH, y);
+	if (choose_state&&state==STUKA_STATE_IDLE)
+		SetState(STUKA_STATE_ACTION);
+	if (dem >= 180)
+		dem = 0;
+	if (state == STUKA_STATE_ACTION)
+	{
+		//vx = EYELET_SPEED_X * sin(M_PI + dem * M_PI / 180);
+		vx = STUKA_SPEED_X * cos(M_PI + dem * M_PI / 180*5);
+		dem++;
+	}
 	CGameObject::Update(dt, coObjects);
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -89,9 +105,18 @@ void CStuka::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			else if (dynamic_cast<CJason*>(e->obj))
 			{
-				SetState(STUKA_STATE_IDLE);
-				x += min_tx * dx + nx * 0.4f;
-				y += min_ty * dy + ny * 0.4f;
+				if (state == STUKA_STATE_IDLE)
+				{
+					SetState(STUKA_STATE_IDLE);
+					x += min_tx * dx + nx * 0.4f;
+					y += min_ty * dy + ny * 0.4f;
+				}
+				if (state == STUKA_STATE_ACTION)
+				{
+					SetState(STUKA_STATE_ACTION);
+					x += dx;
+					y += dy;
+				}
 				if (Jason->GetUntouchable() != 1)
 					Jason->StartUntouchable();
 			}
@@ -100,15 +125,7 @@ void CStuka::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
-	/*float jason_x, jason_y;
-	float l1, t1, r1, b1;
-	Jason->GetPosition(jason_x, jason_y);
-	Jason->GetBoundingBox(l1, t1, r1, b1);
-	bool choose_state = CGame::GetInstance()->AABBCheck(l1, t1, r1, b1, x, y - DY_FOR_CHANGE_STATE, x + STUKA_BBOX_WIDTH, y);
-	if (choose_state)
-		SetState(STUKA_STATE_ACTION);
-	else
-		SetState(STUKA_STATE_IDLE);*/
+
 
 }
 void CStuka::WorldToRender()
@@ -150,7 +167,8 @@ void CStuka::SetState(int state)
 		vy = 0;
 		break;
 	case STUKA_STATE_ACTION:
-		vx = nx * STUKA_SPEED_X;
+		vx = STUKA_SPEED_X * cos(M_PI + dem * M_PI / 180*5);
+		vy = -STUKA_SPEED_X;
 		//vy = STUKA_SPEED_X * cos(M_PI + dem * M_PI / 180);
 		break;
 	}
