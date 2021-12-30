@@ -99,9 +99,12 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<CPortal *>(e->obj))
 			{
-				CPortal *p = dynamic_cast<CPortal *>(e->obj);
-				CGame::GetInstance()->SwitchScene(p->GetSceneId());
-				return;
+				if (level != JASON_LEVEL_TANK)
+				{
+					CPortal* p = dynamic_cast<CPortal*>(e->obj);
+					CGame::GetInstance()->SwitchScene(p->GetSceneId());
+					return;
+				}
 			}
 			else if (dynamic_cast<CBrick*>(e->obj))
 			{
@@ -382,7 +385,11 @@ void CJason::StartUntouchable()
 {
 	CGame::GetInstance()->SetHealth(CGame::GetInstance()->GetHealth() - 1);
 	untouchable = 1; 
-	Tank->SetUntouchable(true);
+	if (level == JASON_LEVEL_TANK&&Tank!=NULL)
+	{
+		Tank->SetUntouchable(true);
+	}
+	
 	untouchable_start = GetTickCount64();
 }
 
@@ -419,8 +426,8 @@ void CJason::StartAttack()
 				}
 				break;
 			case true:
-				Bullets[bulletIndex]->SetStartPosition(x + JASON_TANK_BBOX_WIDTH / 2, y + JASON_TANK_BBOX_HEIGHT/2);
-				Bullets[bulletIndex]->SetPosition(x + JASON_TANK_BBOX_WIDTH / 2, y + JASON_TANK_BBOX_HEIGHT/2);
+				Bullets[bulletIndex]->SetStartPosition(x + JASON_TANK_BBOX_WIDTH / 2, y + JASON_TANK_BBOX_HEIGHT/4);
+				Bullets[bulletIndex]->SetPosition(x + JASON_TANK_BBOX_WIDTH / 2, y + JASON_TANK_BBOX_HEIGHT/4);
 				break;
 			}
 			Bullets[bulletIndex]->SetState(BULLET_STATE_FIRE, nx, (int)Tank->GetCannon()->CannonUpOrNot());
