@@ -2,6 +2,7 @@
 CDrag::CDrag() :CGameObject()
 {
 	SetState(DRAG_STATE_IDLE);
+	SetInitState(DRAG_STATE_IDLE);
 }
 
 void CDrag::GetBoundingBox(float& left, float& top, float& right, float& bottom)

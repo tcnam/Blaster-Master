@@ -7,6 +7,7 @@ CEBullet::CEBullet() :CGameObject()
 	vy = 0;
 	nx = 1;
 	SetState(EBULLET_STATE_IDLE, 0, 0);
+	SetInitState(EBULLET_STATE_IDLE);
 	start_x = start_y = 0;
 	enemyOwner = 0;
 }

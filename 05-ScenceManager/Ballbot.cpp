@@ -2,6 +2,7 @@
 CBallbot::CBallbot():CGameObject()
 {
 	SetState(BALLBOT_STATE_IDLE);
+	SetInitState(BALLBOT_STATE_IDLE);
 	Jason = NULL;
 	dem = 0;
 }

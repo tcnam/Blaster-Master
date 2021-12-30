@@ -2,6 +2,7 @@
 CInterrupt::CInterrupt():CGameObject()
 {
 	SetState(INTERRUPT_STATE_IDLE);
+	SetInitState(INTERRUPT_STATE_IDLE);
 }
 
 void CInterrupt::GetBoundingBox(float& left, float& top, float& right, float& bottom)

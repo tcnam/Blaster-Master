@@ -2,6 +2,7 @@
 CNeoworm::CNeoworm() :CGameObject()
 {
 	SetState(NEOWORM_STATE_IDLE);
+	SetInitState(NEOWORM_STATE_IDLE);
 	Jason = NULL;
 }
 void CNeoworm::GetBoundingBox(float& left, float& top, float& right, float& bottom)

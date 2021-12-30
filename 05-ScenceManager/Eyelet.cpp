@@ -2,6 +2,7 @@
 CEyelet::CEyelet() :CGameObject()
 {
 	SetState(EYELET_STATE_ACTION);
+	SetInitState(EYELET_STATE_ACTION);
 	Jason = NULL;
 	dem = 0;
 }

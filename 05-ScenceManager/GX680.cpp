@@ -2,6 +2,7 @@
 CGx680::CGx680() :CGameObject()
 {
 	SetState(GX680_STATE_IDLE);
+	SetInitState(GX680_STATE_IDLE);
 	Jason = NULL;
 }
 void CGx680::GetBoundingBox(float& left, float& top, float& right, float& bottom)

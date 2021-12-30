@@ -2,6 +2,7 @@
 CStuka::CStuka() :CGameObject()
 {
 	SetState(STUKA_STATE_IDLE);
+	SetInitState(STUKA_STATE_IDLE);
 	Jason = NULL;
 	nx = -1;
 	dem = 0;

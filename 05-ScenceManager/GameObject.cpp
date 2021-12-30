@@ -160,7 +160,11 @@ void CGameObject::RenderBoundingBox()
 	CGame::GetInstance()->Draw(render_x, render_y, bbox, rect.left, rect.top, rect.right, rect.bottom, 100);
 }
 
-
+void CGameObject::Reset()
+{
+	SetPosition(init_x, init_y);
+	SetState(init_state);
+}
 CGameObject::~CGameObject()
 {
 

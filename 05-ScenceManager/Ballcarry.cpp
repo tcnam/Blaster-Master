@@ -2,6 +2,7 @@
 CBallcarry::CBallcarry() :CGameObject()
 {
 	SetState(BALLCARRY_STATE_IDLE);
+	SetInitState(BALLCARRY_STATE_IDLE);
 	Jason = NULL;
 }
 void CBallcarry::GetBoundingBox(float& left, float& top, float& right, float& bottom)

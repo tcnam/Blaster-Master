@@ -221,7 +221,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			obj->SetType(OBJECT_TYPE_EYELET);
 			int direction = atoi(tokens[4].c_str());
 			obj->Setnx(direction);
-			obj->SetState(EYELET_STATE_ACTION);
 			((CEyelet*)obj)->SetReward((CReward*)rewardlist[rewardIndex]);
 			rewardIndex++;
 		}
@@ -235,7 +234,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			obj->SetType(OBJECT_TYPE_STUKA);
 			int direction = atoi(tokens[4].c_str());
 			obj->Setnx(direction);
-			obj->SetState(STUKA_STATE_IDLE);
 			((CStuka*)obj)->SetReward((CReward*)rewardlist[rewardIndex]);
 			rewardIndex++;
 		}
@@ -260,7 +258,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			obj->SetType(OBJECT_TYPE_DRAG);
 			int direction = atoi(tokens[4].c_str());
 			obj->Setnx(direction);
-			obj->SetState(DRAG_STATE_IDLE);
 			((CDrag*)obj)->SetReward((CReward*)rewardlist[rewardIndex]);
 			rewardIndex++;
 		}
@@ -273,7 +270,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			obj->SetType(OBJECT_TYPE_LASERGUARD);
 			int direction = atoi(tokens[4].c_str());
 			obj->Setnx(direction);
-			obj->SetState(LASERGUARD_STATE_IDLE);
+
 			gunEnemies.push_back(obj);
 			((CLaserguard*)obj)->SetReward((CReward*)rewardlist[rewardIndex]);
 			rewardIndex++;
@@ -576,9 +573,7 @@ void CPlayScene::Update(DWORD dt)
 		{
 			if (tempObjects[i]->GetIsActivated() == false)
 			{
-				float init_x, init_y;
-				tempObjects[i]->GetInitPosition(init_x, init_y);
-				tempObjects[i]->SetPosition(init_x, init_y);
+				tempObjects[i]->Reset();
 			}
 		}
 	}

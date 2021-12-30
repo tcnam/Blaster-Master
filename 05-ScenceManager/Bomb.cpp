@@ -2,6 +2,7 @@
 CBomb::CBomb() :CGameObject()
 {
 	SetState(BOMB_STATE_IDLE);
+	SetInitState(BOMB_STATE_IDLE);
 	Jason = NULL;
 	start_x = start_y = 0.0f;
 	explode_start = 0;

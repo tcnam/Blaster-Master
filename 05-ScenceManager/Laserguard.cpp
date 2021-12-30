@@ -2,6 +2,7 @@
 CLaserguard::CLaserguard() :CGameObject()
 {
 	SetState(LASERGUARD_STATE_IDLE);
+	SetInitState(LASERGUARD_STATE_IDLE);
 	Jason = NULL;
 	nx = -1;
 }

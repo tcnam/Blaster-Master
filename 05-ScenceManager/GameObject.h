@@ -91,6 +91,8 @@ protected:
 
 	int state;
 
+	int init_state;
+
 	int type;
 
 	bool isInserted;				//for inserting to quadtree
@@ -124,6 +126,12 @@ public:
 
 	void SetInitPosition(float tempx, float tempy) { this->init_x = tempx, this->init_y = tempy; }
 	void GetInitPosition(float& tempx, float& tempy) { tempx = this->init_x; tempy = this->init_y; }
+
+	int GetInitState() { return this->init_state; }
+	void SetInitState(int temp) { init_state = temp; }
+
+
+	void Reset();
 
 	
 	void RenderBoundingBox();
