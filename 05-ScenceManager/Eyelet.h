@@ -13,7 +13,7 @@
 #define EYELET_ANI_RIGHT 0
 #define EYELET_ANI_LEFT 1
 
-#define EYELET_SPEED_X		0.05f
+#define EYELET_SPEED_X		0.08f
 
 #define DY_FOR_CHANGE_STATE		320
 class CEyelet : public CGameObject

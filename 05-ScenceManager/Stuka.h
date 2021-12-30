@@ -16,7 +16,7 @@
 #define STUKA_ANI_RIGHT 0
 #define STUKA_ANI_LEFT 1
 
-#define STUKA_SPEED_X		0.05f
+#define STUKA_SPEED_X		0.08f
 
 #define DY_FOR_CHANGE_STATE		320
 class CStuka : public CGameObject
