@@ -16,6 +16,7 @@ CJason::CJason(float x, float y) : CGameObject()
 	SetLevel(JASON_LEVEL_TANK);
 	isJumping = false;
 	isFiring = false;
+	isCameraFollow = false;
 
 	start_x = x; 
 	start_y = y; 
@@ -380,6 +381,14 @@ void CJason::Reset()
 	SetState(JASON_STATE_IDLE);
 	SetPosition(start_x, start_y);
 	SetSpeed(0, 0);
+}
+
+void CJason::SwithIsCameraFollowValue()
+{
+	if (isCameraFollow == true)
+		isCameraFollow = false;
+	else
+		isCameraFollow = true;
 }
 void CJason::StartUntouchable()
 {

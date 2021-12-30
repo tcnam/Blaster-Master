@@ -15,10 +15,42 @@ void Camera::Update(DWORD time)
 	dt = time;
 	float cx, cy;
 	Jason->GetPosition(cx, cy);
-	cx -= (float)CGame::GetInstance()->GetScreenWidth() / 2;
-	cy -= (float)CGame::GetInstance()->GetScreenHeight() /2;
-	cam_x = cx;
-	cam_y = cy;
+	if (Jason->GetIsCameraFollow() == true)
+	{
+
+		cx -= (float)CGame::GetInstance()->GetScreenWidth() / 2;
+		cy -= (float)CGame::GetInstance()->GetScreenHeight() / 2;
+		cam_x = cx;
+		cam_y = cy;
+	}
+	else
+	{
+		switch (CGame::GetInstance()->GetSceneId())
+		{
+		case 1:
+			cam_x = boundary_x_max;
+			cy -= (float)CGame::GetInstance()->GetScreenHeight() / 2;
+			cam_y = cy;
+			break;
+		case 2:
+			if (cx > boundary_x_min + CGame::GetInstance()->GetScreenWidth())
+			{
+				cx -= (float)CGame::GetInstance()->GetScreenWidth() / 2;
+				cy -= (float)CGame::GetInstance()->GetScreenHeight() / 2;
+				cam_x = cx;
+				cam_y = cy;
+			}
+			else
+			{
+				cam_x = boundary_x_min;
+				cy -= (float)CGame::GetInstance()->GetScreenHeight() / 2;
+				cam_y = cy;
+			}
+
+			break;
+		}
+	}
+
 
 	if (cam_x <= boundary_x_min)
 		cam_x = boundary_x_min;

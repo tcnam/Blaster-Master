@@ -57,6 +57,7 @@ class CJason : public CGameObject
 
 	bool isJumping;
 	bool isFiring;
+	bool isCameraFollow;
 
 	DWORD untouchable_start;
 
@@ -93,6 +94,9 @@ public:
 
 	bool GetIsFiring() { return isFiring; }
 	void SetIsFiring(bool b) { isFiring = b; }
+
+	void SwithIsCameraFollowValue();
+	bool GetIsCameraFollow() { return isCameraFollow; }
 
 	void PushBullets(CBullet* bl) { Bullets.push_back(bl); }
 	vector<CBullet*> GetBullets() { return Bullets; }
