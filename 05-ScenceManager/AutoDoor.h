@@ -15,6 +15,7 @@ public:
 	CAutodoor(float x_1, float y_1, float x_2, float y_2, float x_3, float y_3, float x_4, float y_4);
 	~CAutodoor();
 	void SwitchLocation();
+	void Reset();
 	virtual void Render();
 	virtual void WorldToRender();
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);

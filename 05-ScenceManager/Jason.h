@@ -74,6 +74,8 @@ class CJason : public CGameObject
 
 	vector<CRainbowBullet*> rBullets;
 	int rBulletIndex;
+
+	vector<CAutodoor*> autodoors;
 public: 
 	CJason(float x = 0.0f, float y = 0.0f);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
@@ -104,6 +106,9 @@ public:
 
 	void PushRainBullets(CRainbowBullet* rbl) { rBullets.push_back(rbl); }
 	vector<CRainbowBullet*> GetRainBullets() { return rBullets; }
+
+	void PushAutoDoor(CAutodoor* a) { autodoors.push_back(a); }
+	vector<CAutodoor*> GetAutoDoor() { if(autodoors.size()!=0) return autodoors; }
 	
 	void StartAttack();
 	void Reset();

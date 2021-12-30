@@ -381,6 +381,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 			obj = new CAutodoor(x,y,x2,y2,x3,y3,x4,y4);
 			obj->SetType(OBJECT_TYPE_AUTODOOR);
+			player->PushAutoDoor((CAutodoor*)obj);
 		}
 		break;
 	case OBJECT_TYPE_PORTAL:

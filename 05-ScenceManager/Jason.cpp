@@ -398,6 +398,16 @@ void CJason::Reset()
 	SetState(JASON_STATE_IDLE);
 	SetPosition(start_x, start_y);
 	SetSpeed(0, 0);
+	isCameraFollow = false;
+	if (autodoors.size() == 0)
+		return;
+	else
+	{
+		for (unsigned int i = 0; i < autodoors.size(); i++)
+		{
+			autodoors[i]->Reset();
+		}
+	}
 }
 
 void CJason::SwithIsCameraFollowValue()

@@ -60,6 +60,11 @@ void CAutodoor::SwitchLocation()
 		y = y1;
 	}
 }
+void CAutodoor::Reset()
+{
+	x = x1;
+	y = y1;
+}
 void CAutodoor::SetState(int state)
 {
 	CGameObject::SetState(state);
